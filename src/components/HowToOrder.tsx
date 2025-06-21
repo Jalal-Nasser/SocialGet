@@ -1,10 +1,10 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
-// When you add your own images to src/assets, you can uncomment these lines
-// import Step1Image from '@/assets/step1.png';
-// import Step2Image from '@/assets/step2.png';
-// import Step3Image from '@/assets/step3.png';
+// Import your images here
+import Step1Image from '@/assets/step1.png';
+import Step2Image from '@/assets/step2.png';
+import Step3Image from '@/assets/step3.png';
 
 const HowToOrder: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ const HowToOrder: React.FC = () => {
         <div className="flex flex-col items-center text-center max-w-xs">
           <div className="relative mb-6">
             <img
-              src="https://via.placeholder.com/300x200?text=Step+1+Image" // Placeholder URL
+              src={Step1Image} // Using the imported image
               alt="Pick the service"
               className="rounded-lg shadow-lg w-full h-auto"
             />
@@ -47,7 +47,7 @@ const HowToOrder: React.FC = () => {
         <div className="flex flex-col items-center text-center max-w-xs">
           <div className="relative mb-6">
             <img
-              src="https://via.placeholder.com/300x200?text=Step+2+Image" // Placeholder URL
+              src={Step2Image} // Using the imported image
               alt="Set the target"
               className="rounded-lg shadow-lg w-full h-auto"
             />
@@ -73,7 +73,7 @@ const HowToOrder: React.FC = () => {
         <div className="flex flex-col items-center text-center max-w-xs">
           <div className="relative mb-6">
             <img
-              src="https://via.placeholder.com/300x200?text=Step+3+Image" // Placeholder URL
+              src={Step3Image} // Using the imported image
               alt="Get the results"
               className="rounded-lg shadow-lg w-full h-auto"
             />
