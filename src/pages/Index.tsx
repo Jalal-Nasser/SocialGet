@@ -56,7 +56,7 @@ const Index: React.FC = () => {
             <Link to="/dashboard">
               <Button 
                 variant="outline" 
-                className="bg-brand-secondary-blue text-white border-brand-secondary-blue hover:bg-brand-hover-red hover:border-brand-hover-red text-lg px-8 py-6 rounded-lg"
+                className="bg-brand-secondary-blue text-white border-brand-secondary-blue hover:bg-brand-hover-red hover:border-brand-hover-red hover:text-white text-lg px-8 py-6 rounded-lg"
               >
                 Client Portal
               </Button>
