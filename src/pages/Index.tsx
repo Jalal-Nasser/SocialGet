@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Star, Users, CheckCircle, Clock, MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SocialGetIllustration from '@/assets/SocialGet.png';
-import PlugIllustration from '@/components/PlugIllustration'; // Import the new illustration component
+import PlugIllustration from '@/components/PlugIllustration';
+import HowToOrder from '@/components/HowToOrder'; // Import the new HowToOrder component
 
 const Index: React.FC = () => {
   console.log("Index page loaded");
@@ -96,6 +97,9 @@ const Index: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* How to Order Section */}
+        <HowToOrder />
       </main>
     </div>
   );
