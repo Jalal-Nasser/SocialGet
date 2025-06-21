@@ -21,7 +21,11 @@ const Footer: React.FC = () => {
             <Link to="/" className="text-4xl font-bold text-white mb-4">Social<span className="text-brand-secondary-blue">Get</span></Link>
             <div className="bg-white rounded-lg p-3 shadow-md flex items-center space-x-3">
               <span className="text-gray-700 text-sm font-medium">We accept</span>
-              {/* Removed image tags for payment methods */}
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-4" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-4" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-4" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Cryptocurrency_logo.svg" alt="Crypto" className="h-4" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_Pay_logo.svg" alt="Apple Pay" className="h-4" />
             </div>
           </div>
 
