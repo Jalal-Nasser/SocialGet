@@ -65,6 +65,20 @@ const LandingHeader: React.FC = () => {
     "Coins"
   ];
 
+  const youtubeSubcategories = [
+    "Views",
+    "Likes",
+    "Subscribers",
+    "Comments",
+    "Favourites",
+    "Shares",
+    "Comment Repliess",
+    "Watch Hours",
+    "Dislikes",
+    "Poll Votes",
+    "Live Stream Views"
+  ];
+
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -135,6 +149,10 @@ const LandingHeader: React.FC = () => {
                   ))
                 ) : category === 'TikTok' ? (
                   tiktokSubcategories.map((sub, index) => (
+                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                  ))
+                ) : category === 'Youtube' ? (
+                  youtubeSubcategories.map((sub, index) => (
                     <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
                   ))
                 ) : (
