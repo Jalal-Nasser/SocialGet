@@ -66,7 +66,7 @@ const FAQSection: React.FC = () => {
             Can't find the answer you're looking for? Please chat to our friendly team.
           </p>
         </div>
-        <Button className="bg-brand-primary-500 hover:bg-brand-primary-600 text-white px-6 py-3 text-lg">
+        <Button className="bg-brand-primary-500 hover:bg-brand-secondary-blue text-white px-6 py-3 text-lg">
           Get in touch
         </Button>
       </div>
