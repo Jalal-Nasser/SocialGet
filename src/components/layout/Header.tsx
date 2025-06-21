@@ -12,7 +12,7 @@ const Header: React.FC = () => {
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
           <span className="font-semibold">$0.33</span>
-          <Button variant="ghost" size="icon" className="text-green-500 hover:text-green-600 dark:text-green-400 dark:hover:text-green-500">
+          <Button variant="ghost" size="icon" className="text-brand-primary-500 hover:text-brand-primary-600 dark:text-brand-primary-400 dark:hover:text-brand-primary-500">
             <Plus className="h-5 w-5" />
           </Button>
         </div>

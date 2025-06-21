@@ -46,10 +46,10 @@ const Sidebar: React.FC = () => {
         <NavItem icon={Settings} label="Buy Proxies" to="/buy-proxies" />
       </nav>
       <div className="p-4 space-y-2 border-t border-sidebar-border dark:border-sidebar-border">
-        <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
+        <Button className="w-full bg-brand-primary-500 hover:bg-brand-primary-600 text-white">
           Start a new order
         </Button>
-        <Button variant="outline" className="w-full border-green-500 text-green-500 hover:bg-green-500 hover:text-white">
+        <Button variant="outline" className="w-full border-brand-primary-500 text-brand-primary-500 hover:bg-brand-primary-500 hover:text-white">
           <Plus className="h-4 w-4 mr-2" /> Add funds
         </Button>
       </div>

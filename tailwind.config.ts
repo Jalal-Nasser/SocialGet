@@ -62,6 +62,21 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        "brand-primary": {
+          DEFAULT: "hsl(0 84.2% 60.2%)", // A vibrant red
+          foreground: "hsl(210 40% 98%)", // White/off-white for text on red
+          "50": "hsl(0 100% 97%)",
+          "100": "hsl(0 100% 95%)",
+          "200": "hsl(0 100% 90%)",
+          "300": "hsl(0 100% 80%)",
+          "400": "hsl(0 100% 70%)",
+          "500": "hsl(0 84.2% 60.2%)",
+          "600": "hsl(0 72.2% 50.2%)",
+          "700": "hsl(0 60.2% 40.2%)",
+          "800": "hsl(0 48.2% 30.2%)",
+          "900": "hsl(0 36.2% 20.2%)",
+          "950": "hsl(0 24.2% 10.2%)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
