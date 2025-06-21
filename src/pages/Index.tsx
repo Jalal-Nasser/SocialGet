@@ -3,6 +3,7 @@ import LandingHeader from '@/components/layout/LandingHeader';
 import { Button } from '@/components/ui/button';
 import { Star, Users, CheckCircle, Clock, MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SocialGetIllustration from '@/assets/SocialGet.png'; // Import the new image
 
 const Index: React.FC = () => {
   console.log("Index page loaded"); // Added for debugging
@@ -56,13 +57,11 @@ const Index: React.FC = () => {
           </div>
         </div>
 
-        {/* Illustration Section (Placeholder) */}
+        {/* Illustration Section */}
         <div className="relative w-full max-w-5xl mx-auto mb-20">
-          {/* This is a placeholder for the complex illustration. 
-              In a real scenario, this would be an SVG or an image. */}
-          <img src="https://via.placeholder.com/1000x500?text=SocialGet+Illustration" alt="SocialGet Illustration" className="w-full h-auto rounded-lg shadow-lg" />
+          <img src={SocialGetIllustration} alt="SocialGet Illustration" className="w-full h-auto rounded-lg shadow-lg" />
           <p className="mt-4 text-gray-500 dark:text-gray-400">
-            (Placeholder for the phone and social media flow illustration)
+            (Illustration of phone and social media flow)
           </p>
         </div>
 
