@@ -79,6 +79,19 @@ const LandingHeader: React.FC = () => {
     "Live Stream Views"
   ];
 
+  const linkedinSubcategories = [
+    "Connections",
+    "Followers",
+    "Likes",
+    "Comments",
+    "Views",
+    "Reactions",
+    "Shares",
+    "Endorsements",
+    "Employees",
+    "Group Members"
+  ];
+
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -153,6 +166,10 @@ const LandingHeader: React.FC = () => {
                   ))
                 ) : category === 'Youtube' ? (
                   youtubeSubcategories.map((sub, index) => (
+                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                  ))
+                ) : category === 'LinkedIn' ? (
+                  linkedinSubcategories.map((sub, index) => (
                     <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
                   ))
                 ) : (
