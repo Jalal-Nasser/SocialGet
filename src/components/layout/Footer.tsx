@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li><Link to="/blog" className="hover:underline text-brand-primary-100">Blog</Link></li>
               <li><Link to="#" className="hover:underline text-brand-primary-100">Press</Link></li>
-              <li><Link to="/contact" className="hover:underline text-brand-primary-100">Support</Link></li> {/* Changed to /contact */}
+              <li><Link to="/contact" className="hover:underline text-brand-primary-100">Support</Link></li>
               <li><Link to="/terms-of-service" className="hover:underline text-brand-primary-100">Terms of Service</Link></li>
               <li><Link to="/privacy-policy" className="hover:underline text-brand-primary-100">Privacy Policy</Link></li>
               <li><Link to="#" className="hover:underline text-brand-primary-100">Embed Instagram Feed</Link></li>
@@ -72,8 +72,8 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between text-sm text-brand-primary-100">
           <div className="text-center md:text-left mb-4 md:mb-0">
             <p>Netrynos LTD (HE 469713), Arch. Makariou III 1-7 MITSI 3, 1065 Nicosia, Cyprus</p>
-            <p>support@socialget.com</p>
-            <p>Copyright © 2024 · SocialGet</p>
+            <p>Copyright © 2025 · SocialGet</p>
+            <p>Designed & Programmed by: <a href="https://behance.net/jalalnasser" target="_blank" rel="noopener noreferrer" className="hover:underline text-brand-primary-100">Jalal Nasser</a></p>
           </div>
           <div className="bg-white rounded-lg p-3 shadow-md flex items-center space-x-2 text-gray-800">
             <div className="flex space-x-1">
