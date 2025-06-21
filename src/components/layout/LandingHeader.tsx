@@ -119,7 +119,7 @@ const LandingHeader: React.FC = () => {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
-          <Link to="/" className="text-3xl font-bold text-green-500">Socialplug</Link>
+          <Link to="/" className="text-3xl font-bold text-brand-primary-500">Socialplug</Link>
         </div>
 
         {/* Search Bar */}
@@ -128,7 +128,7 @@ const LandingHeader: React.FC = () => {
           <Input
             type="text"
             placeholder="Search"
-            className="w-full pl-10 pr-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-green-500 focus:border-green-500"
+            className="w-full pl-10 pr-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-brand-primary-500 focus:border-brand-primary-500"
           />
         </div>
 
@@ -139,7 +139,7 @@ const LandingHeader: React.FC = () => {
               Log In
             </Button>
           </Link>
-          <Button className="bg-green-500 hover:bg-green-600 text-white">
+          <Button className="bg-brand-primary-500 hover:bg-brand-primary-600 text-white">
             All Services
           </Button>
           <DropdownMenu>

@@ -21,7 +21,7 @@ const Index: React.FC = () => {
           </div>
 
           <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
-            Buy Followers, Likes, Subscribers, Views & <span className="text-green-500">Grow Expotentially</span>
+            Buy Followers, Likes, Subscribers, Views & <span className="text-brand-primary-500">Grow Expotentially</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8">
             Helping brands and influencers build social proof through innovative social media services
@@ -29,23 +29,23 @@ const Index: React.FC = () => {
 
           <div className="flex flex-wrap justify-center items-center gap-6 mb-12">
             <div className="flex items-center text-gray-700 dark:text-gray-300">
-              <Users className="h-5 w-5 mr-2 text-green-500" />
+              <Users className="h-5 w-5 mr-2 text-brand-primary-500" />
               <span>1.5B+ People Reached</span>
             </div>
-            <div className="flex items-center bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full px-4 py-2">
+            <div className="flex items-center bg-brand-primary-100 dark:bg-brand-primary-900/30 text-brand-primary-700 dark:text-brand-primary-300 rounded-full px-4 py-2">
               <CheckCircle className="h-5 w-5 mr-2" />
               <span>12,751 followers delivered</span>
               <Clock className="h-4 w-4 ml-3 mr-1" />
               <span>8 mins ago</span>
             </div>
             <div className="flex items-center text-gray-700 dark:text-gray-300">
-              <MousePointer2 className="h-5 w-5 mr-2 text-green-500" />
+              <MousePointer2 className="h-5 w-5 mr-2 text-brand-primary-500" />
               <span>5M+ Monthly Clicks</span>
             </div>
           </div>
 
           <div className="flex justify-center space-x-4 mb-20">
-            <Button className="bg-green-500 hover:bg-green-600 text-white text-lg px-8 py-6 rounded-lg">
+            <Button className="bg-brand-primary-500 hover:bg-brand-primary-600 text-white text-lg px-8 py-6 rounded-lg">
               View All Services
             </Button>
             <Link to="/dashboard">

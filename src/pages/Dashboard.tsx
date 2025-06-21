@@ -10,12 +10,12 @@ const Dashboard = () => {
     <Layout>
       <div className="space-y-6">
         {/* Top Banner */}
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg flex items-center justify-between shadow-md">
+        <div className="bg-gradient-to-r from-brand-primary-500 to-brand-primary-600 text-white p-4 rounded-lg flex items-center justify-between shadow-md">
           <div className="flex items-center">
             <Award className="h-6 w-6 mr-3" />
             <span className="font-semibold">Win $200 in Credits — Enter Our Twitter Giveaway</span>
           </div>
-          <Button variant="secondary" className="bg-white text-green-600 hover:bg-gray-100">
+          <Button variant="secondary" className="bg-white text-brand-primary-600 hover:bg-gray-100">
             Win $200
           </Button>
         </div>
@@ -32,21 +32,21 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent className="flex flex-col md:flex-row items-center justify-between p-6">
               <div className="flex-1 space-y-2 mb-4 md:mb-0">
-                <div className="flex items-center text-green-600 dark:text-green-400">
+                <div className="flex items-center text-brand-primary-600 dark:text-brand-primary-400">
                   <CheckCircle className="h-5 w-5 mr-2" />
                   <span>Skip Paying Gas Fees on Each Transaction</span>
                 </div>
-                <div className="flex items-center text-green-600 dark:text-green-400">
+                <div className="flex items-center text-brand-primary-600 dark:text-brand-primary-400">
                   <CheckCircle className="h-5 w-5 mr-2" />
                   <span>Exclusive Offers & Discounts</span>
                 </div>
-                <div className="flex items-center text-green-600 dark:text-green-400">
+                <div className="flex items-center text-brand-primary-600 dark:text-brand-primary-400">
                   <CheckCircle className="h-5 w-5 mr-2" />
                   <span>VIP Customer Support</span>
                 </div>
               </div>
               <div className="flex-shrink-0">
-                <Button className="bg-green-500 hover:bg-green-600 text-white">
+                <Button className="bg-brand-primary-500 hover:bg-brand-primary-600 text-white">
                   <Plus className="h-4 w-4 mr-2" /> Add Funds
                 </Button>
               </div>
@@ -56,13 +56,13 @@ const Dashboard = () => {
           {/* Make money with Socialplug Card */}
           <Card className="bg-gray-900 text-white shadow-md">
             <CardHeader>
-              <CardTitle className="text-white">Make money with <span className="text-green-500">Socialplug</span></CardTitle>
+              <CardTitle className="text-white">Make money with <span className="text-brand-primary-500">Socialplug</span></CardTitle>
               <CardDescription className="text-gray-300">
                 Earn up to 40% lifetime commissions on your affiliates
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-start">
-              <Button className="bg-green-500 hover:bg-green-600 text-white">
+              <Button className="bg-brand-primary-500 hover:bg-brand-primary-600 text-white">
                 Become An Affiliate →
               </Button>
             </CardContent>
@@ -77,10 +77,10 @@ const Dashboard = () => {
                 <Ticket className="h-6 w-6 mr-2" /> Order Now
               </CardTitle>
               <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                <span className="text-green-500">View All</span>
+                <span className="text-brand-primary-500">View All</span>
                 <span className="flex items-center">
                   <span className="mr-1">Sort By:</span>
-                  <span className="font-semibold text-green-500">Popular</span>
+                  <span className="font-semibold text-brand-primary-500">Popular</span>
                   <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
               </div>
@@ -94,13 +94,13 @@ const Dashboard = () => {
                 </TabsList>
                 <TabsContent value="engagements" className="mt-4">
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    {['Twitter', 'Twitter NFT', 'Reddit', 'Telegram', 'Tiktok', 'Youtube', 'Facebook', 'Instagram', 'Discord', 'LinkedIn', 'Spotify', 'Discord NFT', 'Twitch', 'Kick', 'WhatsApp', 'Quora', 'Medium', 'Snapchat', 'Github', 'Soundcloud'].map((platform) => (
+                    {['Twitter', 'Twitter NFT', 'Reddit', 'Telegram', 'Tiktok', 'Youtube', 'Facebook', 'Instagram', 'Discord', 'LinkedIn', 'Github', 'Discord NFT', 'Twitch', 'Kick', 'WhatsApp', 'Quora', 'Medium', 'Snapchat', 'Soundcloud'].map((platform) => (
                       <Button key={platform} variant="outline" className="flex items-center justify-between p-4 h-auto text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
                         <span className="flex items-center">
                           {/* Placeholder for platform icon */}
                           <span className="mr-2">{platform}</span>
                         </span>
-                        <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        <svg className="w-4 h-4 text-brand-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                       </Button>
                     ))}
                   </div>
@@ -146,7 +146,7 @@ const Dashboard = () => {
                     <span className="font-semibold text-gray-900 dark:text-gray-100">{earner.amount}</span>
                   </div>
                 ))}
-                <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
+                <Button className="w-full bg-brand-primary-500 hover:bg-brand-primary-600 text-white">
                   Become An Affiliate →
                 </Button>
               </CardContent>
@@ -158,7 +158,7 @@ const Dashboard = () => {
                 <CardTitle className="text-gray-900 dark:text-gray-100 flex items-center">
                   <Ticket className="h-6 w-6 mr-2" /> Tickets
                 </CardTitle>
-                <span className="text-green-500 text-sm">View All</span>
+                <span className="text-brand-primary-500 text-sm">View All</span>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 dark:text-gray-400">No recent tickets.</p>
