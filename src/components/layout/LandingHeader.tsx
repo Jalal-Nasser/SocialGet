@@ -6,7 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Link } from 'react-router-dom';
 
 const LandingHeader: React.FC = () => {
-  const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Spotify', 'Other', 'Tools'];
+  const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Github', 'Other', 'Tools'];
 
   const twitterSubcategories = [
     "Twitter followers",
@@ -108,6 +108,12 @@ const LandingHeader: React.FC = () => {
     "Live Viewers"
   ];
 
+  const githubSubcategories = [
+    "Stars",
+    "Followers",
+    "Forks"
+  ];
+
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -190,6 +196,10 @@ const LandingHeader: React.FC = () => {
                   ))
                 ) : category === 'Facebook' ? (
                   facebookSubcategories.map((sub, index) => (
+                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                  ))
+                ) : category === 'Github' ? (
+                  githubSubcategories.map((sub, index) => (
                     <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
                   ))
                 ) : (
