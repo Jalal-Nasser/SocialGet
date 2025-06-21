@@ -92,6 +92,22 @@ const LandingHeader: React.FC = () => {
     "Group Members"
   ];
 
+  const facebookSubcategories = [
+    "Followers",
+    "Likes",
+    "Views",
+    "Comments",
+    "Comment Likes",
+    "Post Shares",
+    "Reactions",
+    "Event Attendees",
+    "Reviews",
+    "Poll Votes",
+    "Friend Requests",
+    "Group Members",
+    "Live Viewers"
+  ];
+
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -170,6 +186,10 @@ const LandingHeader: React.FC = () => {
                   ))
                 ) : category === 'LinkedIn' ? (
                   linkedinSubcategories.map((sub, index) => (
+                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                  ))
+                ) : category === 'Facebook' ? (
+                  facebookSubcategories.map((sub, index) => (
                     <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
                   ))
                 ) : (
