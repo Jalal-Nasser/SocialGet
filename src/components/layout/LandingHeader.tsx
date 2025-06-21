@@ -1,13 +1,12 @@
 import React from 'react';
-import {
+import { 
   Search, ChevronDown, Twitter, Instagram, Youtube, Linkedin, Facebook, Github,
   MoreHorizontal, Wrench, MessageSquare, Music
-} from 'lucide-react';
+} from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Link } from 'react-router-dom';
-import RedditIcon from '@/components/icons/RedditIcon.tsx'; // Added .tsx extension
 
 const LandingHeader: React.FC = () => {
   const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Github'];
@@ -15,7 +14,7 @@ const LandingHeader: React.FC = () => {
   // Mapping for icons
   const categoryIcons: { [key: string]: React.ElementType } = {
     Twitter: Twitter,
-    Reddit: RedditIcon, // Use the imported custom RedditIcon
+    Reddit: MessageSquare,
     Instagram: Instagram,
     TikTok: Music,
     Youtube: Youtube,
@@ -184,8 +183,8 @@ const LandingHeader: React.FC = () => {
             return (
               <DropdownMenu key={category}>
                 <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
+                  <Button 
+                    variant="ghost" 
                     className="flex items-center space-x-1 hover:bg-brand-secondary-blue hover:text-white transition-all duration-200 ease-in-out hover:scale-105"
                   >
                     {Icon && <Icon className="h-4 w-4" />} {/* Render icon if available */}
