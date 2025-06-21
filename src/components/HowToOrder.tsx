@@ -1,6 +1,11 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
+// Import your images here
+import Step1Image from '@/assets/step1.png'; // Assuming you place your image here
+import Step2Image from '@/assets/step2.png'; // Assuming you place your image here
+import Step3Image from '@/assets/step3.png'; // Assuming you place your image here
+
 const HowToOrder: React.FC = () => {
   return (
     <section className="container mx-auto px-4 py-16 text-center">
@@ -16,7 +21,7 @@ const HowToOrder: React.FC = () => {
         <div className="flex flex-col items-center text-center max-w-xs">
           <div className="relative mb-6">
             <img
-              src="https://via.placeholder.com/300x200?text=Step+1+Image"
+              src={Step1Image} // Use your imported image here
               alt="Pick the service"
               className="rounded-lg shadow-lg w-full h-auto"
             />
@@ -42,7 +47,7 @@ const HowToOrder: React.FC = () => {
         <div className="flex flex-col items-center text-center max-w-xs">
           <div className="relative mb-6">
             <img
-              src="https://via.placeholder.com/300x200?text=Step+2+Image"
+              src={Step2Image} // Use your imported image here
               alt="Set the target"
               className="rounded-lg shadow-lg w-full h-auto"
             />
@@ -68,7 +73,7 @@ const HowToOrder: React.FC = () => {
         <div className="flex flex-col items-center text-center max-w-xs">
           <div className="relative mb-6">
             <img
-              src="https://via.placeholder.com/300x200?text=Step+3+Image"
+              src={Step3Image} // Use your imported image here
               alt="Get the results"
               className="rounded-lg shadow-lg w-full h-auto"
             />
