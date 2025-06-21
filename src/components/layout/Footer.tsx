@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li><Link to="/" className="hover:underline text-brand-primary-100">Home</Link></li>
               <li><Link to="/login" className="hover:underline text-brand-primary-100">Log in</Link></li>
-              <li><Link to="#" className="hover:underline text-brand-primary-100">About Us</Link></li>
+              <li><Link to="/about-us" className="hover:underline text-brand-primary-100">About Us</Link></li>
               <li><Link to="#" className="hover:underline text-brand-primary-100">Free Likes</Link></li>
               <li><Link to="#" className="hover:underline text-brand-primary-100">Rewards</Link></li>
               <li><Link to="#" className="hover:underline text-brand-primary-100">SocialGet Reviews</Link></li>
@@ -56,11 +56,11 @@ const Footer: React.FC = () => {
           <div className="text-center md:text-left">
             <h3 className="text-lg font-semibold mb-4 uppercase text-brand-primary-100">Resources</h3>
             <ul className="space-y-2">
-              <li><Link to="#" className="hover:underline text-brand-primary-100">Blog</Link></li>
+              <li><Link to="/blog" className="hover:underline text-brand-primary-100">Blog</Link></li>
               <li><Link to="#" className="hover:underline text-brand-primary-100">Press</Link></li>
-              <li><Link to="#" className="hover:underline text-brand-primary-100">Support</Link></li>
-              <li><Link to="#" className="hover:underline text-brand-primary-100">Terms of Service</Link></li>
-              <li><Link to="#" className="hover:underline text-brand-primary-100">Privacy Policy</Link></li>
+              <li><Link to="/contact" className="hover:underline text-brand-primary-100">Support</Link></li> {/* Changed to /contact */}
+              <li><Link to="/terms-of-service" className="hover:underline text-brand-primary-100">Terms of Service</Link></li>
+              <li><Link to="/privacy-policy" className="hover:underline text-brand-primary-100">Privacy Policy</Link></li>
               <li><Link to="#" className="hover:underline text-brand-primary-100">Embed Instagram Feed</Link></li>
             </ul>
           </div>
