@@ -1,5 +1,6 @@
 import React from 'react';
 import LandingHeader from '@/components/layout/LandingHeader';
+import Footer from '@/components/layout/Footer'; // Import the new Footer component
 import { Button } from '@/components/ui/button';
 import { Star, Users, CheckCircle, Clock, MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -11,10 +12,10 @@ import FAQSection from '@/components/FAQSection'; // Import the new FAQSection c
 const Index: React.FC = () => {
   console.log("Index page loaded");
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
       <LandingHeader />
 
-      <main className="container mx-auto px-4 py-12 text-center">
+      <main className="container mx-auto px-4 py-12 text-center flex-grow">
         {/* Hero Section */}
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-center mb-4">
@@ -105,6 +106,7 @@ const Index: React.FC = () => {
         {/* FAQ Section */}
         <FAQSection />
       </main>
+      <Footer /> {/* Add the Footer component here */}
     </div>
   );
 };
