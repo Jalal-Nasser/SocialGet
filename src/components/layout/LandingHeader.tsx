@@ -1,22 +1,24 @@
 import React from 'react';
 import { 
   Search, ChevronDown, Twitter, Instagram, Youtube, Linkedin, Facebook, Github,
-  MoreHorizontal, Wrench, MessageSquare, Play // Changed Music to Play
+  MoreHorizontal, Wrench, MessageSquare, Play 
 } from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Link } from 'react-router-dom';
+import LogoImage from '@/assets/logo.png'; // Import the new logo image
 
 const LandingHeader: React.FC = () => {
+  console.log("LogoImage path:", LogoImage); // Debugging line
   const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Github'];
 
   // Mapping for icons
   const categoryIcons: { [key: string]: React.ElementType } = {
     Twitter: Twitter,
-    Reddit: MessageSquare, // Keeping MessageSquare for Reddit
+    Reddit: MessageSquare,
     Instagram: Instagram,
-    TikTok: Play, // Changed to Play for TikTok
+    TikTok: Play,
     Youtube: Youtube,
     LinkedIn: Linkedin,
     Facebook: Facebook,
@@ -136,7 +138,9 @@ const LandingHeader: React.FC = () => {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
-          <Link to="/" className="text-3xl font-bold text-brand-primary-500">Social<span className="text-[#0066cc]">Get</span></Link>
+          <Link to="/">
+            <img src={LogoImage} alt="SocialGet Logo" className="h-10" /> {/* Use the imported logo image */}
+          </Link>
         </div>
 
         {/* Search Bar */}
