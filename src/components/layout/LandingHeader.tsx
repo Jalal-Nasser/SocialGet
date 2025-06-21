@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Search, ChevronDown, Twitter, Instagram, Youtube, Linkedin, Facebook, Github,
-  MoreHorizontal, Wrench, MessageSquare, Music
+  MoreHorizontal, Wrench, MessageSquare, Play // Changed Music to Play
 } from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,9 +14,9 @@ const LandingHeader: React.FC = () => {
   // Mapping for icons
   const categoryIcons: { [key: string]: React.ElementType } = {
     Twitter: Twitter,
-    Reddit: MessageSquare,
+    Reddit: MessageSquare, // Keeping MessageSquare for Reddit
     Instagram: Instagram,
-    TikTok: Music,
+    TikTok: Play, // Changed to Play for TikTok
     Youtube: Youtube,
     LinkedIn: Linkedin,
     Facebook: Facebook,
