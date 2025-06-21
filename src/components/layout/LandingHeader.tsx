@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Search, ChevronDown, Twitter, Instagram, Youtube, Linkedin, Facebook, Github,
-  MoreHorizontal, Wrench, MessageSquare, Music // Replaced Reddit with MessageSquare and Tiktok with Music
+  MoreHorizontal, Wrench, MessageSquare, Music
 } from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,20 +9,20 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Link } from 'react-router-dom';
 
 const LandingHeader: React.FC = () => {
-  const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Github', 'Other', 'Tools'];
+  const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Github', 'Other']; // Removed 'Tools'
 
   // Mapping for icons
   const categoryIcons: { [key: string]: React.ElementType } = {
     Twitter: Twitter,
-    Reddit: MessageSquare, // Using MessageSquare as a substitute for Reddit
+    Reddit: MessageSquare,
     Instagram: Instagram,
-    TikTok: Music, // Using Music as a substitute for TikTok
+    TikTok: Music,
     Youtube: Youtube,
     LinkedIn: Linkedin,
     Facebook: Facebook,
     Github: Github,
     Other: MoreHorizontal,
-    Tools: Wrench,
+    Tools: Wrench, // Keep this mapping, it won't be used if 'Tools' is not in categories
   };
 
   const twitterSubcategories = [
