@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Link } from 'react-router-dom';
-import RedditIcon from '@/components/icons/RedditIcon'; // Import the custom RedditIcon
+import RedditIcon from '@/components/icons/RedditIcon.tsx'; // Added .tsx extension
 
 const LandingHeader: React.FC = () => {
   const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Github'];
