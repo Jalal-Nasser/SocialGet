@@ -3,10 +3,11 @@ import LandingHeader from '@/components/layout/LandingHeader';
 import { Button } from '@/components/ui/button';
 import { Star, Users, CheckCircle, Clock, MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import SocialGetIllustration from '@/assets/SocialGet.png'; // Import the new image
+import SocialGetIllustration from '@/assets/SocialGet.png';
+import PlugIllustration from '@/components/PlugIllustration'; // Import the new illustration component
 
 const Index: React.FC = () => {
-  console.log("Index page loaded"); // Added for debugging
+  console.log("Index page loaded");
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <LandingHeader />
@@ -60,6 +61,40 @@ const Index: React.FC = () => {
         {/* Illustration Section */}
         <div className="relative w-full max-w-5xl mx-auto mb-20">
           <img src={SocialGetIllustration} alt="SocialGet Illustration" className="w-full h-auto rounded-lg shadow-lg" />
+        </div>
+
+        {/* Why Customers Choose Us Section */}
+        <div className="relative py-16 bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden mb-20">
+          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%2300b894\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E")' }}></div>
+          <div className="relative z-10 max-w-4xl mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center justify-center md:justify-between mb-8">
+              <div className="text-center md:text-left mb-8 md:mb-0 md:mr-8">
+                <h2 className="text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-4">
+                  Why Customers <span className="text-green-500">Choose Us</span>
+                </h2>
+                <p className="text-lg text-gray-600 dark:text-gray-400">
+                  Read what our customers think about this service. We take your feedback
+                  seriously - help us improve by <a href="#" className="text-green-500 hover:underline">leaving a review</a>.
+                </p>
+              </div>
+              <PlugIllustration />
+            </div>
+
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-xl p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="flex flex-col items-center">
+                <span className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">100k+</span>
+                <span className="text-gray-600 dark:text-gray-400">Happy Customers</span>
+              </div>
+              <div className="flex flex-col items-center border-l border-r border-gray-200 dark:border-gray-700 px-4">
+                <span className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">1.7 Billion+</span>
+                <span className="text-gray-600 dark:text-gray-400">Population Reached</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">4.8</span>
+                <span className="text-gray-600 dark:text-gray-400">Review rate</span>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
