@@ -77,6 +77,9 @@ export default {
           "900": "hsl(0 30% 15%)",
           "950": "hsl(0 20% 10%)",
         },
+        "dropdown-hover": { // New custom color for dropdown hover
+          DEFAULT: "hsl(var(--dropdown-hover-background))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

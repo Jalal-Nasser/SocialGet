@@ -48,6 +48,8 @@
     --sidebar-accent-foreground: 0 72% 39.2%; /* brand-primary-500 */
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --dropdown-hover-background: 200 80% 58%; /* #39bded converted to HSL */
   }
 
   .dark {
@@ -92,6 +94,8 @@
     --sidebar-accent-foreground: 0 100% 80%; /* brand-primary-100 */
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --dropdown-hover-background: 200 80% 58%; /* #39bded converted to HSL */
   }
 }
 

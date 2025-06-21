@@ -195,56 +195,56 @@ const LandingHeader: React.FC = () => {
                 <DropdownMenuContent>
                   {category === 'Twitter' ? (
                     twitterSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-[#39bded]"> {/* Added hover style */}
+                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover">
                         {sub}
                       </DropdownMenuItem>
                     ))
                   ) : category === 'Reddit' ? (
                     redditSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-[#39bded]"> {/* Added hover style */}
+                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover">
                         {sub}
                       </DropdownMenuItem>
                     ))
                   ) : category === 'Instagram' ? (
                     instagramSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-[#39bded]"> {/* Added hover style */}
+                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover">
                         {sub}
                       </DropdownMenuItem>
                     ))
                   ) : category === 'TikTok' ? (
                     tiktokSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-[#39bded]"> {/* Added hover style */}
+                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover">
                         {sub}
                       </DropdownMenuItem>
                     ))
                   ) : category === 'Youtube' ? (
                     youtubeSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-[#39bded]"> {/* Added hover style */}
+                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover">
                         {sub}
                       </DropdownMenuItem>
                     ))
                   ) : category === 'LinkedIn' ? (
                     linkedinSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-[#39bded]"> {/* Added hover style */}
+                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover">
                         {sub}
                       </DropdownMenuItem>
                     ))
                   ) : category === 'Facebook' ? (
                     facebookSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-[#39bded]"> {/* Added hover style */}
+                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover">
                         {sub}
                       </DropdownMenuItem>
                     ))
                   ) : category === 'Github' ? (
                     githubSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-[#39bded]"> {/* Added hover style */}
+                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover">
                         {sub}
                       </DropdownMenuItem>
                     ))
                   ) : (
                     <>
-                      <DropdownMenuItem className="hover:bg-[#39bded]">Sub-category 1</DropdownMenuItem> {/* Added hover style */}
-                      <DropdownMenuItem className="hover:bg-[#39bded]">Sub-category 2</DropdownMenuItem> {/* Added hover style */}
+                      <DropdownMenuItem className="hover:bg-dropdown-hover">Sub-category 1</DropdownMenuItem>
+                      <DropdownMenuItem className="hover:bg-dropdown-hover">Sub-category 2</DropdownMenuItem>
                     </>
                   )}
                 </DropdownMenuContent>
