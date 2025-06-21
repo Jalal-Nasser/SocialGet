@@ -71,7 +71,7 @@ export default {
           "300": "hsl(0 90% 60%)",
           "400": "hsl(0 80% 50%)",
           "500": "hsl(0 72% 39.2%)",
-          "600": "hsl(0 60% 30%)",
+          "600": "hsl(0 60% 30%)", // This will be overridden by brand-secondary-blue
           "700": "hsl(0 50% 25%)",
           "800": "hsl(0 40% 20%)",
           "900": "hsl(0 30% 15%)",
