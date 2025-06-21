@@ -1,173 +1,86 @@
 import React from 'react';
-import Layout from '@/components/layout/Layout';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import LandingHeader from '@/components/layout/LandingHeader';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Plus, Award, Ticket, Users, User } from 'lucide-react'; // Added Users and User here
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Star, Users, CheckCircle, Clock, MousePointer2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-const Index = () => {
+const Index: React.FC = () => {
+  console.log("Index page loaded"); // Added for debugging
   return (
-    <Layout>
-      <div className="space-y-6">
-        {/* Top Banner */}
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg flex items-center justify-between shadow-md">
-          <div className="flex items-center">
-            <Award className="h-6 w-6 mr-3" />
-            <span className="font-semibold">Win $200 in Credits — Enter Our Twitter Giveaway</span>
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <LandingHeader />
+
+      <main className="container mx-auto px-4 py-12 text-center">
+        {/* Hero Section */}
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-center mb-4">
+            <div className="bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2 flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+              <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+              <span>Rated <span className="font-bold">4.8/5</span> from over 100K+ customers</span>
+            </div>
           </div>
-          <Button variant="secondary" className="bg-white text-green-600 hover:bg-gray-100">
-            Win $200
-          </Button>
-        </div>
 
-        {/* Dashboard Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Add Funds To Balance Card */}
-          <Card className="lg:col-span-2 bg-white dark:bg-gray-800 shadow-md">
-            <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">Add Funds To Balance</CardTitle>
-              <CardDescription className="text-gray-600 dark:text-gray-400">
-                Make ordering seamless - no payment interruptions and ultra fast order processing.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-col md:flex-row items-center justify-between p-6">
-              <div className="flex-1 space-y-2 mb-4 md:mb-0">
-                <div className="flex items-center text-green-600 dark:text-green-400">
-                  <CheckCircle className="h-5 w-5 mr-2" />
-                  <span>Skip Paying Gas Fees on Each Transaction</span>
-                </div>
-                <div className="flex items-center text-green-600 dark:text-green-400">
-                  <CheckCircle className="h-5 w-5 mr-2" />
-                  <span>Exclusive Offers & Discounts</span>
-                </div>
-                <div className="flex items-center text-green-600 dark:text-green-400">
-                  <CheckCircle className="h-5 w-5 mr-2" />
-                  <span>VIP Customer Support</span>
-                </div>
-              </div>
-              <div className="flex-shrink-0">
-                <Button className="bg-green-500 hover:bg-green-600 text-white">
-                  <Plus className="h-4 w-4 mr-2" /> Add Funds
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+            Buy Followers, Likes, Subscribers, Views & <span className="text-green-500">Grow Expotentially</span>
+          </h1>
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8">
+            Helping brands and influencers build social proof through innovative social media services
+          </p>
 
-          {/* Make money with Socialplug Card */}
-          <Card className="bg-gray-900 text-white shadow-md">
-            <CardHeader>
-              <CardTitle className="text-white">Make money with <span className="text-green-500">Socialplug</span></CardTitle>
-              <CardDescription className="text-gray-300">
-                Earn up to 40% lifetime commissions on your affiliates
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-col items-start">
-              <Button className="bg-green-500 hover:bg-green-600 text-white">
-                Become An Affiliate →
+          <div className="flex flex-wrap justify-center items-center gap-6 mb-12">
+            <div className="flex items-center text-gray-700 dark:text-gray-300">
+              <Users className="h-5 w-5 mr-2 text-green-500" />
+              <span>1.5B+ People Reached</span>
+            </div>
+            <div className="flex items-center bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full px-4 py-2">
+              <CheckCircle className="h-5 w-5 mr-2" />
+              <span>12,751 followers delivered</span>
+              <Clock className="h-4 w-4 ml-3 mr-1" />
+              <span>8 mins ago</span>
+            </div>
+            <div className="flex items-center text-gray-700 dark:text-gray-300">
+              <MousePointer2 className="h-5 w-5 mr-2 text-green-500" />
+              <span>5M+ Monthly Clicks</span>
+            </div>
+          </div>
+
+          <div className="flex justify-center space-x-4 mb-20">
+            <Button className="bg-green-500 hover:bg-green-600 text-white text-lg px-8 py-6 rounded-lg">
+              View All Services
+            </Button>
+            <Link to="/dashboard">
+              <Button variant="outline" className="border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 text-lg px-8 py-6 rounded-lg">
+                Client Portal
               </Button>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Order Now Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <Card className="lg:col-span-2 bg-white dark:bg-gray-800 shadow-md">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-gray-900 dark:text-gray-100 flex items-center">
-                <Ticket className="h-6 w-6 mr-2" /> Order Now
-              </CardTitle>
-              <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                <span className="text-green-500">View All</span>
-                <span className="flex items-center">
-                  <span className="mr-1">Sort By:</span>
-                  <span className="font-semibold text-green-500">Popular</span>
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                </span>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Tabs defaultValue="engagements" className="w-full">
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="engagements">Engagements</TabsTrigger>
-                  <TabsTrigger value="accounts">Accounts</TabsTrigger>
-                  <TabsTrigger value="reviews">Reviews</TabsTrigger>
-                </TabsList>
-                <TabsContent value="engagements" className="mt-4">
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    {['Twitter', 'Twitter NFT', 'Reddit', 'Telegram', 'Tiktok', 'Youtube', 'Facebook', 'Instagram', 'Discord', 'LinkedIn', 'Spotify', 'Discord NFT', 'Twitch', 'Kick', 'WhatsApp', 'Quora', 'Medium', 'Snapchat', 'Github', 'Soundcloud'].map((platform) => (
-                      <Button key={platform} variant="outline" className="flex items-center justify-between p-4 h-auto text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
-                        <span className="flex items-center">
-                          {/* Placeholder for platform icon */}
-                          <span className="mr-2">{platform}</span>
-                        </span>
-                        <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                      </Button>
-                    ))}
-                  </div>
-                </TabsContent>
-                <TabsContent value="accounts">
-                  <p className="text-gray-600 dark:text-gray-400">Account services will be listed here.</p>
-                </TabsContent>
-                <TabsContent value="reviews">
-                  <p className="text-gray-600 dark:text-gray-400">Review services will be listed here.</p>
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
-
-          {/* Right Column Cards */}
-          <div className="space-y-6">
-            {/* Top Earners This Month Card */}
-            <Card className="bg-white dark:bg-gray-800 shadow-md">
-              <CardHeader>
-                <CardTitle className="text-gray-900 dark:text-gray-100 flex items-center">
-                  <Users className="h-6 w-6 mr-2" /> Top Earners This Month
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {[
-                  { name: 'CodeWarrior', amount: '$56,210.56', rank: 1 },
-                  { name: 'PServices', amount: '$47,112.44', rank: 2 },
-                  { name: 'Infoagency', amount: '$22,706.09', rank: 3 },
-                  { name: 'JSFK', amount: '$21,997.94', rank: 4 },
-                ].map((earner, index) => (
-                  <div key={index} className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      {earner.rank <= 3 ? (
-                        <Award className={`h-5 w-5 mr-3 ${earner.rank === 1 ? 'text-yellow-500' : earner.rank === 2 ? 'text-gray-400' : 'text-amber-700'}`} />
-                      ) : (
-                        <span className="w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 text-center">{earner.rank}</span>
-                      )}
-                      <User className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700 p-1 mr-3 text-gray-600 dark:text-gray-300" />
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-gray-100">{earner.name}</p>
-                      </div>
-                    </div>
-                    <span className="font-semibold text-gray-900 dark:text-gray-100">{earner.amount}</span>
-                  </div>
-                ))}
-                <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
-                  Become An Affiliate →
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Tickets Card */}
-            <Card className="bg-white dark:bg-gray-800 shadow-md">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-gray-900 dark:text-gray-100 flex items-center">
-                  <Ticket className="h-6 w-6 mr-2" /> Tickets
-                </CardTitle>
-                <span className="text-green-500 text-sm">View All</span>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 dark:text-gray-400">No recent tickets.</p>
-              </CardContent>
-            </Card>
+            </Link>
           </div>
         </div>
-      </div>
-    </Layout>
+
+        {/* Illustration Section (Placeholder) */}
+        <div className="relative w-full max-w-5xl mx-auto mb-20">
+          {/* This is a placeholder for the complex illustration. 
+              In a real scenario, this would be an SVG or an image. */}
+          <img src="https://via.placeholder.com/1000x500?text=Socialplug+Illustration" alt="Socialplug Illustration" className="w-full h-auto rounded-lg shadow-lg" />
+          <p className="mt-4 text-gray-500 dark:text-gray-400">
+            (Placeholder for the phone and social media flow illustration)
+          </p>
+        </div>
+
+        {/* Featured in Top Media Section */}
+        <div className="border-t border-gray-200 dark:border-gray-700 pt-12">
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-8">FEATURED IN TOP MEDIA</h2>
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+            {/* Placeholders for logos */}
+            <img src="https://via.placeholder.com/120x40?text=Forbes" alt="Forbes" className="h-10 opacity-75 dark:invert" />
+            <img src="https://via.placeholder.com/120x40?text=HuffPost" alt="HuffPost" className="h-10 opacity-75 dark:invert" />
+            <img src="https://via.placeholder.com/120x40?text=Miami+Herald" alt="The Miami Herald" className="h-10 opacity-75 dark:invert" />
+            <img src="https://via.placeholder.com/120x40?text=Business+Insider" alt="Business Insider" className="h-10 opacity-75 dark:invert" />
+            <img src="https://via.placeholder.com/120x40?text=MarketWatch" alt="MarketWatch" className="h-10 opacity-75 dark:invert" />
+            <img src="https://via.placeholder.com/120x40?text=HubSpot" alt="HubSpot" className="h-10 opacity-75 dark:invert" />
+          </div>
+        </div>
+      </main>
+    </div>
   );
 };
 
