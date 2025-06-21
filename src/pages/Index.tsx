@@ -65,16 +65,16 @@ const Index: React.FC = () => {
 
         {/* Why Customers Choose Us Section */}
         <div className="relative py-16 bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden mb-20">
-          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%2300b894\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E")' }}></div>
+          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23b01c1c\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E")' }}></div>
           <div className="relative z-10 max-w-4xl mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-center md:justify-between mb-8">
               <div className="text-center md:text-left mb-8 md:mb-0 md:mr-8">
                 <h2 className="text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-4">
-                  Why Customers <span className="text-green-500">Choose Us</span>
+                  Why Customers <span className="text-brand-primary-500">Choose Us</span>
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400">
                   Read what our customers think about this service. We take your feedback
-                  seriously - help us improve by <a href="#" className="text-green-500 hover:underline">leaving a review</a>.
+                  seriously - help us improve by <a href="#" className="text-brand-primary-500 hover:underline">leaving a review</a>.
                 </p>
               </div>
               <PlugIllustration />
