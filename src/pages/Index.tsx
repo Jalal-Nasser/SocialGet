@@ -60,9 +60,6 @@ const Index: React.FC = () => {
         {/* Illustration Section */}
         <div className="relative w-full max-w-5xl mx-auto mb-20">
           <img src={SocialGetIllustration} alt="SocialGet Illustration" className="w-full h-auto rounded-lg shadow-lg" />
-          <p className="mt-4 text-gray-500 dark:text-gray-400">
-            (Illustration of phone and social media flow)
-          </p>
         </div>
 
         {/* Featured in Top Media Section */}
