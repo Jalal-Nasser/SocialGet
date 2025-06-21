@@ -53,10 +53,10 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Make money with Socialplug Card */}
+          {/* Make money with SocialGet Card */}
           <Card className="bg-gray-900 text-white shadow-md">
             <CardHeader>
-              <CardTitle className="text-white">Make money with <span className="text-brand-primary-500">Socialplug</span></CardTitle>
+              <CardTitle className="text-white">Make money with <span className="text-brand-primary-500">SocialGet</span></CardTitle>
               <CardDescription className="text-gray-300">
                 Earn up to 40% lifetime commissions on your affiliates
               </CardDescription>
@@ -109,7 +109,7 @@ const Dashboard = () => {
                   <p className="text-gray-600 dark:text-gray-400">Account services will be listed here.</p>
                 </TabsContent>
                 <TabsContent value="reviews">
-                  <p className className="text-gray-600 dark:text-gray-400">Review services will be listed here.</p>
+                  <p className="text-gray-600 dark:text-gray-400">Review services will be listed here.</p>
                 </TabsContent>
               </Tabs>
             </CardContent>
