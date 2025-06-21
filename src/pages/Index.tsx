@@ -26,7 +26,7 @@ const Index: React.FC = () => {
           </div>
 
           <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
-            Buy Followers, Likes, Subscribers, Views & <span className="text-brand-primary-500">Grow Expotentially</span>
+            Buy <span className="text-brand-secondary-blue">Followers</span>, Likes, Subscribers, <span className="text-brand-secondary-blue">Views</span> & <span className="text-brand-primary-500">Grow Expotentially</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8">
             Helping brands and influencers build social proof through innovative social media services
