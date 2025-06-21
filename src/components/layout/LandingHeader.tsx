@@ -9,7 +9,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Link } from 'react-router-dom';
 
 const LandingHeader: React.FC = () => {
-  const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Github', 'Other']; // Removed 'Tools'
+  const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Github']; // Removed 'Other'
 
   // Mapping for icons
   const categoryIcons: { [key: string]: React.ElementType } = {
@@ -21,7 +21,7 @@ const LandingHeader: React.FC = () => {
     LinkedIn: Linkedin,
     Facebook: Facebook,
     Github: Github,
-    Other: MoreHorizontal,
+    Other: MoreHorizontal, // Keep this mapping, it won't be used if 'Other' is not in categories
     Tools: Wrench, // Keep this mapping, it won't be used if 'Tools' is not in categories
   };
 
@@ -226,6 +226,7 @@ const LandingHeader: React.FC = () => {
                       <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
                     ))
                   ) : (
+                    // This block will no longer be reached for 'Other'
                     <>
                       <DropdownMenuItem>Sub-category 1</DropdownMenuItem>
                       <DropdownMenuItem>Sub-category 2</DropdownMenuItem>
