@@ -1,8 +1,8 @@
 import React from 'react';
 import { 
-  Search, ChevronDown, Twitter, Reddit, Instagram, Youtube, Linkedin, Facebook, Github,
-  MoreHorizontal, Wrench, Tiktok // Added Tiktok icon
-} from 'lucide-react'; // Imported necessary icons
+  Search, ChevronDown, Twitter, Instagram, Youtube, Linkedin, Facebook, Github,
+  MoreHorizontal, Wrench, MessageSquare, Music // Replaced Reddit with MessageSquare and Tiktok with Music
+} from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -14,9 +14,9 @@ const LandingHeader: React.FC = () => {
   // Mapping for icons
   const categoryIcons: { [key: string]: React.ElementType } = {
     Twitter: Twitter,
-    Reddit: Reddit,
+    Reddit: MessageSquare, // Using MessageSquare as a substitute for Reddit
     Instagram: Instagram,
-    TikTok: Tiktok,
+    TikTok: Music, // Using Music as a substitute for TikTok
     Youtube: Youtube,
     LinkedIn: Linkedin,
     Facebook: Facebook,
