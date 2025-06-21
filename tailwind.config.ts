@@ -62,27 +62,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        "brand-primary": {
-          DEFAULT: "hsl(0 72% 39.2%)", // #b01c1c
-          foreground: "hsl(210 40% 98%)", // White/off-white for text on red
-          "50": "hsl(0 100% 90%)",
-          "100": "hsl(0 100% 80%)",
-          "200": "hsl(0 95% 70%)",
-          "300": "hsl(0 90% 60%)",
-          "400": "hsl(0 80% 50%)",
-          "500": "hsl(0 72% 39.2%)",
-          "600": "hsl(0 60% 30%)",
-          "700": "hsl(0 50% 25%)",
-          "800": "hsl(0 40% 20%)",
-          "900": "hsl(0 30% 15%)",
-          "950": "hsl(0 20% 10%)",
-        },
-        "brand-secondary-blue": { // New custom color for the blue hover
-          DEFAULT: "#0066cc",
-        },
-        "dropdown-hover": { // New custom color for dropdown hover
-          DEFAULT: "hsl(var(--dropdown-hover-background))",
-        },
       },
       borderRadius: {
         lg: "var(--radius)",
