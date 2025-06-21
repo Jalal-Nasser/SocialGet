@@ -30,6 +30,27 @@ const LandingHeader: React.FC = () => {
     "Reddit Comments"
   ];
 
+  const instagramSubcategories = [
+    "Followers",
+    "Likes",
+    "Views",
+    "Auto Likes",
+    "Comments",
+    "Comment Likes",
+    "Custom Comments",
+    "Reel Views",
+    "Reel Likes",
+    "Live Views",
+    "Saves",
+    "Shares",
+    "Story Poll Votes",
+    "Comment Replies",
+    "Impressions",
+    "Profile Visits",
+    "Story Views",
+    "Channel Members"
+  ];
+
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -92,6 +113,10 @@ const LandingHeader: React.FC = () => {
                   ))
                 ) : category === 'Reddit' ? (
                   redditSubcategories.map((sub, index) => (
+                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                  ))
+                ) : category === 'Instagram' ? (
+                  instagramSubcategories.map((sub, index) => (
                     <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
                   ))
                 ) : (
