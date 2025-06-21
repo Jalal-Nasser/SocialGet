@@ -54,7 +54,10 @@ const Index: React.FC = () => {
               View All Services
             </Button>
             <Link to="/dashboard">
-              <Button variant="outline" className="border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 text-lg px-8 py-6 rounded-lg">
+              <Button 
+                variant="outline" 
+                className="bg-brand-secondary-blue text-white border-brand-secondary-blue hover:bg-brand-hover-red hover:border-brand-hover-red text-lg px-8 py-6 rounded-lg"
+              >
                 Client Portal
               </Button>
             </Link>

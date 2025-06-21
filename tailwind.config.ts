@@ -80,6 +80,9 @@ export default {
         "brand-secondary-blue": { // New custom color for the blue hover
           DEFAULT: "#0066cc",
         },
+        "brand-hover-red": { // New custom color for the specific button hover
+          DEFAULT: "#993333",
+        },
         "dropdown-hover": { // New custom color for dropdown hover
           DEFAULT: "hsl(var(--dropdown-hover-background))",
         },
