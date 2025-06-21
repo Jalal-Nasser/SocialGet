@@ -6,6 +6,22 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Link } from 'react-router-dom';
 
 const LandingHeader: React.FC = () => {
+  const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Spotify', 'Other', 'Tools'];
+
+  const twitterSubcategories = [
+    "Twitter followers",
+    "Twitter USA Followers",
+    "Twitter Likes",
+    "Twitter Comments",
+    "Twitter Retweets",
+    "Twitter Views",
+    "Twitter Impressions",
+    "Twitter Spaces Listeners",
+    "Twitter Poll Votes",
+    "Twitter Bookmarks",
+    "Twitter Mentions"
+  ];
+
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -53,7 +69,7 @@ const LandingHeader: React.FC = () => {
       {/* Secondary Navigation (Categories) */}
       <nav className="bg-gray-50 dark:bg-gray-800 py-2 border-t border-gray-200 dark:border-gray-700">
         <div className="container mx-auto px-4 flex items-center justify-center space-x-6 text-sm text-gray-700 dark:text-gray-300">
-          {['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Spotify', 'Other', 'Tools'].map((category) => (
+          {categories.map((category) => (
             <DropdownMenu key={category}>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center space-x-1 hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -62,8 +78,16 @@ const LandingHeader: React.FC = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem>Sub-category 1</DropdownMenuItem>
-                <DropdownMenuItem>Sub-category 2</DropdownMenuItem>
+                {category === 'Twitter' ? (
+                  twitterSubcategories.map((sub, index) => (
+                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                  ))
+                ) : (
+                  <>
+                    <DropdownMenuItem>Sub-category 1</DropdownMenuItem>
+                    <DropdownMenuItem>Sub-category 2</DropdownMenuItem>
+                  </>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           ))}
