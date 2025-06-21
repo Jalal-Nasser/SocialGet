@@ -136,7 +136,7 @@ const LandingHeader: React.FC = () => {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
-          <Link to="/" className="text-3xl font-bold text-brand-primary-500">Social<span className="text-[#39bded]">Get</span></Link>
+          <Link to="/" className="text-3xl font-bold text-brand-primary-500">Social<span className="text-[#0066cc]">Get</span></Link>
         </div>
 
         {/* Search Bar */}
