@@ -60,7 +60,7 @@ const Index: React.FC = () => {
         <div className="relative w-full max-w-5xl mx-auto mb-20">
           {/* This is a placeholder for the complex illustration. 
               In a real scenario, this would be an SVG or an image. */}
-          <img src="https://via.placeholder.com/1000x500?text=Socialplug+Illustration" alt="Socialplug Illustration" className="w-full h-auto rounded-lg shadow-lg" />
+          <img src="https://via.placeholder.com/1000x500?text=SocialGet+Illustration" alt="SocialGet Illustration" className="w-full h-auto rounded-lg shadow-lg" />
           <p className="mt-4 text-gray-500 dark:text-gray-400">
             (Placeholder for the phone and social media flow illustration)
           </p>

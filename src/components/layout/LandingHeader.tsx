@@ -159,12 +159,12 @@ const LandingHeader: React.FC = () => {
       </div>
 
       {/* Secondary Navigation (Categories) */}
-      <nav className="bg-gray-50 dark:bg-gray-800 py-2 border-t border-gray-200 dark:border-gray-700">
-        <div className="container mx-auto px-4 flex items-center justify-center space-x-6 text-sm text-gray-700 dark:text-gray-300">
+      <nav className="bg-brand-primary-500 py-2 border-t border-brand-primary-600">
+        <div className="container mx-auto px-4 flex items-center justify-center space-x-6 text-sm text-white">
           {categories.map((category) => (
             <DropdownMenu key={category}>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center space-x-1 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <Button variant="ghost" className="flex items-center space-x-1 hover:bg-brand-primary-600 text-white">
                   <span>{category}</span>
                   <ChevronDown className="h-3 w-3" />
                 </Button>
