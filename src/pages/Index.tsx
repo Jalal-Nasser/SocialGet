@@ -5,7 +5,8 @@ import { Star, Users, CheckCircle, Clock, MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SocialGetIllustration from '@/assets/SocialGet.png';
 import PlugIllustration from '@/components/PlugIllustration';
-import HowToOrder from '@/components/HowToOrder'; // Import the new HowToOrder component
+import HowToOrder from '@/components/HowToOrder';
+import FAQSection from '@/components/FAQSection'; // Import the new FAQSection component
 
 const Index: React.FC = () => {
   console.log("Index page loaded");
@@ -100,6 +101,9 @@ const Index: React.FC = () => {
 
         {/* How to Order Section */}
         <HowToOrder />
+
+        {/* FAQ Section */}
+        <FAQSection />
       </main>
     </div>
   );
