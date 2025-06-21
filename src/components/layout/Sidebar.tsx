@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
   return (
     <aside className="w-64 bg-sidebar text-sidebar-foreground flex flex-col h-screen border-r border-sidebar-border dark:border-sidebar-border">
       <div className="p-4 border-b border-sidebar-border dark:border-sidebar-border">
-        <h2 className="text-2xl font-bold text-sidebar-primary-foreground">Socialplug</h2>
+        <h2 className="text-2xl font-bold text-sidebar-primary-foreground">SocialGet</h2>
       </div>
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
         <NavItem icon={Home} label="Dashboard" to="/" />
