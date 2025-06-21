@@ -7,7 +7,7 @@ const Header: React.FC = () => {
     <header className="flex items-center justify-between p-4 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div className="flex items-center space-x-4">
         {/* Placeholder for logo/app name */}
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">SocialGet Dashboard</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard</h1>
       </div>
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
