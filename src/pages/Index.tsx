@@ -49,7 +49,7 @@ const Index: React.FC = () => {
           </div>
 
           <div className="flex justify-center space-x-4 mb-20">
-            <Button className="bg-brand-primary-500 hover:bg-brand-primary-600 text-white text-lg px-8 py-6 rounded-lg">
+            <Button className="bg-brand-primary-500 hover:bg-brand-secondary-blue text-white text-lg px-8 py-6 rounded-lg">
               View All Services
             </Button>
             <Link to="/dashboard">

@@ -46,7 +46,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="flex-shrink-0">
-                <Button className="bg-brand-primary-500 hover:bg-brand-primary-600 text-white">
+                <Button className="bg-brand-primary-500 hover:bg-brand-secondary-blue text-white">
                   <Plus className="h-4 w-4 mr-2" /> Add Funds
                 </Button>
               </div>
@@ -62,7 +62,7 @@ const Dashboard = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-start">
-              <Button className="bg-brand-primary-500 hover:bg-brand-primary-600 text-white">
+              <Button className="bg-brand-primary-500 hover:bg-brand-secondary-blue text-white">
                 Become An Affiliate →
               </Button>
             </CardContent>
@@ -146,7 +146,7 @@ const Dashboard = () => {
                     <span className="font-semibold text-gray-900 dark:text-gray-100">{earner.amount}</span>
                   </div>
                 ))}
-                <Button className="w-full bg-brand-primary-500 hover:bg-brand-primary-600 text-white">
+                <Button className="w-full bg-brand-primary-500 hover:bg-brand-secondary-blue text-white">
                   Become An Affiliate →
                 </Button>
               </CardContent>
