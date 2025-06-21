@@ -1,5 +1,8 @@
 import React from 'react';
-import { Search, ChevronDown } from 'lucide-react';
+import { 
+  Search, ChevronDown, Twitter, Reddit, Instagram, Youtube, Linkedin, Facebook, Github,
+  MoreHorizontal, Wrench, Tiktok // Added Tiktok icon
+} from 'lucide-react'; // Imported necessary icons
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -7,6 +10,20 @@ import { Link } from 'react-router-dom';
 
 const LandingHeader: React.FC = () => {
   const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Github', 'Other', 'Tools'];
+
+  // Mapping for icons
+  const categoryIcons: { [key: string]: React.ElementType } = {
+    Twitter: Twitter,
+    Reddit: Reddit,
+    Instagram: Instagram,
+    TikTok: Tiktok,
+    Youtube: Youtube,
+    LinkedIn: Linkedin,
+    Facebook: Facebook,
+    Github: Github,
+    Other: MoreHorizontal,
+    Tools: Wrench,
+  };
 
   const twitterSubcategories = [
     "Twitter followers",
@@ -161,59 +178,63 @@ const LandingHeader: React.FC = () => {
       {/* Secondary Navigation (Categories) */}
       <nav className="bg-brand-primary-500 py-2 border-t border-brand-primary-600">
         <div className="container mx-auto px-4 flex items-center justify-center space-x-6 text-sm text-white">
-          {categories.map((category) => (
-            <DropdownMenu key={category}>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  className="flex items-center space-x-1 hover:bg-brand-primary-600 text-white transition-all duration-200 ease-in-out hover:scale-105 hover:text-brand-primary-100"
-                >
-                  <span>{category}</span>
-                  <ChevronDown className="h-3 w-3" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {category === 'Twitter' ? (
-                  twitterSubcategories.map((sub, index) => (
-                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
-                  ))
-                ) : category === 'Reddit' ? (
-                  redditSubcategories.map((sub, index) => (
-                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
-                  ))
-                ) : category === 'Instagram' ? (
-                  instagramSubcategories.map((sub, index) => (
-                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
-                  ))
-                ) : category === 'TikTok' ? (
-                  tiktokSubcategories.map((sub, index) => (
-                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
-                  ))
-                ) : category === 'Youtube' ? (
-                  youtubeSubcategories.map((sub, index) => (
-                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
-                  ))
-                ) : category === 'LinkedIn' ? (
-                  linkedinSubcategories.map((sub, index) => (
-                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
-                  ))
-                ) : category === 'Facebook' ? (
-                  facebookSubcategories.map((sub, index) => (
-                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
-                  ))
-                ) : category === 'Github' ? (
-                  githubSubcategories.map((sub, index) => (
-                    <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
-                  ))
-                ) : (
-                  <>
-                    <DropdownMenuItem>Sub-category 1</DropdownMenuItem>
-                    <DropdownMenuItem>Sub-category 2</DropdownMenuItem>
-                  </>
-                )}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ))}
+          {categories.map((category) => {
+            const Icon = categoryIcons[category]; // Get the icon component
+            return (
+              <DropdownMenu key={category}>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    className="flex items-center space-x-1 hover:bg-brand-primary-600 text-white transition-all duration-200 ease-in-out hover:scale-105 hover:text-brand-primary-100"
+                  >
+                    {Icon && <Icon className="h-4 w-4" />} {/* Render icon if available */}
+                    <span>{category}</span>
+                    <ChevronDown className="h-3 w-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {category === 'Twitter' ? (
+                    twitterSubcategories.map((sub, index) => (
+                      <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                    ))
+                  ) : category === 'Reddit' ? (
+                    redditSubcategories.map((sub, index) => (
+                      <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                    ))
+                  ) : category === 'Instagram' ? (
+                    instagramSubcategories.map((sub, index) => (
+                      <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                    ))
+                  ) : category === 'TikTok' ? (
+                    tiktokSubcategories.map((sub, index) => (
+                      <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                    ))
+                  ) : category === 'Youtube' ? (
+                    youtubeSubcategories.map((sub, index) => (
+                      <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                    ))
+                  ) : category === 'LinkedIn' ? (
+                    linkedinSubcategories.map((sub, index) => (
+                      <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                    ))
+                  ) : category === 'Facebook' ? (
+                    facebookSubcategories.map((sub, index) => (
+                      <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                    ))
+                  ) : category === 'Github' ? (
+                    githubSubcategories.map((sub, index) => (
+                      <DropdownMenuItem key={index}>{sub}</DropdownMenuItem>
+                    ))
+                  ) : (
+                    <>
+                      <DropdownMenuItem>Sub-category 1</DropdownMenuItem>
+                      <DropdownMenuItem>Sub-category 2</DropdownMenuItem>
+                    </>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            );
+          })}
         </div>
       </nav>
     </header>
