@@ -61,20 +61,6 @@ const Index: React.FC = () => {
         <div className="relative w-full max-w-5xl mx-auto mb-20">
           <img src={SocialGetIllustration} alt="SocialGet Illustration" className="w-full h-auto rounded-lg shadow-lg" />
         </div>
-
-        {/* Featured in Top Media Section */}
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-12">
-          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-8">FEATURED IN TOP MEDIA</h2>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-            {/* Placeholders for logos */}
-            <img src="https://via.placeholder.com/120x40?text=Forbes" alt="Forbes" className="h-10 opacity-75 dark:invert" />
-            <img src="https://via.placeholder.com/120x40?text=HuffPost" alt="HuffPost" className="h-10 opacity-75 dark:invert" />
-            <img src="https://via.placeholder.com/120x40?text=Miami+Herald" alt="The Miami Herald" className="h-10 opacity-75 dark:invert" />
-            <img src="https://via.placeholder.com/120x40?text=Business+Insider" alt="Business Insider" className="h-10 opacity-75 dark:invert" />
-            <img src="https://via.placeholder.com/120x40?text=MarketWatch" alt="MarketWatch" className="h-10 opacity-75 dark:invert" />
-            <img src="https://via.placeholder.com/120x40?text=HubSpot" alt="HubSpot" className="h-10 opacity-75 dark:invert" />
-          </div>
-        </div>
       </main>
     </div>
   );
