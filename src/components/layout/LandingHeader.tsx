@@ -185,7 +185,7 @@ const LandingHeader: React.FC = () => {
                 <DropdownMenuTrigger asChild>
                   <Button 
                     variant="ghost" 
-                    className="flex items-center space-x-1 hover:bg-brand-primary-600 text-white transition-all duration-200 ease-in-out hover:scale-105 hover:text-brand-primary-100"
+                    className="flex items-center space-x-1 hover:bg-brand-secondary-blue hover:text-white transition-all duration-200 ease-in-out hover:scale-105"
                   >
                     {Icon && <Icon className="h-4 w-4" />} {/* Render icon if available */}
                     <span>{category}</span>
