@@ -164,7 +164,10 @@ const LandingHeader: React.FC = () => {
           {categories.map((category) => (
             <DropdownMenu key={category}>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center space-x-1 hover:bg-brand-primary-600 text-white">
+                <Button 
+                  variant="ghost" 
+                  className="flex items-center space-x-1 hover:bg-brand-primary-600 text-white transition-all duration-200 ease-in-out hover:scale-105"
+                >
                   <span>{category}</span>
                   <ChevronDown className="h-3 w-3" />
                 </Button>
