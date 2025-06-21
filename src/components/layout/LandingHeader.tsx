@@ -156,7 +156,7 @@ const LandingHeader: React.FC = () => {
               Log In
             </Button>
           </Link>
-          <Button className="bg-brand-primary-500 hover:bg-brand-primary-600 text-white">
+          <Button className="bg-brand-primary-500 hover:bg-brand-secondary-blue text-white">
             All Services
           </Button>
           <DropdownMenu>
