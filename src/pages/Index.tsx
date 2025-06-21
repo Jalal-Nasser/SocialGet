@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Plus, Award, Ticket } from 'lucide-react';
+import { CheckCircle, Plus, Award, Ticket, Users, User } from 'lucide-react'; // Added Users and User here
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const Index = () => {
