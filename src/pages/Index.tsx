@@ -4,7 +4,7 @@ import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Star, Users, CheckCircle, Clock, MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import PlugIllustration from '@/components/PlugIllustration';
+import PlugIllustration from '@/components/PlugIllustration'; // Keep import
 import HowToOrder from '@/components/HowToOrder';
 import FAQSection from '@/components/FAQSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
@@ -51,6 +51,11 @@ const Index: React.FC = () => {
             </div>
           </div>
 
+          {/* PlugIllustration moved here */}
+          <div className="w-full max-w-xl mx-auto mb-12">
+            <PlugIllustration />
+          </div>
+
           <div className="flex justify-center space-x-4 mb-20">
             <Button className="bg-brand-primary-500 hover:bg-brand-secondary-blue text-white text-lg px-8 py-6 rounded-lg">
               View All Services
@@ -87,7 +92,7 @@ const Index: React.FC = () => {
                   seriously - help us improve by <a href="#" className="text-brand-primary-500 hover:underline">leaving a review</a>.
                 </p>
               </div>
-              <PlugIllustration />
+              {/* PlugIllustration was here, now moved */}
             </div>
 
             <div className="bg-white dark:bg-gray-900 rounded-lg shadow-xl p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
