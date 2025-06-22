@@ -16,9 +16,19 @@ const Footer: React.FC = () => {
 
       <div className="container mx-auto px-4 relative z-10 pt-20">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-          {/* Logo and Payment */}
+          {/* Logo and About Us Demo */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <Link to="/" className="text-4xl font-bold text-white mb-4">Social<span className="text-brand-secondary-blue">Get</span></Link>
+            
+            {/* About Us Demo Section */}
+            <div className="mb-6 max-w-xs">
+              <h3 className="text-lg font-semibold mb-2 uppercase text-brand-primary-100">About Us</h3>
+              <p className="text-sm text-brand-primary-100">
+                SocialGet helps individuals and businesses boost their social media presence with reliable, high-quality services.
+              </p>
+            </div>
+
+            {/* We Accept Section */}
             <div className="bg-white rounded-lg p-3 shadow-md flex items-center space-x-3">
               <span className="text-gray-700 text-sm font-medium">We accept</span>
               <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-4" />
