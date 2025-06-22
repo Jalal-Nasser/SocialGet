@@ -80,9 +80,8 @@ const Footer: React.FC = () => {
               </a>
             </p>
           </div>
-          {/* Removed bg-white, rounded-lg, p-3, shadow-md */}
           <div className="flex items-center justify-center">
-            <img src={GithubOngoingProject} alt="GitHub On Going Project" className="h-8" />
+            <img src={GithubOngoingProject} alt="GitHub On Going Project" className="h-10" />
           </div>
         </div>
       </div>
