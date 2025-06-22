@@ -25,7 +25,6 @@ const Footer: React.FC = () => {
             
             {/* About Us Demo Section */}
             <div className="mb-6 max-w-xs">
-              {/* Removed the h3 tag for "About Us" */}
               <p className="text-sm text-brand-primary-100">
                 SocialGet helps individuals and businesses boost their social media presence with reliable, high-quality services.
               </p>
@@ -94,7 +93,9 @@ const Footer: React.FC = () => {
             </p>
           </div>
           <div className="flex items-center justify-center">
-            <img src={GithubOngoingProject} alt="GitHub On Going Project" className="w-[300px]" />
+            <a href="https://github.com/Jalal-Nasser/SocialGet" target="_blank" rel="noopener noreferrer">
+              <img src={GithubOngoingProject} alt="GitHub On Going Project" className="w-[300px]" />
+            </a>
           </div>
         </div>
       </div>
