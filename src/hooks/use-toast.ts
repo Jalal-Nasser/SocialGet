@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import type { ToastActionElement, ToastProps } => "@/components/ui/toast";
+import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 
 // Declare global variables to persist state across hot module reloads
 declare global {
