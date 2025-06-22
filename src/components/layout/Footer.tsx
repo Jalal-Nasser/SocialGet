@@ -81,7 +81,7 @@ const Footer: React.FC = () => {
             </p>
           </div>
           <div className="flex items-center justify-center">
-            <img src={GithubOngoingProject} alt="GitHub On Going Project" className="w-[400px]" />
+            <img src={GithubOngoingProject} alt="GitHub On Going Project" className="w-[360px]" />
           </div>
         </div>
       </div>
