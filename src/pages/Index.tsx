@@ -52,7 +52,7 @@ const Index: React.FC = () => {
           </div>
 
           {/* PlugIllustration moved here */}
-          <div className="w-full max-w-xl mx-auto mb-12">
+          <div className="w-full mx-auto mb-12"> {/* Removed max-w-xl */}
             <PlugIllustration />
           </div>
 
