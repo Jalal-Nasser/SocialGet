@@ -8,7 +8,7 @@ import PlugIllustration from '@/components/PlugIllustration';
 import HowToOrder from '@/components/HowToOrder';
 import FAQSection from '@/components/FAQSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
-import ThreeDCube from '@/components/ThreeDCube';
+// import ThreeDCube from '@/components/ThreeDCube'; // Temporarily commented out
 
 const Index: React.FC = () => {
   console.log("Index page loaded");
@@ -66,11 +66,11 @@ const Index: React.FC = () => {
         </div>
 
         {/* 3D Cube Section */}
-        <div className="relative w-full max-w-5xl mx-auto mb-20 h-96">
-          <Suspense fallback={<div>Loading 3D Cube...</div>}> {/* Added Suspense boundary */}
+        {/* <div className="relative w-full max-w-5xl mx-auto mb-20 h-96">
+          <Suspense fallback={<div>Loading 3D Cube...</div>}>
             <ThreeDCube />
           </Suspense>
-        </div>
+        </div> */}
 
         {/* Why Customers Choose Us Section */}
         <div className="relative py-16 bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden mb-20">
