@@ -8,6 +8,7 @@ import SocialGetIllustration from '@/assets/SocialGet.png';
 import PlugIllustration from '@/components/PlugIllustration';
 import HowToOrder from '@/components/HowToOrder';
 import FAQSection from '@/components/FAQSection'; // Import the new FAQSection component
+import TestimonialsSection from '@/components/TestimonialsSection'; // Import the new TestimonialsSection component
 
 const Index: React.FC = () => {
   console.log("Index page loaded");
@@ -102,6 +103,9 @@ const Index: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Testimonials Section */}
+        <TestimonialsSection />
 
         {/* How to Order Section */}
         <HowToOrder />
