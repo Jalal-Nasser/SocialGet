@@ -9,6 +9,7 @@ import PlugIllustration from '@/components/PlugIllustration';
 import HowToOrder from '@/components/HowToOrder';
 import FAQSection from '@/components/FAQSection'; // Import the new FAQSection component
 import TestimonialsSection from '@/components/TestimonialsSection'; // Import the new TestimonialsSection component
+import MovingCube from '@/components/MovingCube'; // Import the new MovingCube component
 
 const Index: React.FC = () => {
   console.log("Index page loaded");
@@ -63,6 +64,11 @@ const Index: React.FC = () => {
               </Button>
             </Link>
           </div>
+        </div>
+
+        {/* Moving Cube Section - Added here */}
+        <div className="mb-20">
+          <MovingCube />
         </div>
 
         {/* Illustration Section */}
