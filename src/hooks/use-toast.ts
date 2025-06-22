@@ -141,15 +141,23 @@ export const reducer = (state: State, action: Action): State => {
 
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action);
-  // Filter out any potential undefined or null listeners before iterating
-  listeners.filter(Boolean).forEach((listener) => {
-    try {
-      listener(memoryState);
-    } catch (e) {
-      console.error("Error calling toast listener:", e);
-      // Optionally, you could add more sophisticated error handling or listener removal here
+  // Iterate using a for loop and explicitly check if listener is a function
+  if (Array.isArray(listeners)) {
+    for (let i = 0; i < listeners.length; i++) {
+      const listener = listeners[i];
+      if (typeof listener === 'function') {
+        try {
+          listener(memoryState);
+        } catch (e) {
+          console.error("Error calling toast listener:", e);
+        }
+      } else {
+        console.warn("Non-function found in toast listeners at index", i, ":", listener);
+      }
     }
-  });
+  } else {
+    console.error("Toast listeners is not an array or is corrupted:", listeners);
+  }
 }
 
 type Toast = Omit<ToasterToast, "id">;
