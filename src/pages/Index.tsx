@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react'; // Import Suspense
 import LandingHeader from '@/components/layout/LandingHeader';
-import Footer from '@/components/layout/Footer'; // Import the new Footer component
+import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Star, Users, CheckCircle, Clock, MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PlugIllustration from '@/components/PlugIllustration';
 import HowToOrder from '@/components/HowToOrder';
-import FAQSection from '@/components/FAQSection'; // Import the new FAQSection component
-import TestimonialsSection from '@/components/TestimonialsSection'; // Import the new TestimonialsSection component
-import ThreeDCube from '@/components/ThreeDCube'; // Import the new ThreeDCube component
+import FAQSection from '@/components/FAQSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import ThreeDCube from '@/components/ThreeDCube';
 
 const Index: React.FC = () => {
   console.log("Index page loaded");
@@ -66,8 +66,10 @@ const Index: React.FC = () => {
         </div>
 
         {/* 3D Cube Section */}
-        <div className="relative w-full max-w-5xl mx-auto mb-20 h-96"> {/* Added a fixed height for the canvas */}
-          <ThreeDCube />
+        <div className="relative w-full max-w-5xl mx-auto mb-20 h-96">
+          <Suspense fallback={<div>Loading 3D Cube...</div>}> {/* Added Suspense boundary */}
+            <ThreeDCube />
+          </Suspense>
         </div>
 
         {/* Why Customers Choose Us Section */}
@@ -113,7 +115,7 @@ const Index: React.FC = () => {
         {/* FAQ Section */}
         <FAQSection />
       </main>
-      <Footer /> {/* Add the Footer component here */}
+      <Footer />
     </div>
   );
 };
