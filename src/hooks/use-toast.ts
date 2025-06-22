@@ -2,8 +2,17 @@ import * as React from "react";
 
 import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 
+// Declare global variables to persist state across hot module reloads
+declare global {
+  var __TOAST_MEMORY_STATE__: State | undefined;
+  var __TOAST_LISTENERS__: Array<(state: State) => void> | undefined;
+  var __TOAST_COUNT__: number | undefined;
+  var __TOAST_TIMEOUTS__: Map<string, ReturnType<typeof setTimeout>> | undefined;
+}
+
+// Initialize global state variables, or retrieve them if already set by HMR
 const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 1000000;
+const TOAST_REMOVE_DELAY = 5000; // Changed to 5 seconds for more typical toast behavior
 
 type ToasterToast = ToastProps & {
   id: string;
@@ -19,7 +28,18 @@ const _actionTypes = {
   REMOVE_TOAST: "REMOVE_TOAST",
 } as const;
 
-let count = 0;
+// Use globalThis to persist state across HMR
+let count: number = globalThis.__TOAST_COUNT__ || 0;
+const toastTimeouts: Map<string, ReturnType<typeof setTimeout>> = globalThis.__TOAST_TIMEOUTS__ || new Map();
+const listeners: Array<(state: State) => void> = globalThis.__TOAST_LISTENERS__ || [];
+let memoryState: State = globalThis.__TOAST_MEMORY_STATE__ || { toasts: [] };
+
+// Persist them on globalThis for HMR
+globalThis.__TOAST_MEMORY_STATE__ = memoryState;
+globalThis.__TOAST_LISTENERS__ = listeners;
+globalThis.__TOAST_COUNT__ = count;
+globalThis.__TOAST_TIMEOUTS__ = toastTimeouts;
+
 
 function genId() {
   count = (count + 1) % Number.MAX_SAFE_INTEGER;
@@ -49,8 +69,6 @@ type Action =
 interface State {
   toasts: ToasterToast[];
 }
-
-const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
 const addToRemoveQueue = (toastId: string) => {
   if (toastTimeouts.has(toastId)) {
@@ -87,8 +105,6 @@ export const reducer = (state: State, action: Action): State => {
     case "DISMISS_TOAST": {
       const { toastId } = action;
 
-      // ! Side effects ! - This could be extracted into a dismissToast() action,
-      // but I'll keep it here for simplicity
       if (toastId) {
         addToRemoveQueue(toastId);
       } else {
@@ -122,10 +138,6 @@ export const reducer = (state: State, action: Action): State => {
       };
   }
 };
-
-const listeners: Array<(state: State) => void> = [];
-
-let memoryState: State = { toasts: [] };
 
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action);
@@ -176,7 +188,7 @@ function useToast() {
         listeners.splice(index, 1);
       }
     };
-  }, []); // Changed dependency array from [state] to []
+  }, []);
 
   return {
     ...state,
