@@ -12,7 +12,7 @@ declare global {
 
 // Initialize global state variables, or retrieve them if already set by HMR
 const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 5000; // Changed to 5 seconds for more typical toast behavior
+const TOAST_REMOVE_DELAY = 5000; // Corrected to 5 seconds for more typical toast behavior
 
 type ToasterToast = ToastProps & {
   id: string;
@@ -141,8 +141,14 @@ export const reducer = (state: State, action: Action): State => {
 
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action);
-  listeners.forEach((listener) => {
-    listener(memoryState);
+  // Filter out any potential undefined or null listeners before iterating
+  listeners.filter(Boolean).forEach((listener) => {
+    try {
+      listener(memoryState);
+    } catch (e) {
+      console.error("Error calling toast listener:", e);
+      // Optionally, you could add more sophisticated error handling or listener removal here
+    }
   });
 }
 
