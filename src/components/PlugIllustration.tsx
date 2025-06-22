@@ -9,14 +9,7 @@ const PlugIllustration: React.FC = () => {
         alt="Abstract illustration"
         className="w-full h-full object-contain"
       />
-      {/* Placeholder for stars */}
-      <div className="absolute top-8 right-8 flex space-x-1">
-        {[...Array(5)].map((_, i) => (
-          <svg key={i} className="w-5 h-5 text-brand-primary-500 fill-current" viewBox="0 0 24 24">
-            <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.001 9.306l8.332-1.151L12 .587z"/>
-          </svg>
-        ))}
-      </div>
+      {/* Removed the placeholder for stars */}
     </div>
   );
 };
