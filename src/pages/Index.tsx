@@ -8,6 +8,7 @@ import PlugIllustration from '@/components/PlugIllustration';
 import HowToOrder from '@/components/HowToOrder';
 import FAQSection from '@/components/FAQSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
+import ScrollToTopArrow from '@/components/ScrollToTopArrow'; // Import the new component
 // import ThreeDCube from '@/components/ThreeDCube'; // Temporarily commented out
 
 const Index: React.FC = () => {
@@ -116,6 +117,7 @@ const Index: React.FC = () => {
         <FAQSection />
       </main>
       <Footer />
+      <ScrollToTopArrow /> {/* Add the scroll to top arrow here */}
     </div>
   );
 };
