@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Github } from 'lucide-react';
 import GithubOngoingProject from '@/assets/github-on-going-project.png'; // Import the new image
+import FooterLogo from '@/assets/footer-logo.png'; // Import the new footer logo
 
 const Footer: React.FC = () => {
   return (
@@ -18,7 +19,9 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* Logo and About Us Demo */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <Link to="/" className="text-4xl font-bold text-white mb-4">Social<span className="text-brand-secondary-blue">Get</span></Link>
+            <Link to="/">
+              <img src={FooterLogo} alt="SocialGet Logo" className="h-10 mb-4" />
+            </Link>
             
             {/* About Us Demo Section */}
             <div className="mb-6 max-w-xs">
