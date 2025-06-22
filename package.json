@@ -74,7 +74,7 @@
     "typescript-eslint": "^8.0.1",
     "vite": "^6.3.4"
   },
-  "homepage": "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/",
+  "homepage": "https://Jalal-Nasser.github.io/SocialGet/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

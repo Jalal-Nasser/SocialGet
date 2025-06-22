@@ -17,7 +17,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Sonner />
-      <BrowserRouter basename="/YOUR_REPO_NAME/"> {/* Add basename here */}
+      <BrowserRouter basename="/SocialGet/"> {/* Add basename here */}
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<Dashboard />} />

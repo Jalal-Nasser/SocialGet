@@ -14,5 +14,5 @@ export default defineConfig(() => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/YOUR_REPO_NAME/", // Add this line for GitHub Pages deployment
+  base: "/SocialGet/", // Add this line for GitHub Pages deployment
 }));
