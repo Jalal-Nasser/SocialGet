@@ -141,36 +141,41 @@ export const reducer = (state: State, action: Action): State => {
 
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action);
+  
+  // Ensure listeners is an array before attempting to iterate or copy
+  if (!Array.isArray(listeners)) {
+    console.error("Toast listeners array is corrupted or not initialized:", listeners);
+    // Attempt to reset it if it's not an array
+    globalThis.__TOAST_LISTENERS__ = [];
+    listeners.splice(0, listeners.length); // Clear the array if it was something else
+    return; // Stop dispatch to prevent further errors
+  }
+
   // Create a shallow copy to prevent issues if listeners array is modified during iteration
   const currentListeners = [...listeners]; 
-  if (Array.isArray(currentListeners)) {
-    for (let i = 0; i < currentListeners.length; i++) {
-      const listener = currentListeners[i];
-      if (typeof listener === 'function') {
-        try {
-          listener(memoryState);
-        } catch (e) {
-          console.error("Error calling toast listener:", e);
-          // If a listener throws an error, it might be corrupted. Remove it.
-          const originalIndex = listeners.indexOf(listener);
-          if (originalIndex > -1) {
-            listeners.splice(originalIndex, 1);
-            console.warn("Removed problematic listener from toast listeners.");
-          }
-        }
-      } else {
-        console.warn("Non-function found in toast listeners at index", i, ":", listener);
-        // Remove the non-function listener and adjust the loop index
-        const originalIndex = listeners.indexOf(listener);
+  
+  for (let i = 0; i < currentListeners.length; i++) {
+    const listener = currentListeners[i];
+    if (typeof listener === 'function') {
+      try {
+        listener(memoryState);
+      } catch (e) {
+        console.error("Error calling toast listener:", e);
+        // If a listener throws an error, it might be corrupted. Remove it.
+        const originalIndex = listeners.indexOf(listener); 
         if (originalIndex > -1) {
           listeners.splice(originalIndex, 1);
+          console.warn("Removed problematic listener from toast listeners.");
         }
       }
+    } else {
+      console.warn("Non-function found in toast listeners at index", i, ":", listener);
+      // Remove the non-function listener and adjust the loop index
+      const originalIndex = listeners.indexOf(listener);
+      if (originalIndex > -1) {
+        listeners.splice(originalIndex, 1);
+      }
     }
-  } else {
-    console.error("Toast listeners is not an array or is corrupted:", listeners);
-    // If listeners is completely corrupted, reset it to an empty array
-    listeners.splice(0, listeners.length); // Clear the array
   }
 }
 
