@@ -2,17 +2,8 @@ import * as React from "react";
 
 import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 
-// Declare global variables to persist state across hot module reloads
-declare global {
-  var __TOAST_MEMORY_STATE__: State | undefined;
-  var __TOAST_LISTENERS__: Array<(state: State) => void> | undefined;
-  var __TOAST_COUNT__: number | undefined;
-  var __TOAST_TIMEOUTS__: Map<string, ReturnType<typeof setTimeout>> | undefined;
-}
-
-// Initialize global state variables, or retrieve them if already set by HMR
 const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 5000; // Corrected to 5 seconds for more typical toast behavior
+const TOAST_REMOVE_DELAY = 1000000;
 
 type ToasterToast = ToastProps & {
   id: string;
@@ -28,18 +19,7 @@ const _actionTypes = {
   REMOVE_TOAST: "REMOVE_TOAST",
 } as const;
 
-// Use globalThis to persist state across HMR
-let count: number = globalThis.__TOAST_COUNT__ ?? 0;
-const toastTimeouts: Map<string, ReturnType<typeof setTimeout>> = globalThis.__TOAST_TIMEOUTS__ ?? new Map();
-const listeners: Array<(state: State) => void> = globalThis.__TOAST_LISTENERS__ ?? [];
-let memoryState: State = globalThis.__TOAST_MEMORY_STATE__ ?? { toasts: [] };
-
-// Persist them on globalThis for HMR
-globalThis.__TOAST_MEMORY_STATE__ = memoryState;
-globalThis.__TOAST_LISTENERS__ = listeners;
-globalThis.__TOAST_COUNT__ = count;
-globalThis.__TOAST_TIMEOUTS__ = toastTimeouts;
-
+let count = 0;
 
 function genId() {
   count = (count + 1) % Number.MAX_SAFE_INTEGER;
@@ -69,6 +49,8 @@ type Action =
 interface State {
   toasts: ToasterToast[];
 }
+
+const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
 const addToRemoveQueue = (toastId: string) => {
   if (toastTimeouts.has(toastId)) {
@@ -105,6 +87,8 @@ export const reducer = (state: State, action: Action): State => {
     case "DISMISS_TOAST": {
       const { toastId } = action;
 
+      // ! Side effects ! - This could be extracted into a dismissToast() action,
+      // but I'll keep it here for simplicity
       if (toastId) {
         addToRemoveQueue(toastId);
       } else {
@@ -139,44 +123,15 @@ export const reducer = (state: State, action: Action): State => {
   }
 };
 
+const listeners: Array<(state: State) => void> = [];
+
+let memoryState: State = { toasts: [] };
+
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action);
-  
-  // Ensure listeners is an array before attempting to iterate or copy
-  if (!Array.isArray(listeners)) {
-    console.error("Toast listeners array is corrupted or not initialized:", listeners);
-    // Attempt to reset it if it's not an array
-    globalThis.__TOAST_LISTENERS__ = [];
-    listeners.splice(0, listeners.length); // Clear the array if it was something else
-    return; // Stop dispatch to prevent further errors
-  }
-
-  // Create a shallow copy to prevent issues if listeners array is modified during iteration
-  const currentListeners = [...listeners]; 
-  
-  for (let i = 0; i < currentListeners.length; i++) {
-    const listener = currentListeners[i];
-    if (typeof listener === 'function') {
-      try {
-        listener(memoryState);
-      } catch (e) {
-        console.error("Error calling toast listener:", e);
-        // If a listener throws an error, it might be corrupted. Remove it.
-        const originalIndex = listeners.indexOf(listener); 
-        if (originalIndex > -1) {
-          listeners.splice(originalIndex, 1);
-          console.warn("Removed problematic listener from toast listeners.");
-        }
-      }
-    } else {
-      console.warn("Non-function found in toast listeners at index", i, ":", listener);
-      // Remove the non-function listener and adjust the loop index
-      const originalIndex = listeners.indexOf(listener);
-      if (originalIndex > -1) {
-        listeners.splice(originalIndex, 1);
-      }
-    }
-  }
+  listeners.forEach((listener) => {
+    listener(memoryState);
+  });
 }
 
 type Toast = Omit<ToasterToast, "id">;
@@ -221,7 +176,7 @@ function useToast() {
         listeners.splice(index, 1);
       }
     };
-  }, []);
+  }, [state]);
 
   return {
     ...state,
