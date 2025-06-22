@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Star, Github } from 'lucide-react'; // Import Github icon
+import { Github } from 'lucide-react'; // Only need Github icon now
+import GithubOngoingProject from '@/assets/github-on-going-project.png'; // Import the new image
 
 const Footer: React.FC = () => {
   return (
@@ -11,10 +12,9 @@ const Footer: React.FC = () => {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'bottom',
-        // Removed transform: 'translateY(-100%)'
       }}></div>
 
-      <div className="container mx-auto px-4 relative z-10 pt-20"> {/* Added pt-20 here to push content down */}
+      <div className="container mx-auto px-4 relative z-10 pt-20">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* Logo and Payment */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
@@ -80,14 +80,8 @@ const Footer: React.FC = () => {
               </a>
             </p>
           </div>
-          <div className="bg-white rounded-lg p-3 shadow-md flex items-center space-x-2 text-gray-800">
-            <div className="flex space-x-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-5 w-5 text-green-500 fill-green-500" />
-              ))}
-            </div>
-            <span className="font-bold text-lg">4.9</span>
-            <span className="text-sm">Rated <span className="font-bold">4.9 out of 5</span> based on <span className="font-bold">722+ reviews</span></span>
+          <div className="bg-white rounded-lg p-3 shadow-md flex items-center justify-center">
+            <img src={GithubOngoingProject} alt="GitHub On Going Project" className="h-8" />
           </div>
         </div>
       </div>
