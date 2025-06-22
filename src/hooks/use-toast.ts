@@ -29,10 +29,10 @@ const _actionTypes = {
 } as const;
 
 // Use globalThis to persist state across HMR
-let count: number = globalThis.__TOAST_COUNT__ || 0;
-const toastTimeouts: Map<string, ReturnType<typeof setTimeout>> = globalThis.__TOAST_TIMEOUTS__ || new Map();
-const listeners: Array<(state: State) => void> = globalThis.__TOAST_LISTENERS__ || [];
-let memoryState: State = globalThis.__TOAST_MEMORY_STATE__ || { toasts: [] };
+let count: number = globalThis.__TOAST_COUNT__ ?? 0;
+const toastTimeouts: Map<string, ReturnType<typeof setTimeout>> = globalThis.__TOAST_TIMEOUTS__ ?? new Map();
+const listeners: Array<(state: State) => void> = globalThis.__TOAST_LISTENERS__ ?? [];
+let memoryState: State = globalThis.__TOAST_MEMORY_STATE__ ?? { toasts: [] };
 
 // Persist them on globalThis for HMR
 globalThis.__TOAST_MEMORY_STATE__ = memoryState;
@@ -141,26 +141,36 @@ export const reducer = (state: State, action: Action): State => {
 
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action);
-  // Iterate using a for loop and explicitly check if listener is a function
-  // If a non-function is found, remove it from the listeners array.
-  if (Array.isArray(listeners)) {
-    for (let i = 0; i < listeners.length; i++) {
-      const listener = listeners[i];
+  // Create a shallow copy to prevent issues if listeners array is modified during iteration
+  const currentListeners = [...listeners]; 
+  if (Array.isArray(currentListeners)) {
+    for (let i = 0; i < currentListeners.length; i++) {
+      const listener = currentListeners[i];
       if (typeof listener === 'function') {
         try {
           listener(memoryState);
         } catch (e) {
           console.error("Error calling toast listener:", e);
+          // If a listener throws an error, it might be corrupted. Remove it.
+          const originalIndex = listeners.indexOf(listener);
+          if (originalIndex > -1) {
+            listeners.splice(originalIndex, 1);
+            console.warn("Removed problematic listener from toast listeners.");
+          }
         }
       } else {
         console.warn("Non-function found in toast listeners at index", i, ":", listener);
         // Remove the non-function listener and adjust the loop index
-        listeners.splice(i, 1);
-        i--; // Decrement i to re-check the current index after removal
+        const originalIndex = listeners.indexOf(listener);
+        if (originalIndex > -1) {
+          listeners.splice(originalIndex, 1);
+        }
       }
     }
   } else {
     console.error("Toast listeners is not an array or is corrupted:", listeners);
+    // If listeners is completely corrupted, reset it to an empty array
+    listeners.splice(0, listeners.length); // Clear the array
   }
 }
 
