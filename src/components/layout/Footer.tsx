@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github } from 'lucide-react'; // Only need Github icon now
+import { Github } from 'lucide-react';
 import GithubOngoingProject from '@/assets/github-on-going-project.png'; // Import the new image
 
 const Footer: React.FC = () => {
