@@ -4,11 +4,11 @@ import Footer from '@/components/layout/Footer'; // Import the new Footer compon
 import { Button } from '@/components/ui/button';
 import { Star, Users, CheckCircle, Clock, MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import SocialGetIllustration from '@/assets/SocialGet.png';
 import PlugIllustration from '@/components/PlugIllustration';
 import HowToOrder from '@/components/HowToOrder';
 import FAQSection from '@/components/FAQSection'; // Import the new FAQSection component
 import TestimonialsSection from '@/components/TestimonialsSection'; // Import the new TestimonialsSection component
+import ThreeDCube from '@/components/ThreeDCube'; // Import the new ThreeDCube component
 
 const Index: React.FC = () => {
   console.log("Index page loaded");
@@ -65,9 +65,9 @@ const Index: React.FC = () => {
           </div>
         </div>
 
-        {/* Illustration Section */}
-        <div className="relative w-full max-w-5xl mx-auto mb-20">
-          <img src={SocialGetIllustration} alt="SocialGet Illustration" className="w-full h-auto rounded-lg shadow-lg" />
+        {/* 3D Cube Section */}
+        <div className="relative w-full max-w-5xl mx-auto mb-20 h-96"> {/* Added a fixed height for the canvas */}
+          <ThreeDCube />
         </div>
 
         {/* Why Customers Choose Us Section */}
