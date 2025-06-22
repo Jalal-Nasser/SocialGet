@@ -16,8 +16,8 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Sonner /> {/* Sonner should be inside TooltipProvider if it uses its context, or outside if it's truly global */}
-      <BrowserRouter>
+      <Sonner />
+      <BrowserRouter basename="/YOUR_REPO_NAME/"> {/* Add basename here */}
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<Dashboard />} />
