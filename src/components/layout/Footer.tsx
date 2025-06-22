@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
             
             {/* About Us Demo Section */}
             <div className="mb-6 max-w-xs">
-              <h3 className="text-lg font-semibold mb-2 uppercase text-brand-primary-100">About Us</h3>
+              {/* Removed the h3 tag for "About Us" */}
               <p className="text-sm text-brand-primary-100">
                 SocialGet helps individuals and businesses boost their social media presence with reliable, high-quality services.
               </p>
