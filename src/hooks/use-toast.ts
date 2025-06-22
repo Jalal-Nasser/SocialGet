@@ -142,6 +142,7 @@ export const reducer = (state: State, action: Action): State => {
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action);
   // Iterate using a for loop and explicitly check if listener is a function
+  // If a non-function is found, remove it from the listeners array.
   if (Array.isArray(listeners)) {
     for (let i = 0; i < listeners.length; i++) {
       const listener = listeners[i];
@@ -153,6 +154,9 @@ function dispatch(action: Action) {
         }
       } else {
         console.warn("Non-function found in toast listeners at index", i, ":", listener);
+        // Remove the non-function listener and adjust the loop index
+        listeners.splice(i, 1);
+        i--; // Decrement i to re-check the current index after removal
       }
     }
   } else {
