@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Star } from 'lucide-react';
+import { Star, Github } from 'lucide-react'; // Import Github icon
 
 const Footer: React.FC = () => {
   return (
@@ -73,7 +73,12 @@ const Footer: React.FC = () => {
           <div className="text-center md:text-left mb-4 md:mb-0">
             <p>Netrynos LTD (HE 469713), Arch. Makariou III 1-7 MITSI 3, 1065 Nicosia, Cyprus</p>
             <p>Copyright © 2025 · SocialGet</p>
-            <p>Designed & Programmed by: <a href="https://behance.net/jalalnasser" target="_blank" rel="noopener noreferrer" className="hover:underline text-brand-primary-100">Jalal Nasser</a></p>
+            <p className="flex items-center justify-center md:justify-start">
+              Designed & Programmed by:{" "}
+              <a href="https://github.com/Jalal-Nasser" target="_blank" rel="noopener noreferrer" className="hover:underline text-brand-primary-100 flex items-center ml-1">
+                Jalal Nasser <Github className="h-4 w-4 ml-1" />
+              </a>
+            </p>
           </div>
           <div className="bg-white rounded-lg p-3 shadow-md flex items-center space-x-2 text-gray-800">
             <div className="flex space-x-1">
