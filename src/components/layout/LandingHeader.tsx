@@ -15,7 +15,7 @@ import { services } from '@/data/servicesData';
 const LandingHeader: React.FC = () => {
   const categories = [
     'Twitter', 'Instagram', 'YouTube', 'TikTok', 'Facebook', 
-    'Spotify', 'Telegram' // Removed 'Other' from this list
+    'Reddit', 'LinkedIn' // Removed Telegram/Spotify, added Reddit/LinkedIn
   ];
 
   const categoryIcons: { [key: string]: React.ElementType } = {
@@ -24,9 +24,8 @@ const LandingHeader: React.FC = () => {
     YouTube: Youtube,
     TikTok: Play,
     Facebook: Facebook,
-    Spotify: Music,
-    Telegram: Send
-    // Removed 'Other' icon mapping
+    Reddit: MessageSquare, // Using MessageSquare icon for Reddit
+    LinkedIn: Linkedin // Using Linkedin icon
   };
 
   const getSubcategories = (platform: string) => {

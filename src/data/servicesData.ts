@@ -34,9 +34,13 @@ const services: Service[] = [
   { platform: "Facebook", serviceName: "Likes", path: "likes", description: "Facebook page likes", price: 3.99 },
   { platform: "Facebook", serviceName: "Followers", path: "followers", description: "Facebook profile followers", price: 4.99 },
   
-  // Other Services
-  { platform: "Spotify", serviceName: "Followers", path: "followers", description: "Spotify followers", price: 6.99 },
-  { platform: "Telegram", serviceName: "Members", path: "members", description: "Telegram channel members", price: 5.99 },
+  // Reddit Services
+  { platform: "Reddit", serviceName: "Upvotes", path: "upvotes", description: "Reddit post upvotes", price: 3.49 },
+  { platform: "Reddit", serviceName: "Subscribers", path: "subscribers", description: "Reddit community subscribers", price: 4.99 },
+  
+  // LinkedIn Services
+  { platform: "LinkedIn", serviceName: "Connections", path: "connections", description: "LinkedIn profile connections", price: 5.99 },
+  { platform: "LinkedIn", serviceName: "Endorsements", path: "endorsements", description: "LinkedIn skill endorsements", price: 4.49 }
 ];
 
 const getServiceByPlatformAndName = (platform: string, serviceName: string): Service | undefined => {
