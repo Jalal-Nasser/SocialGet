@@ -10,10 +10,11 @@ import { Link } from 'react-router-dom';
 import LogoImage from '@/assets/logo.png'; // Import the new logo image
 import OngoingProjectSlider from '@/components/OngoingProjectSlider'; // Import the new slider component
 import ThemeToggle from '@/components/ThemeToggle'; // Import the new ThemeToggle component
+import { services } from '@/data/servicesData'; // Import services data
 
 const LandingHeader: React.FC = () => {
   console.log("LogoImage path:", LogoImage); // Debugging line
-  const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook']; // Removed 'Github'
+  const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Other', 'Tools'];
 
   // Mapping for icons
   const categoryIcons: { [key: string]: React.ElementType } = {
@@ -28,107 +29,15 @@ const LandingHeader: React.FC = () => {
     Tools: Wrench,
   };
 
-  const twitterSubcategories = [
-    "Twitter followers",
-    "Twitter USA Followers",
-    "Twitter Likes",
-    "Twitter Comments",
-    "Twitter Retweets",
-    "Twitter Views",
-    "Twitter Impressions",
-    "Twitter Spaces Listeners",
-    "Twitter Poll Votes",
-    "Twitter Bookmarks",
-    "Twitter Mentions"
-  ];
-
-  const redditSubcategories = [
-    "Post & Comment Upvotes",
-    "Post & Comment Downvotes",
-    "Post & Comment Awards",
-    "Accounts",
-    "Reddit Comments"
-  ];
-
-  const instagramSubcategories = [
-    "Followers",
-    "Likes",
-    "Views",
-    "Auto Likes",
-    "Comments",
-    "Comment Likes",
-    "Custom Comments",
-    "Reel Views",
-    "Reel Likes",
-    "Live Views",
-    "Saves",
-    "Shares",
-    "Story Poll Votes",
-    "Comment Replies",
-    "Impressions",
-    "Profile Visits",
-    "Story Views",
-    "Channel Members"
-  ];
-
-  const tiktokSubcategories = [
-    "Followers",
-    "Likes",
-    "Views",
-    "Comments",
-    "Comment Replies",
-    "Custom Comments",
-    "Shares",
-    "Auto Views",
-    "Live Views",
-    "Saves",
-    "Coins"
-  ];
-
-  const youtubeSubcategories = [
-    "Views",
-    "Likes",
-    "Subscribers",
-    "Comments",
-    "Favourites",
-    "Shares",
-    "Comment Repliess",
-    "Watch Hours",
-    "Dislikes",
-    "Poll Votes",
-    "Live Stream Views"
-  ];
-
-  const linkedinSubcategories = [
-    "Connections",
-    "Followers",
-    "Likes",
-    "Comments",
-    "Views",
-    "Reactions",
-    "Shares",
-    "Endorsements",
-    "Employees",
-    "Group Members"
-  ];
-
-  const facebookSubcategories = [
-    "Followers",
-    "Likes",
-    "Views",
-    "Comments",
-    "Comment Likes",
-    "Post Shares",
-    "Reactions",
-    "Event Attendees",
-    "Reviews",
-    "Poll Votes",
-    "Friend Requests",
-    "Group Members",
-    "Live Viewers"
-  ];
-
-  // Removed githubSubcategories as Github category is removed
+  // Function to get subcategories for a given platform
+  const getSubcategories = (platform: string) => {
+    return services
+      .filter(service => service.platform === platform)
+      .map(service => ({
+        name: service.serviceName,
+        path: `/services/${service.platform.toLowerCase()}/${service.path}`,
+      }));
+  };
 
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
@@ -188,6 +97,13 @@ const LandingHeader: React.FC = () => {
           </Link>
           {categories.map((category) => {
             const Icon = categoryIcons[category]; // Get the icon component
+            const subcategories = getSubcategories(category);
+            
+            // If there are no subcategories for this category, don't render a dropdown
+            if (subcategories.length === 0 && category !== 'Other' && category !== 'Tools') {
+              return null;
+            }
+
             return (
               <DropdownMenu key={category}>
                 <DropdownMenuTrigger asChild>
@@ -201,52 +117,18 @@ const LandingHeader: React.FC = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  {category === 'Twitter' ? (
-                    twitterSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover">
-                        {sub}
-                      </DropdownMenuItem>
-                    ))
-                  ) : category === 'Reddit' ? (
-                    redditSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover">
-                        {sub}
-                      </DropdownMenuItem>
-                    ))
-                  ) : category === 'Instagram' ? (
-                    instagramSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover">
-                        {sub}
-                      </DropdownMenuItem>
-                    ))
-                  ) : category === 'TikTok' ? (
-                    tiktokSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover">
-                        {sub}
-                      </DropdownMenuItem>
-                    ))
-                  ) : category === 'Youtube' ? (
-                    youtubeSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover">
-                        {sub}
-                      </DropdownMenuItem>
-                    ))
-                  ) : category === 'LinkedIn' ? (
-                    linkedinSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover">
-                        {sub}
-                      </DropdownMenuItem>
-                    ))
-                  ) : category === 'Facebook' ? (
-                    facebookSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover">
-                        {sub}
-                      </DropdownMenuItem>
+                  {subcategories.length > 0 ? (
+                    subcategories.map((sub, index) => (
+                      <Link to={sub.path} key={index}>
+                        <DropdownMenuItem className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover cursor-pointer">
+                          {sub.name}
+                        </DropdownMenuItem>
+                      </Link>
                     ))
                   ) : (
+                    // Fallback for 'Other' and 'Tools' or categories without defined services
                     <>
-                      <DropdownMenuItem className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover">Sub-category 1</DropdownMenuItem>
-                      <DropdownMenuItem className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover">Sub-category 2</DropdownMenuItem>
+                      <DropdownMenuItem className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover cursor-pointer">Coming Soon</DropdownMenuItem>
                     </>
                   )}
                 </DropdownMenuContent>

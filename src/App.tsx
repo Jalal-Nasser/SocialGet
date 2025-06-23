@@ -11,6 +11,7 @@ import Blog from "./pages/Blog";
 import ContactUs from "./pages/ContactUs";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ServicePage from "./pages/ServicePage"; // Import the new ServicePage component
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/services/:platform/:serviceName" element={<ServicePage />} /> {/* Dynamic service route */}
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
