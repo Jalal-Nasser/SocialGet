@@ -1,11 +1,24 @@
 import React from 'react';
-import { Bell, Globe, User, Plus } from 'lucide-react';
+import { Bell, Globe, User, Plus, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onMenuClick?: () => void; // Optional prop for mobile menu click
+}
+
+const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   return (
     <header className="flex items-center justify-between p-4 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div className="flex items-center space-x-4">
+        {/* Mobile menu button */}
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="lg:hidden text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+          onClick={onMenuClick}
+        >
+          <Menu className="h-6 w-6" />
+        </Button>
         {/* Placeholder for logo/app name */}
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard</h1>
       </div>

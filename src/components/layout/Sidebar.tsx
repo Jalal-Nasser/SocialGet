@@ -18,7 +18,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon: Icon, label, to }) => (
 
 const Sidebar: React.FC = () => {
   return (
-    <aside className="w-64 bg-sidebar text-sidebar-foreground flex flex-col h-screen border-r border-sidebar-border dark:border-sidebar-border">
+    <aside className="bg-sidebar text-sidebar-foreground flex flex-col h-full w-full border-r border-sidebar-border dark:border-sidebar-border"> {/* Removed fixed width, added h-full w-full */}
       <div className="p-4 border-b border-sidebar-border dark:border-sidebar-border">
         <h2 className="text-2xl font-bold text-sidebar-primary-foreground">SocialGet</h2>
       </div>
@@ -38,7 +38,7 @@ const Sidebar: React.FC = () => {
         <div className="text-xs font-semibold text-sidebar-foreground/70 uppercase mt-4 pt-4 border-t border-sidebar-border dark:border-sidebar-border">Documents</div>
         <NavItem icon={FileText} label="Invoices" to="/invoices" />
 
-        <div className="text-xs font-semibold text-sidebar-foreground/70 uppercase mt-4 pt-4 border-t border-sidebar-border dark:border-sidebar-border">Affiliate</div>
+        <div className="text-xs font-semibold text-sidebar-foreground/70 uppercase mt-4 pt-4 border-t border-border dark:border-sidebar-border">Affiliate</div>
         <NavItem icon={DollarSign} label="Commissions" to="/commissions" />
 
         <div className="text-xs font-semibold text-sidebar-foreground/70 uppercase mt-4 pt-4 border-t border-sidebar-border dark:border-sidebar-border">Partners</div>
