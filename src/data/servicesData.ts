@@ -1,4 +1,34 @@
-// YouTube Services
+import { CheckCircle, Star } from 'lucide-react';
+
+export interface ServiceItem {
+  platform: string;
+  serviceName: string;
+  path: string;
+  title: string;
+  description: string;
+  rating: number;
+  reviewsCount: number;
+  startingPrice: string;
+  priceUnit: string;
+  features: string[];
+  stats: { value: string; label: string }[];
+  paymentIcons: string[];
+}
+
+const commonPaymentIcons = [
+  "https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg",
+  "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/2560px-American_Express_logo_%282018%29.svg.png",
+  "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg",
+  "https://upload.wikimedia.org/wikipedia/commons/0/05/Ethereum_logo_2021.svg",
+  "https://upload.wikimedia.org/wikipedia/commons/e/e3/Litecoin_Logo.png",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Tether_USDT_logo.svg/1200px-Tether_USDT_logo.svg.png",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/1200px-Google_Pay_logo.svg.png",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1200px-Apple_Pay_logo.svg.png",
+];
+
+export const services: ServiceItem[] = [
+  // YouTube Services
   {
     platform: "YouTube",
     serviceName: "Subscribers",
@@ -40,122 +70,6 @@
     stats: [
       { value: "50k+", label: "Happy Customers" },
       { value: "50M+", label: "Views Delivered" }
-    ],
-    paymentIcons: commonPaymentIcons
-  },
-  {
-    platform: "YouTube",
-    serviceName: "Likes",
-    path: "youtube-likes",
-    title: "Buy YouTube Likes",
-    description: "Boost engagement on your YouTube videos with real likes to improve rankings.",
-    rating: 4.7,
-    reviewsCount: 900,
-    startingPrice: "$0.01",
-    priceUnit: "/Like",
-    features: [
-      "Real YouTube Likes",
-      "Instant Delivery",
-      "Improves Video Ranking",
-      "24/7 Support"
-    ],
-    stats: [
-      { value: "30k+", label: "Happy Customers" },
-      { value: "20M+", label: "Likes Delivered" }
-    ],
-    paymentIcons: commonPaymentIcons
-  },
-
-  // Facebook Services
-  {
-    platform: "Facebook",
-    serviceName: "Page Likes",
-    path: "facebook-page-likes",
-    title: "Buy Facebook Page Likes",
-    description: "Increase your Facebook Page's credibility with real likes from active users.",
-    rating: 4.7,
-    reviewsCount: 800,
-    startingPrice: "$0.02",
-    priceUnit: "/Like",
-    features: [
-      "Real Facebook Likes",
-      "Targeted Audience",
-      "Instant Delivery",
-      "No Password Required"
-    ],
-    stats: [
-      { value: "25k+", label: "Happy Customers" },
-      { value: "10M+", label: "Likes Delivered" }
-    ],
-    paymentIcons: commonPaymentIcons
-  },
-  {
-    platform: "Facebook",
-    serviceName: "Post Likes",
-    path: "facebook-post-likes",
-    title: "Buy Facebook Post Likes",
-    description: "Boost engagement on your Facebook posts with real likes to increase visibility.",
-    rating: 4.6,
-    reviewsCount: 700,
-    startingPrice: "$0.01",
-    priceUnit: "/Like",
-    features: [
-      "Real Post Likes",
-      "Fast Delivery",
-      "Improves Post Reach",
-      "24/7 Support"
-    ],
-    stats: [
-      { value: "20k+", label: "Happy Customers" },
-      { value: "15M+", label: "Likes Delivered" }
-    ],
-    paymentIcons: commonPaymentIcons
-  },
-
-  // LinkedIn Services
-  {
-    platform: "LinkedIn",
-    serviceName: "Connections",
-    path: "linkedin-connections",
-    title: "Buy LinkedIn Connections",
-    description: "Expand your professional network with real LinkedIn connections.",
-    rating: 4.5,
-    reviewsCount: 400,
-    startingPrice: "$0.10",
-    priceUnit: "/Connection",
-    features: [
-      "Real LinkedIn Connections",
-      "Targeted Professionals",
-      "Gradual Growth",
-      "Secure Service"
-    ],
-    stats: [
-      { value: "10k+", label: "Happy Customers" },
-      { value: "1M+", label: "Connections Delivered" }
-    ],
-    paymentIcons: commonPaymentIcons
-  },
-
-  // Tools Section
-  {
-    platform: "Tools",
-    serviceName: "Proxy Services",
-    path: "proxy-services",
-    title: "Premium Proxy Services",
-    description: "High-quality residential and datacenter proxies for all your needs.",
-    rating: 4.8,
-    reviewsCount: 500,
-    startingPrice: "$5.00",
-    priceUnit: "/GB",
-    features: [
-      "Residential & Datacenter",
-      "High Speed",
-      "99.9% Uptime",
-      "24/7 Support"
-    ],
-    stats: [
-      { value: "8k+", label: "Happy Customers" },
-      { value: "50TB+", label: "Bandwidth Delivered" }
     ],
     paymentIcons: commonPaymentIcons
   }
