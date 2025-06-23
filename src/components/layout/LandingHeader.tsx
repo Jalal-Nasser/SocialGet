@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Search, ChevronDown, Twitter, Instagram, Youtube, Linkedin, Facebook,
-  MessageSquare, Play, Home, Reddit // Added Reddit icon import
+  MessageSquare, Play, Home
 } from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,7 +24,7 @@ const LandingHeader: React.FC = () => {
     YouTube: Youtube,
     TikTok: Play,
     Facebook: Facebook,
-    Reddit: Reddit, // Now using the proper Reddit icon
+    Reddit: MessageSquare, // Using MessageSquare as fallback icon
     LinkedIn: Linkedin
   };
 
