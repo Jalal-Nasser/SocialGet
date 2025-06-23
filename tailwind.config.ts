@@ -114,6 +114,9 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      dropShadow: {
+        'blue-glow': '0 0 10px rgba(0, 102, 204, 0.8)', // Custom blue glow
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

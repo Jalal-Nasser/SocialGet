@@ -97,12 +97,12 @@ const Footer: React.FC = () => {
               href="https://github.com/Jalal-Nasser/SocialGet" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="block transition-all duration-300 rounded-lg overflow-hidden group hover:shadow-lg hover:shadow-brand-secondary-blue/50"
+              className="block transition-all duration-300 rounded-lg overflow-hidden group hover:scale-105"
             >
               <img 
                 src={GithubOngoingProject} 
                 alt="GitHub On Going Project" 
-                className="w-[300px] group-hover:scale-105 group-hover:brightness-110 transition-transform duration-300" 
+                className="w-[300px] group-hover:drop-shadow-blue-glow transition-all duration-300" 
               />
             </a>
           </div>
