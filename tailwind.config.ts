@@ -115,7 +115,7 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       dropShadow: {
-        'blue-glow': '0 0 10px rgba(0, 102, 204, 0.8)', // Custom blue glow
+        'blue-glow': '0 0 10px rgba(255, 255, 255, 0.8)', // Changed to white glow
       },
     },
   },
