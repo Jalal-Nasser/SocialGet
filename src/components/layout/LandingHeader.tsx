@@ -15,7 +15,7 @@ import { services } from '@/data/servicesData';
 const LandingHeader: React.FC = () => {
   const categories = [
     'Twitter', 'Instagram', 'YouTube', 'TikTok', 'Facebook', 
-    'Spotify', 'Telegram', 'Other'
+    'Spotify', 'Telegram' // Removed 'Other' from this list
   ];
 
   const categoryIcons: { [key: string]: React.ElementType } = {
@@ -25,8 +25,8 @@ const LandingHeader: React.FC = () => {
     TikTok: Play,
     Facebook: Facebook,
     Spotify: Music,
-    Telegram: Send,
-    Other: MoreHorizontal
+    Telegram: Send
+    // Removed 'Other' icon mapping
   };
 
   const getSubcategories = (platform: string) => {
