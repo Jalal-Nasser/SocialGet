@@ -10,7 +10,8 @@ const Footer: React.FC = () => {
   const isDarkMode = theme === 'dark';
 
   // Define the fill color for the SVG based on the theme
-  const svgFillColor = isDarkMode ? '%231a202c' : '%23ffffff'; // #1a202c is a common dark gray, matching dark:bg-gray-900
+  // For dark mode, use the exact background color #111826 (URL-encoded)
+  const svgFillColor = isDarkMode ? '%23111826' : '%23ffffff'; 
 
   return (
     <footer className="relative bg-brand-primary-500 text-white pb-8 overflow-hidden">
