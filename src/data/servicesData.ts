@@ -1,107 +1,162 @@
-import { CheckCircle, Star } from 'lucide-react';
-
-export interface ServiceItem {
-  platform: string; // e.g., "Twitter"
-  serviceName: string; // e.g., "Followers"
-  path: string; // e.g., "twitter-followers" (slugified)
-  title: string; // e.g., "Buy Twitter (X) Followers"
-  description: string;
-  rating: number;
-  reviewsCount: number;
-  startingPrice: string;
-  priceUnit: string;
-  features: string[];
-  stats: { value: string; label: string; }[];
-  paymentIcons: string[]; // URLs for payment icons
-}
-
-const commonPaymentIcons = [
-  "https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/2560px-American_Express_logo_%282018%29.svg.png",
-  "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/0/05/Ethereum_logo_2021.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/e/e3/Litecoin_Logo.png",
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Tether_USDT_logo.svg/1200px-Tether_USDT_logo.svg.png",
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/1200px-Google_Pay_Logo.svg.png",
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1200px-Apple_Pay_logo.svg.png",
-];
-
-export const services: ServiceItem[] = [
+// YouTube Services
   {
-    platform: "Twitter",
-    serviceName: "Twitter followers",
-    path: "twitter-followers",
-    title: "Buy Twitter (X) Followers",
-    description: "Build up your Twitter (X) community with realistic followers from SocialPlug. Super low drop rates from high quality accounts.",
+    platform: "YouTube",
+    serviceName: "Subscribers",
+    path: "youtube-subscribers",
+    title: "Buy YouTube Subscribers",
+    description: "Grow your YouTube channel with real, active subscribers to increase your reach and credibility.",
     rating: 4.8,
-    reviewsCount: 1000,
-    startingPrice: "$0.036",
-    priceUnit: "/Follower",
-    features: [
-      "Realistic Twitter (X) Followers",
-      "Up to 10,000 Followers per Twitter (X) Page",
-      "Card & Crypto payments available",
-      "No signup or login required",
-    ],
-    stats: [
-      { value: "35k+", label: "Happy Customers" },
-      { value: "11.8M+", label: "Followers Delivered" },
-    ],
-    paymentIcons: commonPaymentIcons,
-  },
-  {
-    platform: "Instagram",
-    serviceName: "Likes",
-    path: "instagram-likes",
-    title: "Buy Instagram Likes",
-    description: "Boost your Instagram posts with real likes from active users. Increase your visibility and engagement instantly.",
-    rating: 4.7,
-    reviewsCount: 850,
-    startingPrice: "$0.015",
-    priceUnit: "/Like",
-    features: [
-      "Real Instagram Likes",
-      "Instant Delivery",
-      "Secure & Private",
-      "24/7 Customer Support",
-    ],
-    stats: [
-      { value: "28k+", label: "Happy Customers" },
-      { value: "25M+", label: "Likes Delivered" },
-    ],
-    paymentIcons: commonPaymentIcons,
-  },
-  {
-    platform: "Youtube",
-    serviceName: "Views",
-    path: "youtube-views",
-    title: "Buy YouTube Views",
-    description: "Increase your video's reach and credibility with high-quality YouTube views. Get noticed by a wider audience.",
-    rating: 4.9,
     reviewsCount: 1200,
-    startingPrice: "$0.005",
-    priceUnit: "/View",
+    startingPrice: "$0.05",
+    priceUnit: "/Subscriber",
     features: [
-      "High-Retention YouTube Views",
-      "Fast Delivery",
-      "Safe & Organic Growth",
-      "No Password Required",
+      "Real YouTube Subscribers",
+      "Gradual Growth",
+      "High Retention",
+      "No Password Required"
     ],
     stats: [
       { value: "40k+", label: "Happy Customers" },
-      { value: "50M+", label: "Views Delivered" },
+      { value: "5M+", label: "Subscribers Delivered" }
     ],
-    paymentIcons: commonPaymentIcons,
+    paymentIcons: commonPaymentIcons
   },
-  // You can add more services here following the same structure
-];
+  {
+    platform: "YouTube",
+    serviceName: "Views",
+    path: "youtube-views",
+    title: "Buy YouTube Views",
+    description: "Increase your video's reach and credibility with high-quality YouTube views.",
+    rating: 4.9,
+    reviewsCount: 1500,
+    startingPrice: "$0.005",
+    priceUnit: "/View",
+    features: [
+      "High-Retention Views",
+      "Fast Delivery",
+      "Safe & Organic Growth",
+      "No Password Required"
+    ],
+    stats: [
+      { value: "50k+", label: "Happy Customers" },
+      { value: "50M+", label: "Views Delivered" }
+    ],
+    paymentIcons: commonPaymentIcons
+  },
+  {
+    platform: "YouTube",
+    serviceName: "Likes",
+    path: "youtube-likes",
+    title: "Buy YouTube Likes",
+    description: "Boost engagement on your YouTube videos with real likes to improve rankings.",
+    rating: 4.7,
+    reviewsCount: 900,
+    startingPrice: "$0.01",
+    priceUnit: "/Like",
+    features: [
+      "Real YouTube Likes",
+      "Instant Delivery",
+      "Improves Video Ranking",
+      "24/7 Support"
+    ],
+    stats: [
+      { value: "30k+", label: "Happy Customers" },
+      { value: "20M+", label: "Likes Delivered" }
+    ],
+    paymentIcons: commonPaymentIcons
+  },
 
-export const getServiceByPlatformAndName = (platform: string, serviceName: string): ServiceItem | undefined => {
-  const slugifiedServiceName = serviceName.toLowerCase().replace(/\s+/g, '-');
-  return services.find(
-    (service) =>
-      service.platform.toLowerCase() === platform.toLowerCase() &&
-      service.path === slugifiedServiceName
-  );
-};
+  // Facebook Services
+  {
+    platform: "Facebook",
+    serviceName: "Page Likes",
+    path: "facebook-page-likes",
+    title: "Buy Facebook Page Likes",
+    description: "Increase your Facebook Page's credibility with real likes from active users.",
+    rating: 4.7,
+    reviewsCount: 800,
+    startingPrice: "$0.02",
+    priceUnit: "/Like",
+    features: [
+      "Real Facebook Likes",
+      "Targeted Audience",
+      "Instant Delivery",
+      "No Password Required"
+    ],
+    stats: [
+      { value: "25k+", label: "Happy Customers" },
+      { value: "10M+", label: "Likes Delivered" }
+    ],
+    paymentIcons: commonPaymentIcons
+  },
+  {
+    platform: "Facebook",
+    serviceName: "Post Likes",
+    path: "facebook-post-likes",
+    title: "Buy Facebook Post Likes",
+    description: "Boost engagement on your Facebook posts with real likes to increase visibility.",
+    rating: 4.6,
+    reviewsCount: 700,
+    startingPrice: "$0.01",
+    priceUnit: "/Like",
+    features: [
+      "Real Post Likes",
+      "Fast Delivery",
+      "Improves Post Reach",
+      "24/7 Support"
+    ],
+    stats: [
+      { value: "20k+", label: "Happy Customers" },
+      { value: "15M+", label: "Likes Delivered" }
+    ],
+    paymentIcons: commonPaymentIcons
+  },
+
+  // LinkedIn Services
+  {
+    platform: "LinkedIn",
+    serviceName: "Connections",
+    path: "linkedin-connections",
+    title: "Buy LinkedIn Connections",
+    description: "Expand your professional network with real LinkedIn connections.",
+    rating: 4.5,
+    reviewsCount: 400,
+    startingPrice: "$0.10",
+    priceUnit: "/Connection",
+    features: [
+      "Real LinkedIn Connections",
+      "Targeted Professionals",
+      "Gradual Growth",
+      "Secure Service"
+    ],
+    stats: [
+      { value: "10k+", label: "Happy Customers" },
+      { value: "1M+", label: "Connections Delivered" }
+    ],
+    paymentIcons: commonPaymentIcons
+  },
+
+  // Tools Section
+  {
+    platform: "Tools",
+    serviceName: "Proxy Services",
+    path: "proxy-services",
+    title: "Premium Proxy Services",
+    description: "High-quality residential and datacenter proxies for all your needs.",
+    rating: 4.8,
+    reviewsCount: 500,
+    startingPrice: "$5.00",
+    priceUnit: "/GB",
+    features: [
+      "Residential & Datacenter",
+      "High Speed",
+      "99.9% Uptime",
+      "24/7 Support"
+    ],
+    stats: [
+      { value: "8k+", label: "Happy Customers" },
+      { value: "50TB+", label: "Bandwidth Delivered" }
+    ],
+    paymentIcons: commonPaymentIcons
+  }
+];
