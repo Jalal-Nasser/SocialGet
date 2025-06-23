@@ -108,3 +108,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); } /* Move half the content width to loop seamlessly */
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite; /* Adjust duration as needed */
+  display: flex; /* Ensure content is in a single line */
+  width: fit-content; /* Allow content to determine width */
+}

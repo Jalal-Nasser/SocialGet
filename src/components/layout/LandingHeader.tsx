@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Link } from 'react-router-dom';
 import LogoImage from '@/assets/logo.png'; // Import the new logo image
+import OngoingProjectSlider from '@/components/OngoingProjectSlider'; // Import the new slider component
 
 const LandingHeader: React.FC = () => {
   console.log("LogoImage path:", LogoImage); // Debugging line
@@ -135,6 +136,7 @@ const LandingHeader: React.FC = () => {
 
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+      <OngoingProjectSlider /> {/* This is the new slider bar */}
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
