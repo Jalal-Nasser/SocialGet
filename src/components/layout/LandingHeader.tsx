@@ -9,6 +9,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Link } from 'react-router-dom';
 import LogoImage from '@/assets/logo.png'; // Import the new logo image
 import OngoingProjectSlider from '@/components/OngoingProjectSlider'; // Import the new slider component
+import ThemeToggle from '@/components/ThemeToggle'; // Import the new ThemeToggle component
 
 const LandingHeader: React.FC = () => {
   console.log("LogoImage path:", LogoImage); // Debugging line
@@ -155,7 +156,7 @@ const LandingHeader: React.FC = () => {
           />
         </div>
 
-        {/* Right Section: Login, All Services, Language */}
+        {/* Right Section: Login, All Services, Language, Theme Toggle */}
         <div className="flex items-center space-x-4">
           <Link to="/login">
             <Button variant="ghost" className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
@@ -178,6 +179,7 @@ const LandingHeader: React.FC = () => {
               {/* Add more languages as needed */}
             </DropdownMenuContent>
           </DropdownMenu>
+          <ThemeToggle /> {/* Add the ThemeToggle component here */}
         </div>
       </div>
 
