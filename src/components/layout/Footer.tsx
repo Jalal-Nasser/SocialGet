@@ -91,7 +91,7 @@ const Footer: React.FC = () => {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between text-sm text-brand-primary-100">
           <div className="text-center md:text-left mb-4 md:mb-0">
-            <p>Netrynos LTD (HE 469713), Arch. Makariou III 1-7 MITSI 3, 1065 Nicosia, Cyprus</p>
+            <p>InstalliFy Software LTD, EEDA3244 AL-Khobar 34626, Saudi Arabia</p>
             <p>Copyright © 2025 · SocialGet</p>
             <p className="flex items-center justify-center md:justify-start">
               Designed & Programmed by:{" "}
