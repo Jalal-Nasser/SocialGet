@@ -7,51 +7,38 @@ interface Service {
 }
 
 const services: Service[] = [
-  {
-    platform: "Twitter",
-    serviceName: "Followers",
-    path: "followers",
-    description: "High-quality Twitter followers",
-    price: 2.99
-  },
-  {
-    platform: "Twitter",
-    serviceName: "Likes",
-    path: "likes",
-    description: "Twitter post likes",
-    price: 1.99
-  },
-  {
-    platform: "Instagram",
-    serviceName: "Followers",
-    path: "followers",
-    description: "Real Instagram followers",
-    price: 3.99
-  },
-  {
-    platform: "Instagram",
-    serviceName: "Likes",
-    path: "likes",
-    description: "Instagram post likes",
-    price: 2.49
-  },
-  {
-    platform: "Youtube",
-    serviceName: "Views",
-    path: "views",
-    description: "Youtube video views",
-    price: 4.99
-  },
-  {
-    platform: "TikTok",
-    serviceName: "Followers",
-    path: "followers",
-    description: "TikTok followers",
-    price: 5.99
-  }
+  // Twitter Services
+  { platform: "Twitter", serviceName: "Followers", path: "followers", description: "High-quality Twitter followers", price: 2.99 },
+  { platform: "Twitter", serviceName: "Likes", path: "likes", description: "Twitter post likes", price: 1.99 },
+  { platform: "Twitter", serviceName: "Views", path: "views", description: "Twitter video views", price: 1.49 },
+  { platform: "Twitter", serviceName: "Retweets", path: "retweets", description: "Twitter retweets", price: 2.49 },
+  { platform: "Twitter", serviceName: "Replies", path: "replies", description: "Twitter comment replies", price: 3.99 },
+  
+  // Instagram Services
+  { platform: "Instagram", serviceName: "Followers", path: "followers", description: "Real Instagram followers", price: 3.99 },
+  { platform: "Instagram", serviceName: "Likes", path: "likes", description: "Instagram post likes", price: 2.49 },
+  { platform: "Instagram", serviceName: "Views", path: "views", description: "Instagram video views", price: 1.99 },
+  { platform: "Instagram", serviceName: "Reels Views", path: "reels-views", description: "Instagram Reels views", price: 2.99 },
+  
+  // YouTube Services
+  { platform: "YouTube", serviceName: "Views", path: "views", description: "YouTube video views", price: 4.99 },
+  { platform: "YouTube", serviceName: "Likes", path: "likes", description: "YouTube video likes", price: 3.99 },
+  { platform: "YouTube", serviceName: "Subscribers", path: "subscribers", description: "YouTube channel subscribers", price: 5.99 },
+  
+  // TikTok Services
+  { platform: "TikTok", serviceName: "Followers", path: "followers", description: "TikTok followers", price: 5.99 },
+  { platform: "TikTok", serviceName: "Likes", path: "likes", description: "TikTok video likes", price: 4.99 },
+  { platform: "TikTok", serviceName: "Views", path: "views", description: "TikTok video views", price: 3.99 },
+  
+  // Facebook Services
+  { platform: "Facebook", serviceName: "Likes", path: "likes", description: "Facebook page likes", price: 3.99 },
+  { platform: "Facebook", serviceName: "Followers", path: "followers", description: "Facebook profile followers", price: 4.99 },
+  
+  // Other Services
+  { platform: "Spotify", serviceName: "Followers", path: "followers", description: "Spotify followers", price: 6.99 },
+  { platform: "Telegram", serviceName: "Members", path: "members", description: "Telegram channel members", price: 5.99 },
 ];
 
-// Add this function to find a service by platform and name
 const getServiceByPlatformAndName = (platform: string, serviceName: string): Service | undefined => {
   return services.find(
     service => 
@@ -60,5 +47,4 @@ const getServiceByPlatformAndName = (platform: string, serviceName: string): Ser
   );
 };
 
-// Export both the services array and the function
 export { services, getServiceByPlatformAndName };
