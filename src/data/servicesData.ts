@@ -74,3 +74,12 @@ export const services: ServiceItem[] = [
     paymentIcons: commonPaymentIcons
   }
 ];
+
+// Add this function to find services by platform and name
+export function getServiceByPlatformAndName(platform: string, serviceName: string): ServiceItem | undefined {
+  return services.find(
+    service => 
+      service.platform.toLowerCase() === platform.toLowerCase() && 
+      service.serviceName.toLowerCase() === serviceName.toLowerCase()
+  );
+}
