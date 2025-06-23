@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
-  Search, ChevronDown, Twitter, Instagram, Youtube, Linkedin, Facebook, Github,
-  MoreHorizontal, Wrench, MessageSquare, Play 
+  Search, ChevronDown, Twitter, Instagram, Youtube, Linkedin, Facebook,
+  MoreHorizontal, Wrench, MessageSquare, Play, Home // Import Home icon
 } from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,7 +13,7 @@ import ThemeToggle from '@/components/ThemeToggle'; // Import the new ThemeToggl
 
 const LandingHeader: React.FC = () => {
   console.log("LogoImage path:", LogoImage); // Debugging line
-  const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook', 'Github'];
+  const categories = ['Twitter', 'Reddit', 'Instagram', 'TikTok', 'Youtube', 'LinkedIn', 'Facebook']; // Removed 'Github'
 
   // Mapping for icons
   const categoryIcons: { [key: string]: React.ElementType } = {
@@ -24,7 +24,6 @@ const LandingHeader: React.FC = () => {
     Youtube: Youtube,
     LinkedIn: Linkedin,
     Facebook: Facebook,
-    Github: Github,
     Other: MoreHorizontal,
     Tools: Wrench,
   };
@@ -129,11 +128,7 @@ const LandingHeader: React.FC = () => {
     "Live Viewers"
   ];
 
-  const githubSubcategories = [
-    "Stars",
-    "Followers",
-    "Forks"
-  ];
+  // Removed githubSubcategories as Github category is removed
 
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
@@ -186,6 +181,11 @@ const LandingHeader: React.FC = () => {
       {/* Secondary Navigation (Categories) */}
       <nav className="bg-brand-primary-500 py-2 border-t border-brand-primary-600">
         <div className="container mx-auto px-4 flex items-center justify-start space-x-6 text-sm text-white overflow-x-auto pb-2"> {/* Added justify-start, overflow-x-auto, pb-2 */}
+          {/* Home Button */}
+          <Link to="/" className="flex items-center p-2 rounded-md text-white hover:bg-brand-secondary-blue hover:text-white transition-all duration-200 ease-in-out hover:scale-105 flex-shrink-0">
+            <Home className="h-4 w-4 mr-1" />
+            <span>Home</span>
+          </Link>
           {categories.map((category) => {
             const Icon = categoryIcons[category]; // Get the icon component
             return (
@@ -239,12 +239,6 @@ const LandingHeader: React.FC = () => {
                     ))
                   ) : category === 'Facebook' ? (
                     facebookSubcategories.map((sub, index) => (
-                      <DropdownMenuItem key={index} className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover">
-                        {sub}
-                      </DropdownMenuItem>
-                    ))
-                  ) : category === 'Github' ? (
-                    githubSubcategories.map((sub, index) => (
                       <DropdownMenuItem key={index} className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover">
                         {sub}
                       </DropdownMenuItem>
