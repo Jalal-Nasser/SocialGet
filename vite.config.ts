@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig(() => ({
-  root: '.', // Set the root to the current directory where index.html resides
+  root: '.',
   server: {
     host: "::",
     port: 8080,
@@ -15,13 +15,13 @@ export default defineConfig(() => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  base: "/", // Changed from "/SocialGet/" to "/"
   build: {
-    outDir: 'dist', // Explicitly set the output directory
+    outDir: 'dist',
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html') // Explicitly define index.html as the main entry point
+        main: path.resolve(__dirname, 'index.html')
       }
     }
-  },
-  base: "/SocialGet/", // Add this line for GitHub Pages deployment
+  }
 }));

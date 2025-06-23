@@ -23,7 +23,7 @@ const App = () => {
         <ThemeProvider defaultTheme="system" attribute="class">
           <TooltipProvider>
             <Sonner />
-            <BrowserRouter>
+            <BrowserRouter basename="/">
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/dashboard" element={<Dashboard />} />
