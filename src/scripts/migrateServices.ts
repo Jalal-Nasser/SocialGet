@@ -13,7 +13,7 @@ const services = [
   {
     platform: "Twitter",
     service_name: "Followers",
-    path: "followers",
+    path: "twitter-followers", // Changed for uniqueness
     description: "High-quality Twitter followers",
     price: 0.036,
     unit: "/Follower"
@@ -21,7 +21,7 @@ const services = [
   {
     platform: "Instagram",
     service_name: "Likes",
-    path: "likes",
+    path: "instagram-likes", // Changed for uniqueness
     description: "Authentic Instagram likes",
     price: 0.005,
     unit: "/Like"
@@ -29,7 +29,7 @@ const services = [
   {
     platform: "YouTube",
     service_name: "Views",
-    path: "views",
+    path: "youtube-views", // Changed for uniqueness
     description: "Real YouTube video views",
     price: 0.010,
     unit: "/View"
@@ -45,7 +45,7 @@ const services = [
   {
     platform: "Facebook",
     service_name: "Page Likes",
-    path: "page-likes",
+    path: "facebook-page-likes", // Changed for uniqueness
     description: "Boost your Facebook page likes",
     price: 0.020,
     unit: "/Like"
@@ -53,7 +53,7 @@ const services = [
   {
     platform: "Reddit",
     service_name: "Upvotes",
-    path: "upvotes",
+    path: "reddit-upvotes", // Changed for uniqueness
     description: "Increase Reddit post upvotes",
     price: 0.015,
     unit: "/Upvote"
@@ -61,7 +61,7 @@ const services = [
   {
     platform: "LinkedIn",
     service_name: "Connections",
-    path: "connections",
+    path: "linkedin-connections", // Changed for uniqueness
     description: "Expand your professional network on LinkedIn",
     price: 0.050,
     unit: "/Connection"
@@ -69,7 +69,7 @@ const services = [
   {
     platform: "Twitter",
     service_name: "Likes",
-    path: "likes", // This path is duplicated, onConflict will handle it
+    path: "twitter-likes", // Changed for uniqueness
     description: "High-quality Twitter likes",
     price: 0.008,
     unit: "/Like"
@@ -85,7 +85,7 @@ const services = [
   {
     platform: "YouTube",
     service_name: "Subscribers",
-    path: "subscribers",
+    path: "youtube-subscribers",
     description: "Real YouTube channel subscribers",
     price: 0.060,
     unit: "/Subscriber"
@@ -93,7 +93,7 @@ const services = [
   {
     platform: "TikTok",
     service_name: "Likes",
-    path: "tiktok-likes", // This path is duplicated, onConflict will handle it
+    path: "tiktok-likes",
     description: "Genuine TikTok likes",
     price: 0.007,
     unit: "/Like"
@@ -101,7 +101,7 @@ const services = [
   {
     platform: "Facebook",
     service_name: "Post Likes",
-    path: "post-likes",
+    path: "facebook-post-likes", // Changed for uniqueness
     description: "Boost your Facebook post likes",
     price: 0.012,
     unit: "/Like"
@@ -109,7 +109,7 @@ const services = [
   {
     platform: "Reddit",
     service_name: "Comments",
-    path: "comments",
+    path: "reddit-comments", // Changed for uniqueness
     description: "Increase Reddit post comments",
     price: 0.025,
     unit: "/Comment"
@@ -117,7 +117,7 @@ const services = [
   {
     platform: "LinkedIn",
     service_name: "Followers",
-    path: "linkedin-followers",
+    path: "linkedin-followers", // Changed for uniqueness
     description: "Expand your professional network on LinkedIn",
     price: 0.040,
     unit: "/Follower"
@@ -133,8 +133,8 @@ async function migrate() {
       const { data, error } = await supabase
         .from('services')
         .insert(service)
-        .onConflict('path') // Use 'path' as the conflict target
-        .select(); // Select the inserted/updated data
+        .onConflict(['platform', 'path']) // Use composite unique constraint
+        .select();
 
       if (error) {
         console.error(`Error adding/updating ${service.platform} ${service.service_name} (path: ${service.path}):`, error);
