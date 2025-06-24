@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
   'https://xxzznwjbjyyvbmietpzg.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4enpud2pianl5dmJtaWV0cHpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0OTU0MTEsImV4cCI6MjA2NjA3MTQxMX0.VBPNN5QT9vjjyynroi3V6gAUUOPK3vDpiTeABHdedmU',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4enpud2pianl5dmJtaWV0cHpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0OTU0MTEsImV4cCI6MjA2NjA3MTQxMX0.VBPNN5QT9vjjyynroi3V6gAUOPOK3vDpiTeABHdedmU',
   {
     auth: { persistSession: false },
     realtime: { disable: true }
@@ -69,7 +69,7 @@ const services = [
   {
     platform: "Twitter",
     service_name: "Likes",
-    path: "likes",
+    path: "likes", // This path is duplicated, onConflict will handle it
     description: "High-quality Twitter likes",
     price: 0.008,
     unit: "/Like"
@@ -93,7 +93,7 @@ const services = [
   {
     platform: "TikTok",
     service_name: "Likes",
-    path: "tiktok-likes",
+    path: "tiktok-likes", // This path is duplicated, onConflict will handle it
     description: "Genuine TikTok likes",
     price: 0.007,
     unit: "/Like"
@@ -126,34 +126,37 @@ const services = [
 
 async function migrate() {
   console.log('Starting migration...');
-  
+  console.log(`Attempting to insert ${services.length} services.`);
+
   for (const service of services) {
     try {
       const { data, error } = await supabase
         .from('services')
         .insert(service)
-        .select();
-      
+        .onConflict('path') // Use 'path' as the conflict target
+        .select(); // Select the inserted/updated data
+
       if (error) {
-        // If the error is due to a duplicate key (e.g., unique constraint on path),
-        // we can log it but continue, assuming it's already migrated.
-        // For simplicity, we'll just log all errors for now.
-        console.error(`Error adding ${service.platform} ${service.service_name}:`, error);
-        continue;
+        console.error(`Error adding/updating ${service.platform} ${service.service_name} (path: ${service.path}):`, error);
+      } else {
+        console.log(`Successfully added/updated: ${service.platform} ${service.service_name} (path: ${service.path})`, data);
       }
-      console.log(`Added: ${service.platform} ${service.service_name}`, data);
     } catch (error) {
-      console.error(`Fatal error during service insertion:`, error);
-      break;
+      console.error(`Fatal error during service insertion for ${service.platform} ${service.service_name}:`, error);
+      // Don't break, try to continue with other services
     }
   }
   
   // Verify count
-  const { count } = await supabase
+  const { count, error: countError } = await supabase
     .from('services')
     .select('*', { count: 'exact', head: true });
     
-  console.log(`Migration complete. Total services: ${count}`);
+  if (countError) {
+    console.error('Error fetching total services count:', countError);
+  } else {
+    console.log(`Migration complete. Total services: ${count}`);
+  }
 }
 
 await migrate();
