@@ -10,10 +10,9 @@ const supabase = createClient(
 );
 
 const services = [
-  // PASTE YOUR ACTUAL SERVICE DATA HERE
   {
     platform: "Twitter",
-    service_name: "Followers", // Note: Changed from serviceName to service_name
+    service_name: "Followers",
     path: "followers",
     description: "High-quality Twitter followers",
     price: 0.036,
