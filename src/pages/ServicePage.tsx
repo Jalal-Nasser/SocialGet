@@ -33,16 +33,20 @@ const ServicePage: React.FC = () => {
   }
 
   const paymentIcons = [
-    "https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/0/05/Maestro_logo.png",
-    "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/6/6f/Ethereum-icon-purple.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/0/05/Litecoin.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/9/9c/Tether_logo.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_Pay_logo.svg",
+    { name: "PayPal", src: "https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" },
+    { name: "Visa", src: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" },
+    { name: "Mastercard", src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" },
+    { name: "Bitcoin", src: "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg" },
+    { name: "Ethereum", src: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Ethereum-icon-purple.svg" },
+    { name: "Litecoin", src: "https://upload.wikimedia.org/wikipedia/commons/0/05/Litecoin.svg" },
+    { name: "Tether", src: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Tether_logo.svg" },
+    { name: "Apple Pay", src: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_Pay_logo.svg" },
   ];
+
+  // Filter to include only the requested payment methods
+  const filteredPaymentIcons = paymentIcons.filter(icon => 
+    ['Visa', 'PayPal', 'Mastercard', 'Bitcoin', 'Ethereum', 'Litecoin', 'Tether', 'Apple Pay'].includes(icon.name)
+  );
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
@@ -52,7 +56,7 @@ const ServicePage: React.FC = () => {
           {/* Left Section: Service Details */}
           <div className="lg:col-span-2 space-y-8">
             <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-gray-900 dark:text-gray-100">
-              Buy {service.platform} <span className="text-brand-success">{service.serviceName}</span>
+              Buy {service.platform} <span className="text-brand-primary-500">{service.serviceName}</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
               {service.description} with realistic {service.platform} {service.serviceName.toLowerCase()} from SocialPlug. Super low drop rates from high quality accounts.
@@ -67,15 +71,15 @@ const ServicePage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-700 dark:text-gray-300">
               <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 mr-2 text-brand-success" />
+                <CheckCircle className="h-5 w-5 mr-2 text-brand-primary-500" />
                 <span>Instant Delivery</span>
               </div>
               <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 mr-2 text-brand-success" />
+                <CheckCircle className="h-5 w-5 mr-2 text-brand-primary-500" />
                 <span>100% Growth Guarantee</span>
               </div>
               <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 mr-2 text-brand-success" />
+                <CheckCircle className="h-5 w-5 mr-2 text-brand-primary-500" />
                 <span>24/7 Customer Service</span>
               </div>
             </div>
@@ -85,33 +89,33 @@ const ServicePage: React.FC = () => {
           <div className="lg:col-span-1 bg-gray-900 dark:bg-gray-950 rounded-lg shadow-xl p-8 text-white">
             <p className="text-gray-400 text-sm mb-2">Starting from</p>
             <h2 className="text-5xl font-extrabold mb-6">
-              ${service.price.toFixed(3)} <span className="text-brand-success text-2xl font-semibold">{service.unit}</span>
+              ${service.price.toFixed(3)} <span className="text-brand-primary-500 text-2xl font-semibold">{service.unit}</span>
             </h2>
 
             <ul className="space-y-4 mb-8">
               <li className="flex items-center">
-                <CheckCircle className="h-5 w-5 mr-3 text-brand-success" />
+                <CheckCircle className="h-5 w-5 mr-3 text-brand-primary-500" />
                 <span>Realistic {service.platform} {service.serviceName}</span>
               </li>
               <li className="flex items-center">
-                <CheckCircle className="h-5 w-5 mr-3 text-brand-success" />
+                <CheckCircle className="h-5 w-5 mr-3 text-brand-primary-500" />
                 <span>Super Low Drop Rate</span>
               </li>
               <li className="flex items-center">
-                <CheckCircle className="h-5 w-5 mr-3 text-brand-success" />
+                <CheckCircle className="h-5 w-5 mr-3 text-brand-primary-500" />
                 <span>High Quality Accounts</span>
               </li>
               <li className="flex items-center">
-                <CheckCircle className="h-5 w-5 mr-3 text-brand-success" />
+                <CheckCircle className="h-5 w-5 mr-3 text-brand-primary-500" />
                 <span>No Password Required</span>
               </li>
               <li className="flex items-center">
-                <CheckCircle className="h-5 w-5 mr-3 text-brand-success" />
+                <CheckCircle className="h-5 w-5 mr-3 text-brand-primary-500" />
                 <span>24/7 Customer Support</span>
               </li>
             </ul>
 
-            <Button className="w-full bg-brand-success hover:bg-green-700 text-white text-lg py-3 rounded-md mb-6">
+            <Button className="w-full bg-brand-primary-500 hover:bg-brand-secondary-blue text-white text-lg py-3 rounded-md mb-6">
               Order Now
             </Button>
 
@@ -119,8 +123,8 @@ const ServicePage: React.FC = () => {
               Secured Checkout
             </div>
             <div className="flex flex-wrap justify-center gap-3">
-              {paymentIcons.map((icon, index) => (
-                <img key={index} src={icon} alt={`Payment method ${index + 1}`} className="h-6 max-w-[40px] object-contain" />
+              {filteredPaymentIcons.map((icon, index) => (
+                <img key={index} src={icon.src} alt={icon.name} className="h-6 max-w-[40px] object-contain" />
               ))}
             </div>
           </div>
