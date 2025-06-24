@@ -42,7 +42,7 @@ const ServicePage: React.FC = () => {
     { name: "Ethereum", src: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Ethereum-icon-purple.svg" },
     { name: "Litecoin", src: "https://upload.wikimedia.org/wikipedia/commons/0/05/Litecoin.svg" },
     { name: "Tether", src: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Tether_logo.svg" },
-    { name: "Apple Pay", src: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_Pay_logo.svg" },
+    { name: "Apple Pay", src: "https://cdn.simpleicons.org/applepay/white" }, // Updated Apple Pay source
   ];
 
   // Filter to include only the requested payment methods
