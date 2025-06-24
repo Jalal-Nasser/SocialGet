@@ -15,7 +15,7 @@ export default defineConfig(() => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/", // Changed from "/SocialGet/" to "/"
+  base: "/SocialGet/", // Reverted to /SocialGet/ for GitHub Pages project deployment
   build: {
     outDir: 'dist',
     rollupOptions: {
