@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connection Test</title>
+</head>
+<body>
+    <h1>Static Page Test</h1>
+    <p>If you see this, the server is running.</p>
+    <div id="status">Testing Supabase connection...</div>
+    
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script>
+        const supabaseUrl = 'https://xxzznwjbjyyvbmietpzg.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4enpud2pianl5dmJtaWV0cHpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0OTU0MTEsImV4cCI6MjA2NjA3MTQxMX0.VBPNN5QT9vjjyynroi3V6gAUUOPK3vDpiTeABHdedmU';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        supabase.from('services').select('*').limit(1)
+            .then(({ data, error }) => {
+                const statusEl = document.getElementById('status');
+                if (error) {
+                    statusEl.innerHTML = `Error: ${error.message}`;
+                } else {
+                    statusEl.innerHTML = `Success! Found ${data.length} services`;
+                }
+            });
+    </script>
+</body>
+</html>
