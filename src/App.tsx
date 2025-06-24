@@ -17,9 +17,21 @@ import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import NotFound from '@/pages/NotFound';
 import ServicePage from '@/pages/ServicePage';
 import Services from '@/pages/Services';
-import Login from '@/pages/Login'; // Import the new Login page
-import { SessionContextProvider } from '@/components/auth/SessionContextProvider'; // Import SessionContextProvider
-import ProtectedRoute from '@/components/auth/ProtectedRoute'; // Import ProtectedRoute
+import Login from '@/pages/Login';
+import { SessionContextProvider } from '@/components/auth/SessionContextProvider';
+import ProtectedRoute from '@/components/auth/ProtectedRoute';
+
+// Import new client portal pages
+import Orders from '@/pages/Orders';
+import Tickets from '@/pages/Tickets';
+import AddFunds from '@/pages/AddFunds';
+import Referrals from '@/pages/Referrals';
+import Invoices from '@/pages/Invoices';
+import Commissions from '@/pages/Commissions';
+import MultiAccountManagement from '@/pages/MultiAccountManagement';
+import BuyProxies from '@/pages/BuyProxies';
+import YoutubeDownloader from '@/pages/YoutubeDownloader';
+import NewOrder from '@/pages/NewOrder'; // Import NewOrder page
 
 const queryClient = new QueryClient();
 
@@ -31,19 +43,111 @@ const App = () => {
           <TooltipProvider>
             <Sonner />
             <BrowserRouter basename="/">
-              <SessionContextProvider> {/* Wrap the entire app with SessionContextProvider */}
+              <SessionContextProvider>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/services" element={<Services />} />
-                  <Route path="/login" element={<Login />} /> {/* Add the Login route */}
+                  <Route path="/login" element={<Login />} />
+                  
+                  {/* Protected Client Portal Routes */}
                   <Route 
                     path="/dashboard" 
                     element={
-                      <ProtectedRoute> {/* Protect the Dashboard route */}
+                      <ProtectedRoute>
                         <Dashboard />
                       </ProtectedRoute>
                     } 
                   />
+                  <Route 
+                    path="/orders" 
+                    element={
+                      <ProtectedRoute>
+                        <Orders />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/tickets" 
+                    element={
+                      <ProtectedRoute>
+                        <Tickets />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/add-funds" 
+                    element={
+                      <ProtectedRoute>
+                        <AddFunds />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/referrals" 
+                    element={
+                      <ProtectedRoute>
+                        <Referrals />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/all-services" 
+                    element={
+                      <ProtectedRoute>
+                        <Services /> {/* Re-using the public Services page */}
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/youtube-downloader" 
+                    element={
+                      <ProtectedRoute>
+                        <YoutubeDownloader />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/invoices" 
+                    element={
+                      <ProtectedRoute>
+                        <Invoices />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/commissions" 
+                    element={
+                      <ProtectedRoute>
+                        <Commissions />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/multi-account-management" 
+                    element={
+                      <ProtectedRoute>
+                        <MultiAccountManagement />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/buy-proxies" 
+                    element={
+                      <ProtectedRoute>
+                        <BuyProxies />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/new-order" 
+                    element={
+                      <ProtectedRoute>
+                        <NewOrder />
+                      </ProtectedRoute>
+                    } 
+                  />
+
+                  {/* Public Routes */}
                   <Route path="/about-us" element={<AboutUs />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/contact" element={<ContactUs />} />

@@ -18,12 +18,12 @@ const NavItem: React.FC<NavItemProps> = ({ icon: Icon, label, to }) => (
 
 const Sidebar: React.FC = () => {
   return (
-    <aside className="bg-sidebar text-sidebar-foreground flex flex-col h-full w-full border-r border-sidebar-border dark:border-sidebar-border"> {/* Removed fixed width, added h-full w-full */}
+    <aside className="bg-sidebar text-sidebar-foreground flex flex-col h-full w-full border-r border-sidebar-border dark:border-sidebar-border">
       <div className="p-4 border-b border-sidebar-border dark:border-sidebar-border">
         <h2 className="text-2xl font-bold text-sidebar-primary-foreground">SocialGet</h2>
       </div>
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-        <NavItem icon={Home} label="Dashboard" to="/" />
+        <NavItem icon={Home} label="Dashboard" to="/dashboard" /> {/* Changed to /dashboard */}
         <NavItem icon={ShoppingCart} label="Orders" to="/orders" />
         <NavItem icon={MessageSquare} label="Tickets" to="/tickets" />
         <NavItem icon={Wallet} label="Add funds" to="/add-funds" />
@@ -46,12 +46,16 @@ const Sidebar: React.FC = () => {
         <NavItem icon={Settings} label="Buy Proxies" to="/buy-proxies" />
       </nav>
       <div className="p-4 space-y-2 border-t border-sidebar-border dark:border-sidebar-border">
-        <Button className="w-full bg-brand-primary-500 hover:bg-brand-secondary-blue text-white">
-          Start a new order
-        </Button>
-        <Button variant="outline" className="w-full border-brand-primary-500 text-brand-primary-500 hover:bg-brand-secondary-blue hover:text-white">
-          <Plus className="h-4 w-4 mr-2" /> Add funds
-        </Button>
+        <Link to="/new-order" className="block"> {/* Wrap button in Link */}
+          <Button className="w-full bg-brand-primary-500 hover:bg-brand-secondary-blue text-white">
+            Start a new order
+          </Button>
+        </Link>
+        <Link to="/add-funds" className="block"> {/* Wrap button in Link */}
+          <Button variant="outline" className="w-full border-brand-primary-500 text-brand-primary-500 hover:bg-brand-secondary-blue hover:text-white">
+            <Plus className="h-4 w-4 mr-2" /> Add funds
+          </Button>
+        </Link>
       </div>
     </aside>
   );
