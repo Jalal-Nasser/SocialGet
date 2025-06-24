@@ -19,7 +19,34 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch initial session first
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, currentSession) => {
+      if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+        setSession(currentSession);
+        setUser(currentSession?.user || null);
+      } else if (event === 'SIGNED_OUT') {
+        setSession(null);
+        setUser(null);
+      } else if (event === 'INITIAL_SESSION') {
+        setSession(currentSession);
+        setUser(currentSession?.user || null);
+      } else if (event === 'TOKEN_REFRESHED') {
+        setSession(currentSession);
+        setUser(currentSession?.user || null);
+      } else if (event === 'SIGNED_OUT') {
+        setSession(null);
+        setUser(null);
+      }
+
+      if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+        const { error } = await supabase.auth.getSession();
+        if (error) {
+          showError(error.message);
+        }
+      }
+      setIsLoading(false);
+    });
+
+    // Fetch initial session
     supabase.auth.getSession().then(({ data: { session: initialSession }, error }) => {
       if (error) {
         showError(error.message);
@@ -27,15 +54,7 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
         setSession(initialSession);
         setUser(initialSession?.user || null);
       }
-      setIsLoading(false); // Set loading to false after initial session is fetched
-    });
-
-    // Then set up the listener for future auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, currentSession) => {
-      // The currentSession argument already contains the updated session data
-      setSession(currentSession);
-      setUser(currentSession?.user || null);
-      // No need to call getSession() again here, as currentSession is already provided
+      setIsLoading(false);
     });
 
     return () => subscription.unsubscribe();

@@ -1,17 +1,27 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import dyadComponentTagger from "@dyad-sh/react-vite-component-tagger";
+import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(() => ({
+  root: '.',
+  server: {
+    host: "::",
+    port: 8080,
+  },
+  plugins: [dyadComponentTagger(), react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Explicitly resolve @radix-ui/react-tabs to its node_modules path
-      "@radix-ui/react-tabs": path.resolve(__dirname, "node_modules/@radix-ui/react-tabs")
-    }
+    },
   },
-  optimizeDeps: {
-    include: ["@radix-ui/react-tabs"]
+  base: "/SocialGet/", // Changed to your repository name for GitHub Pages
+  build: {
+    outDir: 'dist',
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html')
+      }
+    }
   }
-});
+}));

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Plus, Award, Ticket, Users, User, Twitter, Instagram, Youtube, Linkedin, Facebook, MessageSquare, Play } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from 'react-router-dom';
-import { getServices, Service } from '@/data/servicesData'; // Import getServices and Service type
+import { services } from '@/data/servicesData';
 
 // Custom Reddit SVG component (copied from LandingHeader for consistency)
 const RedditIcon = () => (
@@ -15,24 +15,6 @@ const RedditIcon = () => (
 );
 
 const Dashboard = () => {
-  const [services, setServices] = useState<Service[]>([]);
-  const [loadingServices, setLoadingServices] = useState(true);
-
-  useEffect(() => {
-    const loadServices = async () => {
-      setLoadingServices(true);
-      try {
-        const data = await getServices();
-        setServices(data);
-      } catch (error) {
-        console.error("Failed to fetch services for dashboard:", error);
-      } finally {
-        setLoadingServices(false);
-      }
-    };
-    loadServices();
-  }, []);
-
   // Get unique platforms from services data
   const uniquePlatforms = Array.from(new Set(services.map(service => service.platform)));
 
@@ -133,26 +115,22 @@ const Dashboard = () => {
                   <TabsTrigger value="reviews">Reviews</TabsTrigger>
                 </TabsList>
                 <TabsContent value="engagements" className="mt-4">
-                  {loadingServices ? (
-                    <p className="text-gray-600 dark:text-gray-400">Loading services...</p>
-                  ) : (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                      {uniquePlatforms.map((platform) => {
-                        const Icon = categoryIcons[platform];
-                        return (
-                          <Link to="/services" key={platform}>
-                            <Button variant="outline" className="flex items-center justify-between p-4 h-auto text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 w-full">
-                              <span className="flex items-center">
-                                {Icon && <Icon className="h-4 w-4 mr-2" />}
-                                <span>{platform}</span>
-                              </span>
-                              <svg className="w-4 h-4 text-brand-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                            </Button>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    {uniquePlatforms.map((platform) => {
+                      const Icon = categoryIcons[platform];
+                      return (
+                        <Link to="/services" key={platform}>
+                          <Button variant="outline" className="flex items-center justify-between p-4 h-auto text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 w-full">
+                            <span className="flex items-center">
+                              {Icon && <Icon className="h-4 w-4 mr-2" />}
+                              <span>{platform}</span>
+                            </span>
+                            <svg className="w-4 h-4 text-brand-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                          </Button>
+                        </Link>
+                      );
+                    })}
+                  </div>
                 </TabsContent>
                 <TabsContent value="accounts">
                   <p className="text-gray-600 dark:text-gray-400">Account services will be listed here.</p>
