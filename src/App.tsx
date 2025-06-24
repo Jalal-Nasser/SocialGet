@@ -17,6 +17,9 @@ import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import NotFound from '@/pages/NotFound';
 import ServicePage from '@/pages/ServicePage';
 import Services from '@/pages/Services';
+import Login from '@/pages/Login'; // Import the new Login page
+import { SessionContextProvider } from '@/components/auth/SessionContextProvider'; // Import SessionContextProvider
+import ProtectedRoute from '@/components/auth/ProtectedRoute'; // Import ProtectedRoute
 
 const queryClient = new QueryClient();
 
@@ -28,18 +31,28 @@ const App = () => {
           <TooltipProvider>
             <Sonner />
             <BrowserRouter basename="/">
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/about-us" element={<AboutUs />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/contact" element={<ContactUs />} />
-                <Route path="/terms-of-service" element={<TermsOfService />} />
-                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="/services/:platform/:serviceName" element={<ServicePage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <SessionContextProvider> {/* Wrap the entire app with SessionContextProvider */}
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/login" element={<Login />} /> {/* Add the Login route */}
+                  <Route 
+                    path="/dashboard" 
+                    element={
+                      <ProtectedRoute> {/* Protect the Dashboard route */}
+                        <Dashboard />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route path="/about-us" element={<AboutUs />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/contact" element={<ContactUs />} />
+                  <Route path="/terms-of-service" element={<TermsOfService />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/services/:platform/:serviceName" element={<ServicePage />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </SessionContextProvider>
             </BrowserRouter>
           </TooltipProvider>
         </ThemeProvider>
