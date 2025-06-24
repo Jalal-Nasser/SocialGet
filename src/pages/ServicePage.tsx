@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Star } from 'lucide-react';
 import { getServiceByPlatformAndName } from '@/data/servicesData';
+import DynamicStatsSection from '@/components/DynamicStatsSection'; // Import the new component
 
 const ServicePage: React.FC = () => {
   const { platform, serviceName } = useParams();
@@ -80,6 +81,10 @@ const ServicePage: React.FC = () => {
                 <span>24/7 Customer Service</span>
               </div>
             </div>
+
+            {/* Dynamic Stats Section */}
+            <DynamicStatsSection />
+
           </div>
 
           {/* Right Section: Pricing Card */}
@@ -127,7 +132,7 @@ const ServicePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Statistics Section */}
+        {/* Statistics Section (existing one, if any, will remain) */}
         <div className="relative py-16 bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden mt-12">
           <div className="relative z-10 max-w-4xl mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-center md:justify-between mb-8">
