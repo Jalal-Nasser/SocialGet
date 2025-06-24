@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Add this to ensure Radix UI packages are resolved correctly
+      // Explicitly resolve @radix-ui/react-tabs to its node_modules path
       "@radix-ui/react-tabs": path.resolve(__dirname, "node_modules/@radix-ui/react-tabs")
     }
   },
