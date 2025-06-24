@@ -31,7 +31,7 @@ const Services: React.FC = () => {
                 {platformServices.map((service) => (
                   <Link 
                     key={`${service.platform}-${service.serviceName}`}
-                    to={`/order/${service.platform.toLowerCase()}/${service.path}`}
+                    to={`/services/${service.platform.toLowerCase()}/${service.path}`}
                     className="block p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
                   >
                     <div className="flex justify-between items-center">
