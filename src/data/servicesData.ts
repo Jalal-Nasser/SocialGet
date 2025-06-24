@@ -68,6 +68,17 @@ const services: Service[] = [
   // Facebook Services
   { platform: "Facebook", serviceName: "Likes", path: "likes", description: "Facebook page likes", price: 3.99 },
   { platform: "Facebook", serviceName: "Followers", path: "followers", description: "Facebook profile followers", price: 4.99 },
+  { platform: "Facebook", serviceName: "Views", path: "views", description: "Facebook video views", price: 2.99 },
+  { platform: "Facebook", serviceName: "Comments", path: "comments", description: "Facebook post comments", price: 4.99 },
+  { platform: "Facebook", serviceName: "Comment Likes", path: "comment-likes", description: "Likes for Facebook comments", price: 2.99 },
+  { platform: "Facebook", serviceName: "Post Shares", path: "post-shares", description: "Shares for Facebook posts", price: 3.49 },
+  { platform: "Facebook", serviceName: "Reactions", path: "reactions", description: "Facebook post reactions", price: 2.49 },
+  { platform: "Facebook", serviceName: "Event Attendees", path: "event-attendees", description: "Attendees for Facebook events", price: 5.99 },
+  { platform: "Facebook", serviceName: "Reviews", path: "reviews", description: "Facebook page reviews", price: 4.99 },
+  { platform: "Facebook", serviceName: "Poll Votes", path: "poll-votes", description: "Votes for Facebook polls", price: 2.99 },
+  { platform: "Facebook", serviceName: "Friend Requests", path: "friend-requests", description: "Facebook friend requests", price: 6.99 },
+  { platform: "Facebook", serviceName: "Group Members", path: "group-members", description: "Members for Facebook groups", price: 7.99 },
+  { platform: "Facebook", serviceName: "Live Viewers", path: "live-viewers", description: "Viewers for Facebook Live streams", price: 8.99 },
   
   // Reddit Services
   { platform: "Reddit", serviceName: "Upvotes", path: "upvotes", description: "Reddit post upvotes", price: 3.49 },
