@@ -47,7 +47,7 @@ const getServiceByPlatformAndName = (platform: string, serviceName: string): Ser
   return services.find(
     service => 
       service.platform.toLowerCase() === platform.toLowerCase() && 
-      service.serviceName.toLowerCase() === serviceName.toLowerCase()
+      service.path.toLowerCase() === serviceName.toLowerCase() // Changed from serviceName to path
   );
 };
 
