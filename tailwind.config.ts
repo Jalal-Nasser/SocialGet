@@ -33,8 +33,8 @@ export default {
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "hsl(0 84.2% 60.2%)",
+          foreground: "hsl(210 40% 98%)",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -85,6 +85,10 @@ export default {
         },
         "dropdown-hover": { // New custom color for dropdown hover
           DEFAULT: "hsl(var(--dropdown-hover-background))",
+        },
+        "brand-success": { // New custom color for success elements (green)
+          DEFAULT: "hsl(142.1 76.2% 36.3%)", // A vibrant green
+          foreground: "hsl(210 40% 98%)", // White text on green
         },
       },
       borderRadius: {
