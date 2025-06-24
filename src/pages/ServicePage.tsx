@@ -148,15 +148,8 @@ const ServicePage: React.FC = () => {
             </div>
 
             <div className="bg-white dark:bg-gray-900 rounded-lg shadow-xl p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center">
-                <span className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">100k+</span>
-                <span className="text-gray-600 dark:text-gray-400">Happy Customers</span>
-              </div>
+              <DynamicStatsSection /> {/* Replaced static content */}
               <div className="flex flex-col items-center border-l border-r border-gray-200 dark:border-gray-700 px-4">
-                <span className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">1.7 Billion+</span>
-                <span className="text-gray-600 dark:text-gray-400">Population Reached</span>
-              </div>
-              <div className="flex flex-col items-center">
                 <span className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">4.8</span>
                 <span className="text-gray-600 dark:text-gray-400">Review rate</span>
               </div>
