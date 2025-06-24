@@ -43,6 +43,14 @@ const services: Service[] = [
   { platform: "YouTube", serviceName: "Views", path: "views", description: "YouTube video views", price: 4.99 },
   { platform: "YouTube", serviceName: "Likes", path: "likes", description: "YouTube video likes", price: 3.99 },
   { platform: "YouTube", serviceName: "Subscribers", path: "subscribers", description: "YouTube channel subscribers", price: 5.99 },
+  { platform: "YouTube", serviceName: "Comments", path: "comments", description: "YouTube video comments", price: 4.99 },
+  { platform: "YouTube", serviceName: "Favourites", path: "favourites", description: "YouTube video favourites", price: 3.99 },
+  { platform: "YouTube", serviceName: "Shares", path: "shares", description: "YouTube video shares", price: 2.49 },
+  { platform: "YouTube", serviceName: "Comment Replies", path: "comment-replies", description: "Replies to YouTube comments", price: 5.49 },
+  { platform: "YouTube", serviceName: "Watch Hours", path: "watch-hours", description: "YouTube watch hours", price: 8.99 },
+  { platform: "YouTube", serviceName: "Dislikes", path: "dislikes", description: "YouTube video dislikes", price: 1.99 },
+  { platform: "YouTube", serviceName: "Poll Votes", path: "poll-votes", description: "Votes for YouTube polls", price: 2.99 },
+  { platform: "YouTube", serviceName: "Live Stream Views", path: "live-stream-views", description: "Views for YouTube Live streams", price: 7.99 },
   
   // TikTok Services
   { platform: "TikTok", serviceName: "Followers", path: "followers", description: "TikTok followers", price: 5.99 },
