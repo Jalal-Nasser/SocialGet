@@ -9,7 +9,7 @@ import HowToOrder from '@/components/HowToOrder';
 import FAQSection from '@/components/FAQSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ScrollToTopArrow from '@/components/ScrollToTopArrow'; // Import the new component
-// import ThreeDCube from '@/components/ThreeDCube'; // Temporarily commented out
+import ThreeDCube from '@/components/ThreeDCube'; // Uncommented
 
 const Index: React.FC = () => {
   console.log("Index page loaded");
@@ -72,11 +72,11 @@ const Index: React.FC = () => {
         </div>
 
         {/* 3D Cube Section */}
-        {/* <div className="relative w-full max-w-5xl mx-auto mb-20 h-96">
+        <div className="relative w-full max-w-5xl mx-auto mb-20 h-96">
           <Suspense fallback={<div>Loading 3D Cube...</div>}>
             <ThreeDCube />
           </Suspense>
-        </div> */}
+        </div>
 
         {/* Why Customers Choose Us Section */}
         <div className="relative py-16 bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden mb-20">
