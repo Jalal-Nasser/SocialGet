@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'; // Import Suspense and lazy
+import React from 'react'; // No need for Suspense or lazy anymore
 import LandingHeader from '@/components/layout/LandingHeader';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
@@ -9,9 +9,6 @@ import HowToOrder from '@/components/HowToOrder';
 import FAQSection from '@/components/FAQSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ScrollToTopArrow from '@/components/ScrollToTopArrow';
-
-// Dynamically import ThreeDCube to ensure it's only loaded on the client
-const ThreeDCube = lazy(() => import('@/components/ThreeDCube'));
 
 const Index: React.FC = () => {
   console.log("Index page loaded");
@@ -73,12 +70,8 @@ const Index: React.FC = () => {
           </div>
         </div>
 
-        {/* 3D Cube Section */}
-        <div className="relative w-full max-w-5xl mx-auto mb-20 h-96">
-          <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-gray-500 dark:text-gray-400">Loading 3D content...</div>}>
-            <ThreeDCube />
-          </Suspense>
-        </div>
+        {/* The 3D Cube Section has been removed */}
+        {/* You can add other content here if needed */}
 
         {/* Why Customers Choose Us Section */}
         <div className="relative py-16 bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden mb-20">
