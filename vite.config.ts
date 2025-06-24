@@ -5,9 +5,8 @@ import path from "path";
 export default defineConfig({
   server: {
     host: "0.0.0.0",
-    port: 3000,  // Changed from 8080 to 3000
-    strictPort: true,
-    open: true
+    port: 5173,  // Vite's default port
+    strictPort: true
   },
   plugins: [react()],
   resolve: {
