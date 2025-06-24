@@ -50,7 +50,7 @@ const App = () => {
               <Route path="/services/:platform/:serviceName" element={<ServicePage />} />
               <Route path="/order/:platform/:serviceName" element={<ServiceOrderPage />} />
 
-              {/* Protected Routes */}
+              {/* Protected Routes - Must match Sidebar.tsx exactly */}
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
               <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
               <Route path="/tickets" element={<ProtectedRoute><Tickets /></ProtectedRoute>} />
