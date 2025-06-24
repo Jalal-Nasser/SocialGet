@@ -36,6 +36,8 @@ const ServicePage: React.FC = () => {
     { name: "PayPal", src: "https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" },
     { name: "Visa", src: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" },
     { name: "Mastercard", src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" },
+    { name: "American Express", src: "https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg" },
+    { name: "Maestro", src: "https://upload.wikimedia.org/wikipedia/commons/0/05/Maestro_logo.png" },
     { name: "Bitcoin", src: "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg" },
     { name: "Ethereum", src: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Ethereum-icon-purple.svg" },
     { name: "Litecoin", src: "https://upload.wikimedia.org/wikipedia/commons/0/05/Litecoin.svg" },
