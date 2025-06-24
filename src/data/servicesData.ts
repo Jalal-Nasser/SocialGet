@@ -83,6 +83,10 @@ const services: Service[] = [
   // Reddit Services
   { platform: "Reddit", serviceName: "Upvotes", path: "upvotes", description: "Reddit post upvotes", price: 3.49 },
   { platform: "Reddit", serviceName: "Subscribers", path: "subscribers", description: "Reddit community subscribers", price: 4.99 },
+  { platform: "Reddit", serviceName: "Post & Comment Downvotes", path: "downvotes", description: "Reddit post and comment downvotes", price: 3.49 },
+  { platform: "Reddit", serviceName: "Post & Comment Awards", path: "awards", description: "Reddit post and comment awards", price: 5.99 },
+  { platform: "Reddit", serviceName: "Accounts", path: "accounts", description: "Reddit accounts", price: 10.99 },
+  { platform: "Reddit", serviceName: "Reddit Comments", path: "comments", description: "Reddit comments", price: 4.99 },
   
   // LinkedIn Services
   { platform: "LinkedIn", serviceName: "Connections", path: "connections", description: "LinkedIn profile connections", price: 5.99 },
