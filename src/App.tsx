@@ -15,7 +15,7 @@ import Orders from '@/pages/Orders';
 import Tickets from '@/pages/Tickets';
 import AddFunds from '@/pages/AddFunds';
 import Referrals from '@/pages/Referrals';
-import AllServices from '@/pages/Services'; // Renamed to avoid conflict with 'services' data
+import Services from '@/pages/Services';
 import YoutubeDownloader from '@/pages/YoutubeDownloader';
 import Invoices from '@/pages/Invoices';
 import Commissions from '@/pages/Commissions';
@@ -46,7 +46,7 @@ const App = () => {
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/contact" element={<ContactUs />} />
-              <Route path="/services" element={<AllServices />} />
+              <Route path="/services" element={<Services />} />
               <Route path="/services/:platform/:serviceName" element={<ServicePage />} />
               <Route path="/order/:platform/:serviceName" element={<ServiceOrderPage />} />
 
@@ -56,7 +56,7 @@ const App = () => {
               <Route path="/tickets" element={<ProtectedRoute><Tickets /></ProtectedRoute>} />
               <Route path="/add-funds" element={<ProtectedRoute><AddFunds /></ProtectedRoute>} />
               <Route path="/referrals" element={<ProtectedRoute><Referrals /></ProtectedRoute>} />
-              <Route path="/all-services" element={<ProtectedRoute><AllServices /></ProtectedRoute>} />
+              <Route path="/all-services" element={<ProtectedRoute><Services /></ProtectedRoute>} />
               <Route path="/youtube-downloader" element={<ProtectedRoute><YoutubeDownloader /></ProtectedRoute>} />
               <Route path="/invoices" element={<ProtectedRoute><Invoices /></ProtectedRoute>} />
               <Route path="/commissions" element={<ProtectedRoute><Commissions /></ProtectedRoute>} />
