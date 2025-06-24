@@ -26,7 +26,7 @@ const DynamicStatsSection: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center sm:items-start gap-8 sm:gap-16 py-8">
+    <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center sm:items-start gap-8 sm:gap-16">
       <div className="text-center sm:text-left">
         <h3 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
           {happyCustomers}
