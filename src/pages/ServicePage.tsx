@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, Star } from 'lucide-react';
 import { getServiceByPlatformAndName } from '@/data/servicesData';
 import DynamicStatsSection from '@/components/DynamicStatsSection'; // Import the new component
+import { Link } from 'react-router-dom'; // Ensure Link is imported
 
 const ServicePage: React.FC = () => {
   const { platform, serviceName } = useParams();
@@ -117,9 +118,11 @@ const ServicePage: React.FC = () => {
               </li>
             </ul>
 
-            <Button className="w-full bg-brand-primary-500 hover:bg-brand-secondary-blue text-white text-lg py-3 rounded-md mb-6">
-              Order Now
-            </Button>
+            <Link to={`/order/${service.platform.toLowerCase()}/${service.path}`}>
+              <Button className="w-full bg-brand-primary-500 hover:bg-brand-secondary-blue text-white text-lg py-3 rounded-md mb-6">
+                Order Now
+              </Button>
+            </Link>
 
             <div className="text-center text-gray-400 text-sm mb-4">
               Secured Checkout

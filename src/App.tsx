@@ -32,6 +32,7 @@ import MultiAccountManagement from '@/pages/MultiAccountManagement';
 import BuyProxies from '@/pages/BuyProxies';
 import YoutubeDownloader from '@/pages/YoutubeDownloader';
 import NewOrder from '@/pages/NewOrder'; // Import NewOrder page
+import ServiceOrderPage from '@/pages/ServiceOrderPage'; // Import the new ServiceOrderPage
 
 const queryClient = new QueryClient();
 
@@ -154,6 +155,7 @@ const App = () => {
                   <Route path="/terms-of-service" element={<TermsOfService />} />
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                   <Route path="/services/:platform/:serviceName" element={<ServicePage />} />
+                  <Route path="/order/:platform/:serviceName" element={<ServiceOrderPage />} /> {/* New route for order page */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </SessionContextProvider>
