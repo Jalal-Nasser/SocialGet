@@ -83,7 +83,7 @@ const ServicePage: React.FC = () => {
           </div>
 
           {/* Right Section: Pricing Card */}
-          <div className="lg:col-span-1 bg-brand-secondary-blue rounded-lg shadow-xl p-8 text-white">
+          <div className="lg:col-span-1 bg-[#1f2a38] rounded-lg shadow-xl p-8 text-white">
             <p className="text-gray-400 text-sm mb-2">Starting from</p>
             <h2 className="text-5xl font-extrabold mb-6">
               ${service.price.toFixed(3)} <span className="text-brand-primary-500 text-2xl font-semibold">{service.unit}</span>
