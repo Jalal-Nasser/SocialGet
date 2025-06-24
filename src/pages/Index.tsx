@@ -1,15 +1,17 @@
-import React, { Suspense } from 'react'; // Import Suspense
+import React, { Suspense, lazy } from 'react'; // Import lazy
 import LandingHeader from '@/components/layout/LandingHeader';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Star, Users, CheckCircle, Clock, MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import PlugIllustration from '@/components/PlugIllustration'; // Keep import
+import PlugIllustration from '@/components/PlugIllustration';
 import HowToOrder from '@/components/HowToOrder';
 import FAQSection from '@/components/FAQSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
-import ScrollToTopArrow from '@/components/ScrollToTopArrow'; // Import the new component
-import ThreeDCube from '@/components/ThreeDCube'; // Uncommented
+import ScrollToTopArrow from '@/components/ScrollToTopArrow';
+
+// Dynamically import ThreeDCube to ensure it's only loaded on the client
+const ThreeDCube = lazy(() => import('@/components/ThreeDCube'));
 
 const Index: React.FC = () => {
   console.log("Index page loaded");
@@ -52,7 +54,7 @@ const Index: React.FC = () => {
           </div>
 
           {/* PlugIllustration moved here */}
-          <div className="w-full mx-auto mb-12"> {/* Removed max-w-xl */}
+          <div className="w-full mx-auto mb-12">
             <PlugIllustration />
           </div>
 
@@ -80,7 +82,6 @@ const Index: React.FC = () => {
 
         {/* Why Customers Choose Us Section */}
         <div className="relative py-16 bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden mb-20">
-          {/* Removed the div with star background */}
           <div className="relative z-10 max-w-4xl mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-center md:justify-between mb-8">
               <div className="text-center md:text-left mb-8 md:mb-0 md:mr-8">
@@ -92,7 +93,6 @@ const Index: React.FC = () => {
                   seriously - help us improve by <a href="#" className="text-brand-primary-500 hover:underline">leaving a review</a>.
                 </p>
               </div>
-              {/* PlugIllustration was here, now moved */}
             </div>
 
             <div className="bg-white dark:bg-gray-900 rounded-lg shadow-xl p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -122,7 +122,7 @@ const Index: React.FC = () => {
         <FAQSection />
       </main>
       <Footer />
-      <ScrollToTopArrow /> {/* Add the scroll to top arrow here */}
+      <ScrollToTopArrow />
     </div>
   );
 };
