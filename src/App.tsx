@@ -35,7 +35,7 @@ const App = () => {
   return (
     <ErrorBoundary fallback={<div>Something went wrong.</div>}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <BrowserRouter basename="/SocialGet/"> {/* Added basename here */}
+        <BrowserRouter basename="/">
           <SessionContextProvider>
             <Routes>
               {/* Public Routes */}
