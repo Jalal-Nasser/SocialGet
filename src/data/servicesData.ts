@@ -90,7 +90,15 @@ const services: Service[] = [
   
   // LinkedIn Services
   { platform: "LinkedIn", serviceName: "Connections", path: "connections", description: "LinkedIn profile connections", price: 5.99 },
-  { platform: "LinkedIn", serviceName: "Endorsements", path: "endorsements", description: "LinkedIn skill endorsements", price: 4.49 }
+  { platform: "LinkedIn", serviceName: "Followers", path: "followers", description: "LinkedIn profile followers", price: 4.99 },
+  { platform: "LinkedIn", serviceName: "Likes", path: "likes", description: "LinkedIn post likes", price: 3.99 },
+  { platform: "LinkedIn", serviceName: "Comments", path: "comments", description: "LinkedIn post comments", price: 4.99 },
+  { platform: "LinkedIn", serviceName: "Views", path: "views", description: "LinkedIn video views", price: 2.99 },
+  { platform: "LinkedIn", serviceName: "Reactions", path: "reactions", description: "LinkedIn post reactions", price: 2.49 },
+  { platform: "LinkedIn", serviceName: "Shares", path: "shares", description: "LinkedIn post shares", price: 3.49 },
+  { platform: "LinkedIn", serviceName: "Endorsements", path: "endorsements", description: "LinkedIn skill endorsements", price: 4.49 },
+  { platform: "LinkedIn", serviceName: "Employees", path: "employees", description: "LinkedIn company page employees", price: 7.99 },
+  { platform: "LinkedIn", serviceName: "Group Members", path: "group-members", description: "LinkedIn group members", price: 6.99 }
 ];
 
 const getServiceByPlatformAndName = (platform: string, serviceName: string): Service | undefined => {
