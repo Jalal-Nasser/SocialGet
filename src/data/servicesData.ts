@@ -48,6 +48,14 @@ const services: Service[] = [
   { platform: "TikTok", serviceName: "Followers", path: "followers", description: "TikTok followers", price: 5.99 },
   { platform: "TikTok", serviceName: "Likes", path: "likes", description: "TikTok video likes", price: 4.99 },
   { platform: "TikTok", serviceName: "Views", path: "views", description: "TikTok video views", price: 3.99 },
+  { platform: "TikTok", serviceName: "Comments", path: "comments", description: "TikTok video comments", price: 4.99 },
+  { platform: "TikTok", serviceName: "Comment Replies", path: "comment-replies", description: "Replies to TikTok comments", price: 5.49 },
+  { platform: "TikTok", serviceName: "Custom Comments", path: "custom-comments", description: "Custom TikTok comments", price: 6.99 },
+  { platform: "TikTok", serviceName: "Shares", path: "shares", description: "TikTok video shares", price: 2.49 },
+  { platform: "TikTok", serviceName: "Auto Views", path: "auto-views", description: "Automatic TikTok video views", price: 5.99 },
+  { platform: "TikTok", serviceName: "Live Views", path: "live-views", description: "Views for TikTok Live streams", price: 7.99 },
+  { platform: "TikTok", serviceName: "Saves", path: "saves", description: "TikTok video saves", price: 1.99 },
+  { platform: "TikTok", serviceName: "Coins", path: "coins", description: "TikTok coins", price: 9.99 },
   
   // Facebook Services
   { platform: "Facebook", serviceName: "Likes", path: "likes", description: "Facebook page likes", price: 3.99 },
