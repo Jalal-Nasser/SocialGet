@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'; // Import lazy
+import React from 'react'; // No need for lazy or Suspense here anymore
 import LandingHeader from '@/components/layout/LandingHeader';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
@@ -10,8 +10,8 @@ import FAQSection from '@/components/FAQSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ScrollToTopArrow from '@/components/ScrollToTopArrow';
 
-// Dynamically import ThreeDCube to ensure it's only loaded on the client
-const ThreeDCube = lazy(() => import('@/components/ThreeDCube'));
+// Import the new client-only wrapper
+import ClientOnlyThreeDCube from '@/components/ClientOnlyThreeDCube';
 
 const Index: React.FC = () => {
   console.log("Index page loaded");
@@ -75,9 +75,7 @@ const Index: React.FC = () => {
 
         {/* 3D Cube Section */}
         <div className="relative w-full max-w-5xl mx-auto mb-20 h-96">
-          <Suspense fallback={<div>Loading 3D Cube...</div>}>
-            <ThreeDCube />
-          </Suspense>
+          <ClientOnlyThreeDCube /> {/* Use the new wrapper component */}
         </div>
 
         {/* Why Customers Choose Us Section */}
