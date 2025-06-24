@@ -9,10 +9,16 @@ interface Service {
 const services: Service[] = [
   // Twitter Services
   { platform: "Twitter", serviceName: "Followers", path: "followers", description: "High-quality Twitter followers", price: 2.99 },
+  { platform: "Twitter", serviceName: "USA Followers", path: "usa-followers", description: "High-quality Twitter followers from USA", price: 4.99 },
   { platform: "Twitter", serviceName: "Likes", path: "likes", description: "Twitter post likes", price: 1.99 },
   { platform: "Twitter", serviceName: "Views", path: "views", description: "Twitter video views", price: 1.49 },
   { platform: "Twitter", serviceName: "Retweets", path: "retweets", description: "Twitter retweets", price: 2.49 },
   { platform: "Twitter", serviceName: "Replies", path: "replies", description: "Twitter comment replies", price: 3.99 },
+  { platform: "Twitter", serviceName: "Impressions", path: "impressions", description: "Twitter post impressions", price: 1.29 },
+  { platform: "Twitter", serviceName: "Spaces Listeners", path: "spaces-listeners", description: "Listeners for Twitter Spaces", price: 6.99 },
+  { platform: "Twitter", serviceName: "Poll Votes", path: "poll-votes", description: "Votes for Twitter polls", price: 2.99 },
+  { platform: "Twitter", serviceName: "Bookmarks", path: "bookmarks", description: "Twitter post bookmarks", price: 1.79 },
+  { platform: "Twitter", serviceName: "Mentions", path: "mentions", description: "Twitter mentions for your account", price: 3.49 },
   
   // Instagram Services
   { platform: "Instagram", serviceName: "Followers", path: "followers", description: "Real Instagram followers", price: 3.99 },
@@ -47,7 +53,7 @@ const getServiceByPlatformAndName = (platform: string, serviceName: string): Ser
   return services.find(
     service => 
       service.platform.toLowerCase() === platform.toLowerCase() && 
-      service.path.toLowerCase() === serviceName.toLowerCase() // Changed from serviceName to path
+      service.path.toLowerCase() === serviceName.toLowerCase()
   );
 };
 
