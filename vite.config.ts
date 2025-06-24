@@ -1,27 +1,18 @@
 import { defineConfig } from "vite";
-import dyadComponentTagger from "@dyad-sh/react-vite-component-tagger";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-export default defineConfig(() => ({
-  root: '.',
+export default defineConfig({
   server: {
-    host: "::",
+    host: "0.0.0.0", // Changed from '::' to ensure broader compatibility
     port: 8080,
+    strictPort: true, // Ensures Vite fails if port is unavailable
+    open: true // Automatically open browser
   },
-  plugins: [dyadComponentTagger(), react()],
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-  },
-  base: "/SocialGet/", // Changed to your repository name for GitHub Pages
-  build: {
-    outDir: 'dist',
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html')
-      }
-    }
   }
-}));
+});
