@@ -1,14 +1,26 @@
-import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import LandingHeader from '@/components/layout/LandingHeader'
+import Footer from '@/components/layout/Footer'
+import Index from '@/pages/Index'
+import Services from '@/pages/Services'
+import Login from '@/pages/Login'
+import Dashboard from '@/pages/Dashboard'
+import NotFound from '@/pages/NotFound'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <h1 className="text-3xl font-bold text-center py-8 text-brand-primary-500">
-        Welcome to SocialGet
-      </h1>
-      <p className="text-center text-gray-600">
-        Your social media growth platform
-      </p>
+    <div className="flex flex-col min-h-screen">
+      <LandingHeader />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <Footer />
     </div>
   )
 }
