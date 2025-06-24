@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import LogoImage from '@/assets/logo.png';
 import OngoingProjectSlider from '@/components/OngoingProjectSlider';
 import ThemeToggle from '@/components/ThemeToggle';
+import { services } from '@/data/servicesData'; // Import services data
 
 // Custom Reddit SVG component
 const RedditIcon = () => (
@@ -19,43 +20,15 @@ const RedditIcon = () => (
 );
 
 const LandingHeader: React.FC = () => {
-  const platformMenus = {
-    Twitter: [
-      { name: "Followers", path: "/services/twitter/followers" },
-      { name: "Likes", path: "/services/twitter/likes" },
-      { name: "Views", path: "/services/twitter/views" },
-      { name: "Retweets", path: "/services/twitter/retweets" },
-      { name: "Replies", path: "/services/twitter/replies" }
-    ],
-    Instagram: [
-      { name: "Followers", path: "/services/instagram/followers" },
-      { name: "Likes", path: "/services/instagram/likes" },
-      { name: "Views", path: "/services/instagram/views" },
-      { name: "Reels Views", path: "/services/instagram/reels-views" }
-    ],
-    YouTube: [
-      { name: "Views", path: "/services/youtube/views" },
-      { name: "Likes", path: "/services/youtube/likes" },
-      { name: "Subscribers", path: "/services/youtube/subscribers" }
-    ],
-    TikTok: [
-      { name: "Followers", path: "/services/tiktok/followers" },
-      { name: "Likes", path: "/services/tiktok/likes" },
-      { name: "Views", path: "/services/tiktok/views" }
-    ],
-    Facebook: [
-      { name: "Likes", path: "/services/facebook/likes" },
-      { name: "Followers", path: "/services/facebook/followers" }
-    ],
-    Reddit: [
-      { name: "Upvotes", path: "/services/reddit/upvotes" },
-      { name: "Subscribers", path: "/services/reddit/subscribers" }
-    ],
-    LinkedIn: [
-      { name: "Connections", path: "/services/linkedin/connections" },
-      { name: "Endorsements", path: "/services/linkedin/endorsements" }
-    ]
-  };
+  // Group services by platform for dynamic menu generation
+  const servicesByPlatform = services.reduce((acc, service) => {
+    const platformKey = service.platform;
+    if (!acc[platformKey]) {
+      acc[platformKey] = [];
+    }
+    acc[platformKey].push(service);
+    return acc;
+  }, {} as Record<string, typeof services>);
 
   const categoryIcons: { [key: string]: React.ElementType } = {
     Twitter: Twitter,
@@ -112,7 +85,7 @@ const LandingHeader: React.FC = () => {
             <span>Home</span>
           </Link>
           
-          {Object.entries(platformMenus).map(([platform, items]) => {
+          {Object.entries(servicesByPlatform).map(([platform, items]) => {
             const Icon = categoryIcons[platform];
             
             return (
@@ -129,9 +102,9 @@ const LandingHeader: React.FC = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="min-w-[200px]">
                   {items.map((item, index) => (
-                    <Link to={item.path} key={index}>
+                    <Link to={`/services/${item.platform.toLowerCase()}/${item.path}`} key={index}>
                       <DropdownMenuItem className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover cursor-pointer">
-                        {item.name}
+                        {item.serviceName}
                       </DropdownMenuItem>
                     </Link>
                   ))}
