@@ -20,8 +20,9 @@ import Services from '@/pages/Services';
 import Login from '@/pages/Login';
 import { SessionContextProvider } from '@/components/auth/SessionContextProvider';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
+import ServiceOrderPage from '@/pages/ServiceOrderPage';
 
-// Import new client portal pages
+// Import client portal pages
 import Orders from '@/pages/Orders';
 import Tickets from '@/pages/Tickets';
 import AddFunds from '@/pages/AddFunds';
@@ -31,8 +32,7 @@ import Commissions from '@/pages/Commissions';
 import MultiAccountManagement from '@/pages/MultiAccountManagement';
 import BuyProxies from '@/pages/BuyProxies';
 import YoutubeDownloader from '@/pages/YoutubeDownloader';
-import NewOrder from '@/pages/NewOrder'; // Import NewOrder page
-import ServiceOrderPage from '@/pages/ServiceOrderPage'; // Import the new ServiceOrderPage
+import NewOrder from '@/pages/NewOrder';
 
 const queryClient = new QueryClient();
 
@@ -49,6 +49,12 @@ const App = () => {
                   <Route path="/" element={<Index />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/login" element={<Login />} />
+                  
+                  {/* Service Pages */}
+                  <Route path="/services/:platform/:serviceName" element={<ServicePage />} />
+                  
+                  {/* Service Order Pages */}
+                  <Route path="/order/:platform/:serviceName" element={<ServiceOrderPage />} />
                   
                   {/* Protected Client Portal Routes */}
                   <Route 
@@ -95,7 +101,7 @@ const App = () => {
                     path="/all-services" 
                     element={
                       <ProtectedRoute>
-                        <Services /> {/* Re-using the public Services page */}
+                        <Services />
                       </ProtectedRoute>
                     } 
                   />
@@ -154,8 +160,6 @@ const App = () => {
                   <Route path="/contact" element={<ContactUs />} />
                   <Route path="/terms-of-service" element={<TermsOfService />} />
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                  <Route path="/services/:platform/:serviceName" element={<ServicePage />} />
-                  <Route path="/order/:platform/:serviceName" element={<ServiceOrderPage />} /> {/* New route for order page */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </SessionContextProvider>

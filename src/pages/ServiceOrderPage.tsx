@@ -21,6 +21,7 @@ const ServiceOrderPage: React.FC = () => {
 
   const [selectedQuantityOption, setSelectedQuantityOption] = useState<ServiceQuantityOption | null>(null);
   const [soldTimes, setSoldTimes] = useState(0);
+  const [customQuantity, setCustomQuantity] = useState('');
 
   useEffect(() => {
     if (service) {
@@ -30,9 +31,9 @@ const ServiceOrderPage: React.FC = () => {
         const defaultOption = options.find(opt => opt.isBestSeller) || options[0];
         setSelectedQuantityOption(defaultOption);
       }
+      // Simulate random sales count
+      setSoldTimes(Math.floor(Math.random() * (200 - 100 + 1)) + 100);
     }
-    // Simulate random sales count
-    setSoldTimes(Math.floor(Math.random() * (200 - 100 + 1)) + 100);
   }, [service]);
 
   if (!service) {
@@ -68,13 +69,33 @@ const ServiceOrderPage: React.FC = () => {
     originalPrice = selectedQuantityOption.quantity * basePricePerUnit;
     currentPrice = originalPrice * (1 - selectedQuantityOption.discountPercentage / 100);
     saving = originalPrice - currentPrice;
+  } else if (customQuantity) {
+    const quantity = parseInt(customQuantity);
+    if (!isNaN(quantity) && quantity > 0) {
+      originalPrice = quantity * basePricePerUnit;
+      currentPrice = originalPrice; // No discount for custom quantities
+      saving = 0;
+    }
   }
 
   const includedFeatures = [
     { icon: MessageSquare, title: "24/7 Customer Support", description: "The fastest response time in the industry - just 5 minutes. All from 100% real humans, no AI here." },
-    { icon: Zap, title: "100% Account Safety", description: "SocialPlug's the ONLY company using UHQ Accounts, so platforms can't detect any unusual activity. Guaranteeing the safety of your account." },
+    { icon: Zap, title: "100% Account Safety", description: "SocialGet's the ONLY company using UHQ Accounts, so platforms can't detect any unusual activity. Guaranteeing the safety of your account." },
     { icon: Lock, title: "100,000+ Customers Trust Us", description: "10+ Years in business and over 100,000 happy customers, you can feel safe with us." },
   ];
+
+  const handleCustomQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === '' || /^\d+$/.test(value)) {
+      setCustomQuantity(value);
+      setSelectedQuantityOption(null);
+    }
+  };
+
+  const handleQuantityOptionClick = (option: ServiceQuantityOption) => {
+    setSelectedQuantityOption(option);
+    setCustomQuantity('');
+  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
@@ -95,7 +116,7 @@ const ServiceOrderPage: React.FC = () => {
 
             <p className="text-gray-600 dark:text-gray-400 mb-6">Select One</p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
               {options.map((option, index) => (
                 <Card
                   key={index}
@@ -106,7 +127,7 @@ const ServiceOrderPage: React.FC = () => {
                       ? "border-brand-primary-500 bg-brand-primary-500/10"
                       : "border-gray-200 dark:border-gray-700 hover:border-brand-primary-500/50"
                   )}
-                  onClick={() => setSelectedQuantityOption(option)}
+                  onClick={() => handleQuantityOptionClick(option)}
                 >
                   {option.isBestSeller && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
@@ -133,6 +154,30 @@ const ServiceOrderPage: React.FC = () => {
               ))}
             </div>
 
+            {/* Custom Quantity Input */}
+            <div className="mb-8">
+              <label htmlFor="custom-quantity" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Or enter custom amount
+              </label>
+              <div className="flex">
+                <Input
+                  id="custom-quantity"
+                  type="text"
+                  placeholder="Enter custom quantity"
+                  value={customQuantity}
+                  onChange={handleCustomQuantityChange}
+                  className="rounded-r-none"
+                />
+                <Button 
+                  variant="outline" 
+                  className="rounded-l-none border-l-0 bg-gray-100 dark:bg-gray-800"
+                  disabled={!customQuantity}
+                >
+                  Apply
+                </Button>
+              </div>
+            </div>
+
             {selectedQuantityOption && (
               <div className="bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-200 p-4 rounded-lg flex items-center justify-between mb-8">
                 <span className="font-semibold">Great choice 🔥 This service has been sold {soldTimes} times in the last 24 hrs</span>
@@ -140,17 +185,21 @@ const ServiceOrderPage: React.FC = () => {
             )}
 
             <div className="flex items-center justify-between mt-8">
-              {selectedQuantityOption ? (
+              {(selectedQuantityOption || customQuantity) ? (
                 <div className="flex items-baseline space-x-2">
                   <span className="text-4xl font-bold text-gray-900 dark:text-gray-100">
                     ${currentPrice.toFixed(2)}
                   </span>
-                  <span className="text-xl text-gray-500 line-through">
-                    ${originalPrice.toFixed(2)}
-                  </span>
-                  <span className="text-green-600 dark:text-green-400 font-semibold">
-                    You're saving ${saving.toFixed(2)}
-                  </span>
+                  {selectedQuantityOption?.discountPercentage && selectedQuantityOption.discountPercentage > 0 && (
+                    <>
+                      <span className="text-xl text-gray-500 line-through">
+                        ${originalPrice.toFixed(2)}
+                      </span>
+                      <span className="text-green-600 dark:text-green-400 font-semibold">
+                        You're saving ${saving.toFixed(2)}
+                      </span>
+                    </>
+                  )}
                 </div>
               ) : (
                 <p className="text-gray-600 dark:text-gray-400">Please select a quantity to see pricing.</p>
@@ -165,13 +214,17 @@ const ServiceOrderPage: React.FC = () => {
           <div className="lg:col-span-1 space-y-8">
             <Card className="bg-gray-50 dark:bg-gray-800 shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Order Summary</h2>
-              {selectedQuantityOption ? (
+              {selectedQuantityOption || customQuantity ? (
                 <>
                   <div className="flex justify-between items-center text-lg text-gray-700 dark:text-gray-300 mb-4">
-                    <span>{selectedQuantityOption.quantity} {service.serviceName}</span>
+                    <span>
+                      {selectedQuantityOption?.quantity || customQuantity} {service.serviceName}
+                    </span>
                     <span className="font-semibold">
-                      <span className="text-brand-primary-500">${currentPrice.toFixed(2)}</span>{" "}
-                      <span className="line-through text-gray-500">${originalPrice.toFixed(2)}</span>
+                      <span className="text-brand-primary-500">${currentPrice.toFixed(2)}</span>
+                      {selectedQuantityOption?.discountPercentage && selectedQuantityOption.discountPercentage > 0 && (
+                        <span className="line-through text-gray-500 ml-1">${originalPrice.toFixed(2)}</span>
+                      )}
                     </span>
                   </div>
                   <Input
@@ -183,9 +236,11 @@ const ServiceOrderPage: React.FC = () => {
                     <span>Total</span>
                     <span>${currentPrice.toFixed(2)}</span>
                   </div>
-                  <p className="text-green-600 dark:text-green-400 text-sm text-right">
-                    You're saving ${saving.toFixed(2)}
-                  </p>
+                  {selectedQuantityOption?.discountPercentage && selectedQuantityOption.discountPercentage > 0 && (
+                    <p className="text-green-600 dark:text-green-400 text-sm text-right">
+                      You're saving ${saving.toFixed(2)}
+                    </p>
+                  )}
                 </>
               ) : (
                 <p className="text-gray-600 dark:text-gray-400">Select a quantity to see your order summary.</p>
