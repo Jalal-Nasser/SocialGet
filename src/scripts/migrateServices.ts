@@ -1,6 +1,6 @@
-import { supabase } from '@/integrations/supabase/client';
-import { services as hardcodedServices } from '@/data/servicesData';
-import { addService } from '@/lib/services';
+import { supabase } from '@/integrations/supabase/client.js';
+import { services as hardcodedServices } from '@/data/servicesData.js';
+import { addService } from '@/lib/services.js';
 
 async function migrateServicesToSupabase() {
   console.log('Starting migration of hardcoded services to Supabase...');
@@ -9,7 +9,7 @@ async function migrateServicesToSupabase() {
     try {
       const serviceToInsert = {
         platform: service.platform,
-        service_name: service.serviceName, // Map serviceName from old data to service_name for new table
+        service_name: service.serviceName,
         path: service.path,
         description: service.description,
         price: service.price,
@@ -24,4 +24,4 @@ async function migrateServicesToSupabase() {
   console.log('Migration complete.');
 }
 
-migrateServicesToSupabase();
+await migrateServicesToSupabase();
