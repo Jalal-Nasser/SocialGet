@@ -23,6 +23,9 @@ export interface ServiceQuantities {
 }
 
 // Placeholder for quantity options (will eventually be dynamic or managed separately)
+// This should NOT import from src/data/servicesData.ts
+// It's fine to keep this as a placeholder for now, as it's not causing the cycle.
+// The actual quantity options should probably come from the database or be defined elsewhere.
 export const serviceQuantityOptions: ServiceQuantities = {
   "likes": [ // For Twitter Likes (path: "likes")
     { quantity: 25, discountPercentage: 5 },
