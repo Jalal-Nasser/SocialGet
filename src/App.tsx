@@ -34,6 +34,10 @@ import BuyProxies from '@/pages/BuyProxies';
 import YoutubeDownloader from '@/pages/YoutubeDownloader';
 import NewOrder from '@/pages/NewOrder';
 
+// Import admin pages
+import AdminDashboard from '@/pages/admin/AdminDashboard';
+import ManageServices from '@/pages/admin/ManageServices';
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -153,6 +157,25 @@ const App = () => {
                       </ProtectedRoute>
                     } 
                   />
+
+                  {/* Protected Admin Routes */}
+                  <Route 
+                    path="/admin/dashboard" 
+                    element={
+                      <ProtectedRoute>
+                        <AdminDashboard />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/admin/services" 
+                    element={
+                      <ProtectedRoute>
+                        <ManageServices />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  {/* Add more admin routes here */}
 
                   {/* Public Routes */}
                   <Route path="/about-us" element={<AboutUs />} />
