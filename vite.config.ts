@@ -4,10 +4,10 @@ import path from "path";
 
 export default defineConfig({
   server: {
-    host: "0.0.0.0", // Changed from '::' to ensure broader compatibility
-    port: 8080,
-    strictPort: true, // Ensures Vite fails if port is unavailable
-    open: true // Automatically open browser
+    host: "0.0.0.0",
+    port: 3000,  // Changed from 8080 to 3000
+    strictPort: true,
+    open: true
   },
   plugins: [react()],
   resolve: {
