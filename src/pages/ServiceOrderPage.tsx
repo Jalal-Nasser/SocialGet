@@ -3,38 +3,55 @@ import { useParams, Link } from 'react-router-dom';
 import LandingHeader from '@/components/layout/LandingHeader';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { CheckCircle, MessageSquare, Zap, Lock, Star, Globe } from 'lucide-react';
+import { CheckCircle, Shield, Zap, Clock, Star, ChevronDown, CreditCard } from 'lucide-react';
 import { getServiceByPlatformAndName, serviceQuantityOptions } from '@/data/servicesData';
 import { cn } from '@/lib/utils';
-
-interface ServiceQuantityOption {
-  quantity: number;
-  discountPercentage: number;
-  isBestSeller?: boolean;
-}
 
 const ServiceOrderPage: React.FC = () => {
   const { platform, serviceName } = useParams();
   const service = getServiceByPlatformAndName(platform || '', serviceName || '');
 
-  const [selectedQuantityOption, setSelectedQuantityOption] = useState<ServiceQuantityOption | null>(null);
-  const [soldTimes, setSoldTimes] = useState(0);
+  const [selectedQuantity, setSelectedQuantity] = useState<number | null>(null);
   const [customQuantity, setCustomQuantity] = useState('');
+  const [activeTab, setActiveTab] = useState('quantity');
+  const [promoCode, setPromoCode] = useState('');
 
-  useEffect(() => {
-    if (service) {
-      const options = serviceQuantityOptions[service.path];
-      if (options && options.length > 0) {
-        // Select the first option by default, or the best seller if available
-        const defaultOption = options.find(opt => opt.isBestSeller) || options[0];
-        setSelectedQuantityOption(defaultOption);
-      }
-      // Simulate random sales count
-      setSoldTimes(Math.floor(Math.random() * (200 - 100 + 1)) + 100);
+  // Get quantity options for this service
+  const quantityOptions = service ? serviceQuantityOptions[service.path] || [] : [];
+  
+  // Calculate pricing
+  const unitPrice = service?.price || 0;
+  let totalPrice = 0;
+  let discount = 0;
+  
+  if (selectedQuantity !== null) {
+    const option = quantityOptions.find(opt => opt.quantity === selectedQuantity);
+    if (option) {
+      totalPrice = selectedQuantity * unitPrice * (1 - option.discountPercentage / 100);
+      discount = selectedQuantity * unitPrice - totalPrice;
+    } else {
+      totalPrice = selectedQuantity * unitPrice;
     }
-  }, [service]);
+  } else if (customQuantity) {
+    const qty = parseInt(customQuantity);
+    if (!isNaN(qty) && qty > 0) {
+      totalPrice = qty * unitPrice;
+    }
+  }
+
+  const features = [
+    { icon: Clock, title: "Fast Delivery", description: "Starts within minutes, completes within 24 hours" },
+    { icon: Shield, title: "Guaranteed", description: "Refund if we can't deliver as promised" },
+    { icon: Zap, title: "High Quality", description: "Real engagement from authentic accounts" }
+  ];
+
+  const paymentMethods = [
+    { name: "Credit Card", icon: CreditCard },
+    { name: "PayPal", icon: () => <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-6" /> },
+    { name: "Crypto", icon: () => <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Crypto" className="h-6" /> }
+  ];
 
   if (!service) {
     return (
@@ -47,8 +64,8 @@ const ServiceOrderPage: React.FC = () => {
               The requested service could not be found.
             </p>
             <Button asChild>
-              <Link to="/" className="text-white">
-                Return to Home
+              <Link to="/services" className="text-white">
+                Browse Services
               </Link>
             </Button>
           </div>
@@ -58,215 +75,210 @@ const ServiceOrderPage: React.FC = () => {
     );
   }
 
-  const options = serviceQuantityOptions[service.path] || [];
-
-  const basePricePerUnit = service.price;
-  let currentPrice = 0;
-  let originalPrice = 0;
-  let saving = 0;
-
-  if (selectedQuantityOption) {
-    originalPrice = selectedQuantityOption.quantity * basePricePerUnit;
-    currentPrice = originalPrice * (1 - selectedQuantityOption.discountPercentage / 100);
-    saving = originalPrice - currentPrice;
-  } else if (customQuantity) {
-    const quantity = parseInt(customQuantity);
-    if (!isNaN(quantity) && quantity > 0) {
-      originalPrice = quantity * basePricePerUnit;
-      currentPrice = originalPrice; // No discount for custom quantities
-      saving = 0;
-    }
-  }
-
-  const includedFeatures = [
-    { icon: MessageSquare, title: "24/7 Customer Support", description: "The fastest response time in the industry - just 5 minutes. All from 100% real humans, no AI here." },
-    { icon: Zap, title: "100% Account Safety", description: "SocialGet's the ONLY company using UHQ Accounts, so platforms can't detect any unusual activity. Guaranteeing the safety of your account." },
-    { icon: Lock, title: "100,000+ Customers Trust Us", description: "10+ Years in business and over 100,000 happy customers, you can feel safe with us." },
-  ];
-
-  const handleCustomQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === '' || /^\d+$/.test(value)) {
-      setCustomQuantity(value);
-      setSelectedQuantityOption(null);
-    }
-  };
-
-  const handleQuantityOptionClick = (option: ServiceQuantityOption) => {
-    setSelectedQuantityOption(option);
-    setCustomQuantity('');
-  };
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
       <LandingHeader />
+      
       <main className="container mx-auto px-4 py-12 flex-grow">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Left Section: Quantity Selection */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center justify-between mb-8">
-              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-                Choose {service.platform} {service.serviceName} amount
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column - Service Details */}
+          <div className="lg:col-span-2 space-y-8">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+              <h1 className="text-3xl font-bold mb-2">
+                Order {service.platform} {service.serviceName}
               </h1>
-              <Button variant="outline" className="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
-                <Globe className="h-4 w-4" />
-                <span>EN</span>
-              </Button>
-            </div>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">{service.description}</p>
+              
+              <div className="flex items-center space-x-4 mb-6">
+                <div className="flex items-center">
+                  <Star className="h-5 w-5 text-yellow-500 fill-yellow-500 mr-1" />
+                  <span className="font-medium">4.9/5</span>
+                </div>
+                <span className="text-gray-500">|</span>
+                <div className="flex items-center">
+                  <CheckCircle className="h-5 w-5 text-green-500 mr-1" />
+                  <span>12,751 orders completed</span>
+                </div>
+              </div>
 
-            <p className="text-gray-600 dark:text-gray-400 mb-6">Select One</p>
+              {/* Quantity Selection */}
+              <div className="mb-8">
+                <h2 className="text-xl font-semibold mb-4">Select Quantity</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {quantityOptions.map((option) => (
+                    <Button
+                      key={option.quantity}
+                      variant={selectedQuantity === option.quantity ? 'default' : 'outline'}
+                      className={`flex flex-col items-center h-auto py-4 ${
+                        selectedQuantity === option.quantity 
+                          ? 'bg-brand-primary-500 text-white' 
+                          : 'hover:border-brand-primary-500'
+                      }`}
+                      onClick={() => {
+                        setSelectedQuantity(option.quantity);
+                        setCustomQuantity('');
+                      }}
+                    >
+                      <span className="text-lg font-bold">{option.quantity}</span>
+                      <span className="text-sm">
+                        ${(option.quantity * unitPrice * (1 - option.discountPercentage / 100)).toFixed(2)}
+                      </span>
+                      {option.discountPercentage > 0 && (
+                        <span className="text-xs text-green-600 dark:text-green-400 mt-1">
+                          Save {option.discountPercentage}%
+                        </span>
+                      )}
+                      {option.isBestSeller && (
+                        <span className="text-xs bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-0.5 rounded-full mt-1">
+                          Best Seller
+                        </span>
+                      )}
+                    </Button>
+                  ))}
+                </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
-              {options.map((option, index) => (
-                <Card
-                  key={index}
-                  className={cn(
-                    "relative flex flex-col items-center justify-center p-4 cursor-pointer transition-all duration-200",
-                    "border-2",
-                    selectedQuantityOption?.quantity === option.quantity
-                      ? "border-brand-primary-500 bg-brand-primary-500/10"
-                      : "border-gray-200 dark:border-gray-700 hover:border-brand-primary-500/50"
-                  )}
-                  onClick={() => handleQuantityOptionClick(option)}
-                >
-                  {option.isBestSeller && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                      Best Seller <Star className="inline-block h-3 w-3 ml-1 fill-current" />
-                    </div>
-                  )}
-                  <CardContent className="flex flex-col items-center p-0 pt-4">
-                    <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                      {option.quantity.toLocaleString()}
-                    </span>
-                    <span className="text-gray-600 dark:text-gray-400">{service.serviceName}</span>
-                  </CardContent>
-                  {option.discountPercentage > 0 && (
-                    <div className={cn(
-                      "absolute bottom-0 left-0 w-full text-center py-1 text-xs font-semibold rounded-b-lg",
-                      selectedQuantityOption?.quantity === option.quantity
-                        ? "bg-brand-primary-500 text-white"
-                        : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
-                    )}>
-                      {option.discountPercentage}% off
-                    </div>
-                  )}
-                </Card>
-              ))}
-            </div>
+                <div className="mt-4">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Or enter custom amount
+                  </label>
+                  <div className="flex">
+                    <Input
+                      type="number"
+                      placeholder="Enter quantity"
+                      value={customQuantity}
+                      onChange={(e) => {
+                        setCustomQuantity(e.target.value);
+                        setSelectedQuantity(null);
+                      }}
+                      className="rounded-r-none"
+                      min="1"
+                    />
+                    <Button 
+                      variant="outline" 
+                      className="rounded-l-none border-l-0"
+                      onClick={() => {
+                        if (customQuantity) {
+                          setSelectedQuantity(parseInt(customQuantity));
+                        }
+                      }}
+                    >
+                      Apply
+                    </Button>
+                  </div>
+                </div>
+              </div>
 
-            {/* Custom Quantity Input */}
-            <div className="mb-8">
-              <label htmlFor="custom-quantity" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Or enter custom amount
-              </label>
-              <div className="flex">
+              {/* Target Input */}
+              <div className="mb-8">
+                <h2 className="text-xl font-semibold mb-4">Target</h2>
                 <Input
-                  id="custom-quantity"
                   type="text"
-                  placeholder="Enter custom quantity"
-                  value={customQuantity}
-                  onChange={handleCustomQuantityChange}
-                  className="rounded-r-none"
+                  placeholder={`Enter ${service.platform} ${service.serviceName === 'Followers' ? 'username' : 'post URL'}`}
+                  className="w-full"
                 />
-                <Button 
-                  variant="outline" 
-                  className="rounded-l-none border-l-0 bg-gray-100 dark:bg-gray-800"
-                  disabled={!customQuantity}
-                >
-                  Apply
+              </div>
+
+              {/* Features */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {features.map((feature, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="p-2 bg-brand-primary-100 dark:bg-brand-primary-900 rounded-full">
+                      <feature.icon className="h-5 w-5 text-brand-primary-500" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">{feature.title}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{feature.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Payment Method */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+              <h2 className="text-xl font-semibold mb-4">Payment Method</h2>
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                {paymentMethods.map((method, index) => (
+                  <Button
+                    key={index}
+                    variant="outline"
+                    className="flex flex-col items-center h-auto py-4"
+                  >
+                    <method.icon />
+                    <span className="mt-2">{method.name}</span>
+                  </Button>
+                ))}
+              </div>
+
+              <div className="space-y-4">
+                <Input
+                  type="text"
+                  placeholder="Promo Code"
+                  value={promoCode}
+                  onChange={(e) => setPromoCode(e.target.value)}
+                  className="w-full"
+                />
+                <Button className="w-full bg-brand-primary-500 hover:bg-brand-secondary-blue">
+                  Apply Promo Code
                 </Button>
               </div>
             </div>
-
-            {selectedQuantityOption && (
-              <div className="bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-200 p-4 rounded-lg flex items-center justify-between mb-8">
-                <span className="font-semibold">Great choice 🔥 This service has been sold {soldTimes} times in the last 24 hrs</span>
-              </div>
-            )}
-
-            <div className="flex items-center justify-between mt-8">
-              {(selectedQuantityOption || customQuantity) ? (
-                <div className="flex items-baseline space-x-2">
-                  <span className="text-4xl font-bold text-gray-900 dark:text-gray-100">
-                    ${currentPrice.toFixed(2)}
-                  </span>
-                  {selectedQuantityOption?.discountPercentage && selectedQuantityOption.discountPercentage > 0 && (
-                    <>
-                      <span className="text-xl text-gray-500 line-through">
-                        ${originalPrice.toFixed(2)}
-                      </span>
-                      <span className="text-green-600 dark:text-green-400 font-semibold">
-                        You're saving ${saving.toFixed(2)}
-                      </span>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <p className="text-gray-600 dark:text-gray-400">Please select a quantity to see pricing.</p>
-              )}
-              <Button className="bg-brand-primary-500 hover:bg-brand-secondary-blue text-white text-lg px-6 py-3">
-                Next Step &gt;
-              </Button>
-            </div>
           </div>
 
-          {/* Right Section: Order Summary & What's Included */}
-          <div className="lg:col-span-1 space-y-8">
-            <Card className="bg-gray-50 dark:bg-gray-800 shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Order Summary</h2>
-              {selectedQuantityOption || customQuantity ? (
-                <>
-                  <div className="flex justify-between items-center text-lg text-gray-700 dark:text-gray-300 mb-4">
-                    <span>
-                      {selectedQuantityOption?.quantity || customQuantity} {service.serviceName}
-                    </span>
-                    <span className="font-semibold">
-                      <span className="text-brand-primary-500">${currentPrice.toFixed(2)}</span>
-                      {selectedQuantityOption?.discountPercentage && selectedQuantityOption.discountPercentage > 0 && (
-                        <span className="line-through text-gray-500 ml-1">${originalPrice.toFixed(2)}</span>
-                      )}
-                    </span>
-                  </div>
-                  <Input
-                    type="text"
-                    placeholder="Enter discount code"
-                    className="w-full mb-4 bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100"
-                  />
-                  <div className="flex justify-between items-center text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                    <span>Total</span>
-                    <span>${currentPrice.toFixed(2)}</span>
-                  </div>
-                  {selectedQuantityOption?.discountPercentage && selectedQuantityOption.discountPercentage > 0 && (
-                    <p className="text-green-600 dark:text-green-400 text-sm text-right">
-                      You're saving ${saving.toFixed(2)}
-                    </p>
-                  )}
-                </>
-              ) : (
-                <p className="text-gray-600 dark:text-gray-400">Select a quantity to see your order summary.</p>
-              )}
-            </Card>
+          {/* Right Column - Order Summary */}
+          <div className="lg:col-span-1">
+            <Card className="sticky top-4">
+              <CardHeader>
+                <CardTitle>Order Summary</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-400">Service:</span>
+                  <span className="font-medium">
+                    {service.platform} {service.serviceName}
+                  </span>
+                </div>
 
-            <Card className="bg-gray-50 dark:bg-gray-800 shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">What's Included</h2>
-              <div className="space-y-6">
-                {includedFeatures.map((feature, index) => {
-                  const Icon = feature.icon;
-                  return (
-                    <div key={index} className="flex items-start">
-                      <Icon className="h-6 w-6 text-brand-primary-500 mr-4 flex-shrink-0" />
-                      <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-gray-100">{feature.title}</h3>
-                        <p className="text-gray-700 dark:text-gray-300 text-sm">{feature.description}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-400">Quantity:</span>
+                  <span className="font-medium">
+                    {selectedQuantity || customQuantity || 'Not selected'}
+                  </span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-400">Unit Price:</span>
+                  <span className="font-medium">${unitPrice.toFixed(3)} {service.unit}</span>
+                </div>
+
+                {discount > 0 && (
+                  <div className="flex justify-between text-green-600 dark:text-green-400">
+                    <span>Discount:</span>
+                    <span>-${discount.toFixed(2)}</span>
+                  </div>
+                )}
+
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <div className="flex justify-between font-bold text-lg">
+                    <span>Total:</span>
+                    <span>${totalPrice.toFixed(2)}</span>
+                  </div>
+                </div>
+
+                <Button className="w-full bg-brand-primary-500 hover:bg-brand-secondary-blue text-white py-6 text-lg">
+                  Complete Order
+                </Button>
+
+                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                  <Shield className="h-4 w-4 mr-2" />
+                  <span>Secure checkout guaranteed</span>
+                </div>
+              </CardContent>
             </Card>
           </div>
         </div>
       </main>
+
       <Footer />
     </div>
   );
