@@ -3,15 +3,15 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 
 export default defineConfig({
-  server: {
-    host: "0.0.0.0",
-    port: 5173,
-    strictPort: true
-  },
   plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-    },
+      // Add this to ensure Radix UI packages are resolved correctly
+      "@radix-ui/react-tabs": path.resolve(__dirname, "node_modules/@radix-ui/react-tabs")
+    }
+  },
+  optimizeDeps: {
+    include: ["@radix-ui/react-tabs"]
   }
 });
