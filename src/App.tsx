@@ -43,7 +43,7 @@ const App = () => {
         <ThemeProvider defaultTheme="system" attribute="class">
           <TooltipProvider>
             <Sonner />
-            <BrowserRouter basename="/">
+            <BrowserRouter basename="/SocialGet/">
               <SessionContextProvider>
                 <Routes>
                   <Route path="/" element={<Index />} />
