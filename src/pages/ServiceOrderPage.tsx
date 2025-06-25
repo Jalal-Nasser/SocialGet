@@ -72,10 +72,12 @@ const ServiceOrderPage: React.FC = () => {
     { icon: Zap, title: "High Quality", description: "Real engagement from authentic accounts" }
   ];
 
+  // Updated payment methods to match the example website
   const paymentMethods = [
     { name: "Credit Card", icon: CreditCard },
-    { name: "PayPal", icon: () => <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-6" /> },
-    { name: "Crypto", icon: () => <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Crypto" className="h-6" /> }
+    { name: "Crypto", icon: () => <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Crypto" className="h-6" /> },
+    { name: "Google Pay", icon: () => <img src="https://cdn.simpleicons.org/googlepay/black" alt="Google Pay" className="h-6" /> },
+    { name: "Apple Pay", icon: () => <img src="https://cdn.simpleicons.org/applepay/white" alt="Apple Pay" className="h-6" /> },
   ];
 
   if (loading) {
@@ -241,7 +243,7 @@ const ServiceOrderPage: React.FC = () => {
                     variant="outline"
                     className="flex flex-col items-center h-auto py-4"
                   >
-                    <method.icon />
+                    {typeof method.icon === 'function' ? method.icon() : <method.icon className="h-6 w-6" />}
                     <span className="mt-2">{method.name}</span>
                   </Button>
                 ))}
