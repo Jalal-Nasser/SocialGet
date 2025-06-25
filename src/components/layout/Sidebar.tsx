@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Home, ShoppingCart, MessageSquare, Wallet, Users, List, Youtube, FileText, DollarSign, Settings, Plus, LayoutDashboard } from 'lucide-react';
+import { Home, ShoppingCart, MessageSquare, Wallet, Users, List, Youtube, FileText, DollarSign, Settings, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useSession } from '@/components/auth/SessionContextProvider'; // Import useSession
+// No need to import useSession here as admin links are removed
 
 interface NavItemProps {
   icon: React.ElementType;
@@ -18,8 +18,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon: Icon, label, to }) => (
 );
 
 const Sidebar: React.FC = () => {
-  const { profile } = useSession(); // Get profile from session context
-  const isAdmin = profile?.role === 'admin';
+  // Removed useSession as admin links are no longer conditionally rendered here
 
   return (
     <aside className="bg-sidebar text-sidebar-foreground flex flex-col h-full w-full border-r border-sidebar-border dark:border-sidebar-border">
@@ -49,13 +48,7 @@ const Sidebar: React.FC = () => {
         <NavItem icon={Settings} label="Multi Account Management" to="/multi-account-management" />
         <NavItem icon={Settings} label="Buy Proxies" to="/buy-proxies" />
 
-        {isAdmin && (
-          <>
-            <div className="text-xs font-semibold text-sidebar-foreground/70 uppercase mt-4 pt-4 border-t border-sidebar-border dark:border-sidebar-border">Admin</div>
-            <NavItem icon={LayoutDashboard} label="Admin Dashboard" to="/admin/dashboard" />
-            <NavItem icon={Settings} label="Manage Services" to="/admin/services" />
-          </>
-        )}
+        {/* Removed Admin section from here */}
       </nav>
       <div className="p-4 space-y-2 border-t border-sidebar-border dark:border-sidebar-border">
         <Link to="/new-order" className="block">
