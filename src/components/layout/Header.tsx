@@ -9,8 +9,11 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
-  const { profile } = useSession(); // Get profile from session context
+  const { profile, isLoading } = useSession(); // Get profile and isLoading from session context
   const isAdmin = profile?.role === 'admin';
+
+  // Add this console log for debugging
+  console.log('Header: profile:', profile, 'isAdmin:', isAdmin, 'isLoading:', isLoading);
 
   return (
     <header className="flex items-center justify-between p-4 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -28,7 +31,8 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard</h1>
       </div>
       <div className="flex items-center space-x-4">
-        {isAdmin && (
+        {/* Conditionally render Admin Panel link */}
+        {!isLoading && isAdmin && ( // Ensure profile is loaded before checking role
           <Link to="/admin/dashboard">
             <Button variant="ghost" className="text-brand-primary-500 hover:text-brand-primary-600 dark:text-brand-primary-400 dark:hover:text-brand-primary-500">
               Admin Panel
