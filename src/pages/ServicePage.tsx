@@ -1,38 +1,40 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import LandingHeader from '@/components/layout/LandingHeader';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Star } from 'lucide-react';
-import { getServiceByPlatformAndName } from '@/data/servicesData';
-import DynamicStatsSection from '@/components/DynamicStatsSection'; // Import the new component
-import { Link } from 'react-router-dom'; // Ensure Link is imported
+import { getServiceByPlatformAndPath, Service as SupabaseService } from '@/lib/services'; // Import Supabase service type and fetch function
+import DynamicStatsSection from '@/components/DynamicStatsSection';
 
 const ServicePage: React.FC = () => {
   const { platform, serviceName } = useParams();
-  const service = getServiceByPlatformAndName(platform || '', serviceName || '');
+  const [service, setService] = useState<SupabaseService | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  if (!service) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
-        <LandingHeader />
-        <main className="container mx-auto px-4 py-12 flex-grow flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-              The requested service could not be found.
-            </p>
-            <Button asChild>
-              <a href="/" className="text-white">
-                Return to Home
-              </a>
-            </Button>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
+  useEffect(() => {
+    const loadService = async () => {
+      if (platform && serviceName) {
+        setLoading(true);
+        setError(null);
+        try {
+          const fetchedService = await getServiceByPlatformAndPath(platform, serviceName);
+          if (fetchedService) {
+            setService(fetchedService);
+          } else {
+            setError('Service not found.');
+          }
+        } catch (err) {
+          console.error('Error fetching service:', err);
+          setError('Failed to load service details.');
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    loadService();
+  }, [platform, serviceName]);
 
   const paymentIcons = [
     { name: "PayPal", src: "https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" },
@@ -42,23 +44,57 @@ const ServicePage: React.FC = () => {
     { name: "Apple Pay", src: "https://cdn.simpleicons.org/applepay/white" },
   ];
 
-  // Filter to include only the requested payment methods (PayPal, Visa, Mastercard, Bitcoin, Apple Pay)
   const filteredPaymentIcons = paymentIcons.filter(icon => 
     ['Visa', 'PayPal', 'Mastercard', 'Bitcoin', 'Apple Pay'].includes(icon.name)
   );
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
+        <LandingHeader />
+        <main className="container mx-auto px-4 py-12 flex-grow flex items-center justify-center">
+          <p className="text-xl text-gray-600 dark:text-gray-400">Loading service details...</p>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error || !service) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
+        <LandingHeader />
+        <main className="container mx-auto px-4 py-12 flex-grow flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
+              {error || 'The requested service could not be found.'}
+            </p>
+            <Button asChild>
+              <Link to="/services" className="text-white">
+                Browse Services
+              </Link>
+            </Button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
       <LandingHeader />
+      
       <main className="container mx-auto px-4 py-12 flex-grow">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
           {/* Left Section: Service Details */}
           <div className="lg:col-span-2 space-y-8">
             <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-gray-900 dark:text-gray-100">
-              Buy {service.platform} <span className="text-brand-primary-500">{service.serviceName}</span>
+              Buy {service.platform} <span className="text-brand-primary-500">{service.service_name}</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
-              {service.description} with realistic {service.platform} {service.serviceName.toLowerCase()} from SocialPlug. Super low drop rates from high quality accounts.
+              {service.description} with realistic {service.platform} {service.service_name.toLowerCase()} from SocialPlug. Super low drop rates from high quality accounts.
             </p>
 
             <div className="flex items-center mb-6">
@@ -98,7 +134,7 @@ const ServicePage: React.FC = () => {
             <ul className="space-y-4 mb-8">
               <li className="flex items-center">
                 <CheckCircle className="h-5 w-5 mr-3 text-brand-primary-500" />
-                <span>Realistic {service.platform} {service.serviceName}</span>
+                <span>Realistic {service.platform} {service.service_name}</span>
               </li>
               <li className="flex items-center">
                 <CheckCircle className="h-5 w-5 mr-3 text-brand-primary-500" />

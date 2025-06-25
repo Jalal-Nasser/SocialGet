@@ -6,19 +6,44 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { CheckCircle, Shield, Zap, Clock, Star, ChevronDown, CreditCard } from 'lucide-react';
-import { getServiceByPlatformAndName, serviceQuantityOptions } from '@/data/servicesData';
+import { serviceQuantityOptions, getServiceByPlatformAndPath, Service as SupabaseService } from '@/lib/services'; // Import Supabase service type and fetch function
 import { cn } from '@/lib/utils';
+import { showError } from '@/utils/toast';
 
 const ServiceOrderPage: React.FC = () => {
   const { platform, serviceName } = useParams();
-  const service = getServiceByPlatformAndName(platform || '', serviceName || '');
+  const [service, setService] = useState<SupabaseService | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const [selectedQuantity, setSelectedQuantity] = useState<number | null>(null);
   const [customQuantity, setCustomQuantity] = useState('');
-  const [activeTab, setActiveTab] = useState('quantity');
   const [promoCode, setPromoCode] = useState('');
 
-  // Get quantity options for this service
+  useEffect(() => {
+    const loadService = async () => {
+      if (platform && serviceName) {
+        setLoading(true);
+        setError(null);
+        try {
+          const fetchedService = await getServiceByPlatformAndPath(platform, serviceName);
+          if (fetchedService) {
+            setService(fetchedService);
+          } else {
+            setError('Service not found.');
+          }
+        } catch (err) {
+          console.error('Error fetching service:', err);
+          setError('Failed to load service details.');
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    loadService();
+  }, [platform, serviceName]);
+
+  // Get quantity options for this service based on its path
   const quantityOptions = service ? serviceQuantityOptions[service.path] || [] : [];
   
   // Calculate pricing
@@ -53,7 +78,19 @@ const ServiceOrderPage: React.FC = () => {
     { name: "Crypto", icon: () => <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Crypto" className="h-6" /> }
   ];
 
-  if (!service) {
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
+        <LandingHeader />
+        <main className="container mx-auto px-4 py-12 flex-grow flex items-center justify-center">
+          <p className="text-xl text-gray-600 dark:text-gray-400">Loading service details...</p>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error || !service) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
         <LandingHeader />
@@ -61,7 +98,7 @@ const ServiceOrderPage: React.FC = () => {
           <div className="text-center">
             <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-              The requested service could not be found.
+              {error || 'The requested service could not be found.'}
             </p>
             <Button asChild>
               <Link to="/services" className="text-white">
@@ -85,7 +122,7 @@ const ServiceOrderPage: React.FC = () => {
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
               <h1 className="text-3xl font-bold mb-2">
-                Order {service.platform} {service.serviceName}
+                Order {service.platform} {service.service_name}
               </h1>
               <p className="text-gray-600 dark:text-gray-400 mb-6">{service.description}</p>
               
@@ -173,7 +210,7 @@ const ServiceOrderPage: React.FC = () => {
                 <h2 className="text-xl font-semibold mb-4">Target</h2>
                 <Input
                   type="text"
-                  placeholder={`Enter ${service.platform} ${service.serviceName === 'Followers' ? 'username' : 'post URL'}`}
+                  placeholder={`Enter ${service.platform} ${service.service_name === 'Followers' ? 'username' : 'post URL'}`}
                   className="w-full"
                 />
               </div>
@@ -235,7 +272,7 @@ const ServiceOrderPage: React.FC = () => {
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">Service:</span>
                   <span className="font-medium">
-                    {service.platform} {service.serviceName}
+                    {service.platform} {service.service_name}
                   </span>
                 </div>
 
