@@ -28,25 +28,30 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchUserProfile = async (userId: string) => {
-    console.log('SessionContextProvider: Attempting to fetch profile for userId:', userId); // New log
+    console.log('SessionContextProvider: Attempting to fetch profile for userId:', userId);
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
       .single();
 
-    if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
-      console.error('SessionContextProvider: Error fetching user profile:', error); // Modified log
-      showError('Failed to load user profile.');
+    // Always log the raw data and error from Supabase, regardless of whether an error occurred
+    console.log('SessionContextProvider: Supabase response - data:', data, 'error:', error);
+
+    if (error) {
+      console.error('SessionContextProvider: Error fetching user profile:', error);
+      if (error.code !== 'PGRST116') { // PGRST116 means no rows found, not a critical error for fetching
+        showError('Failed to load user profile.');
+      }
       return null;
     }
-    console.log('SessionContextProvider: Fetched profile data:', data); // New log
+    console.log('SessionContextProvider: Fetched profile data (success):', data);
     return data as Profile | null;
   };
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, currentSession) => {
-      console.log('SessionContextProvider: Auth state change event:', event); // New log
+      console.log('SessionContextProvider: Auth state change event:', event);
       setIsLoading(true); // Set loading true on any auth state change
       if (currentSession) {
         setSession(currentSession);
@@ -59,12 +64,12 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
         setProfile(null);
       }
       setIsLoading(false);
-      console.log('SessionContextProvider: Auth state change processed, isLoading:', false); // New log
+      console.log('SessionContextProvider: Auth state change processed, isLoading:', false);
     });
 
     // Fetch initial session and profile
     supabase.auth.getSession().then(async ({ data: { session: initialSession }, error }) => {
-      console.log('SessionContextProvider: Initial getSession result:', initialSession, 'error:', error); // New log
+      console.log('SessionContextProvider: Initial getSession result:', initialSession, 'error:', error);
       if (error) {
         showError(error.message);
       } else {
@@ -76,7 +81,7 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
         }
       }
       setIsLoading(false);
-      console.log('SessionContextProvider: Initial session processed, isLoading:', false); // New log
+      console.log('SessionContextProvider: Initial session processed, isLoading:', false);
     });
 
     return () => subscription.unsubscribe();
