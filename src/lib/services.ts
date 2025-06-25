@@ -24,7 +24,7 @@ export interface ServiceQuantities {
 
 // Placeholder for quantity options (will eventually be dynamic or managed separately)
 export const serviceQuantityOptions: ServiceQuantities = {
-  "likes": [ // For Twitter Likes (path: "likes")
+  "likes": [ // For Twitter Likes, Instagram Likes, YouTube Likes, TikTok Likes, Facebook Post Likes, Facebook Page Likes, LinkedIn Likes
     { quantity: 25, discountPercentage: 5 },
     { quantity: 50, discountPercentage: 10 },
     { quantity: 100, discountPercentage: 15 },
@@ -34,7 +34,7 @@ export const serviceQuantityOptions: ServiceQuantities = {
     { quantity: 2500, discountPercentage: 35 },
     { quantity: 5000, discountPercentage: 40 },
   ],
-  "followers": [
+  "followers": [ // For Twitter Followers, Instagram Followers, TikTok Followers, Facebook Followers, LinkedIn Followers
     { quantity: 50, discountPercentage: 5 },
     { quantity: 100, discountPercentage: 10 },
     { quantity: 250, discountPercentage: 15 },
@@ -43,6 +43,109 @@ export const serviceQuantityOptions: ServiceQuantities = {
     { quantity: 2500, discountPercentage: 30 },
     { quantity: 5000, discountPercentage: 35 },
     { quantity: 10000, discountPercentage: 40 },
+  ],
+  "views": [ // For Twitter Views, Instagram Views, Instagram Story Views, YouTube Views, TikTok Views, Facebook Views
+    { quantity: 100, discountPercentage: 5 },
+    { quantity: 500, discountPercentage: 10 },
+    { quantity: 1000, discountPercentage: 15 },
+    { quantity: 5000, discountPercentage: 20 },
+    { quantity: 10000, discountPercentage: 25, isBestSeller: true },
+    { quantity: 50000, discountPercentage: 30 },
+    { quantity: 100000, discountPercentage: 35 },
+    { quantity: 500000, discountPercentage: 40 },
+  ],
+  "retweets": [ // For Twitter Retweets
+    { quantity: 25, discountPercentage: 5 },
+    { quantity: 50, discountPercentage: 10 },
+    { quantity: 100, discountPercentage: 15 },
+    { quantity: 250, discountPercentage: 20 },
+    { quantity: 500, discountPercentage: 25 },
+    { quantity: 1000, discountPercentage: 30, isBestSeller: true },
+  ],
+  "comments": [ // For Twitter Comments, Instagram Comments, YouTube Comments, TikTok Comments, Facebook Comments, Reddit Comments, LinkedIn Comments
+    { quantity: 5, discountPercentage: 5 },
+    { quantity: 10, discountPercentage: 10 },
+    { quantity: 25, discountPercentage: 15 },
+    { quantity: 50, discountPercentage: 20 },
+    { quantity: 100, discountPercentage: 25, isBestSeller: true },
+    { quantity: 250, discountPercentage: 30 },
+  ],
+  "saves": [ // For Instagram Saves
+    { quantity: 25, discountPercentage: 5 },
+    { quantity: 50, discountPercentage: 10 },
+    { quantity: 100, discountPercentage: 15 },
+    { quantity: 250, discountPercentage: 20 },
+    { quantity: 500, discountPercentage: 25 },
+  ],
+  "mentions": [ // For Instagram Mentions
+    { quantity: 10, discountPercentage: 5 },
+    { quantity: 25, discountPercentage: 10 },
+    { quantity: 50, discountPercentage: 15 },
+    { quantity: 100, discountPercentage: 20 },
+  ],
+  "impressions": [ // For Instagram Impressions
+    { quantity: 1000, discountPercentage: 5 },
+    { quantity: 5000, discountPercentage: 10 },
+    { quantity: 10000, discountPercentage: 15 },
+    { quantity: 50000, discountPercentage: 20 },
+  ],
+  "story-views": [ // For Instagram Story Views
+    { quantity: 100, discountPercentage: 5 },
+    { quantity: 500, discountPercentage: 10 },
+    { quantity: 1000, discountPercentage: 15 },
+    { quantity: 5000, discountPercentage: 20 },
+  ],
+  "profile-visits": [ // For Instagram Profile Visits
+    { quantity: 100, discountPercentage: 5 },
+    { quantity: 500, discountPercentage: 10 },
+    { quantity: 1000, discountPercentage: 15 },
+    { quantity: 5000, discountPercentage: 20 },
+  ],
+  "subscribers": [ // For YouTube Subscribers
+    { quantity: 10, discountPercentage: 5 },
+    { quantity: 25, discountPercentage: 10 },
+    { quantity: 50, discountPercentage: 15 },
+    { quantity: 100, discountPercentage: 20 },
+    { quantity: 250, discountPercentage: 25 },
+    { quantity: 500, discountPercentage: 30, isBestSeller: true },
+  ],
+  "watch-time": [ // For YouTube Watch Time (in minutes)
+    { quantity: 60, discountPercentage: 5 }, // 1 hour
+    { quantity: 300, discountPercentage: 10 }, // 5 hours
+    { quantity: 600, discountPercentage: 15 }, // 10 hours
+    { quantity: 1200, discountPercentage: 20 }, // 20 hours
+  ],
+  "shares": [ // For TikTok Shares
+    { quantity: 10, discountPercentage: 5 },
+    { quantity: 25, discountPercentage: 10 },
+    { quantity: 50, discountPercentage: 15 },
+    { quantity: 100, discountPercentage: 20 },
+  ],
+  "page-likes": [ // For Facebook Page Likes
+    { quantity: 25, discountPercentage: 5 },
+    { quantity: 50, discountPercentage: 10 },
+    { quantity: 100, discountPercentage: 15 },
+    { quantity: 250, discountPercentage: 20 },
+    { quantity: 500, discountPercentage: 25 },
+  ],
+  "post-likes": [ // For Facebook Post Likes
+    { quantity: 25, discountPercentage: 5 },
+    { quantity: 50, discountPercentage: 10 },
+    { quantity: 100, discountPercentage: 15 },
+    { quantity: 250, discountPercentage: 20 },
+    { quantity: 500, discountPercentage: 25 },
+  ],
+  "upvotes": [ // For Reddit Upvotes
+    { quantity: 10, discountPercentage: 5 },
+    { quantity: 25, discountPercentage: 10 },
+    { quantity: 50, discountPercentage: 15 },
+    { quantity: 100, discountPercentage: 20 },
+  ],
+  "downvotes": [ // For Reddit Downvotes
+    { quantity: 10, discountPercentage: 5 },
+    { quantity: 25, discountPercentage: 10 },
+    { quantity: 50, discountPercentage: 15 },
+    { quantity: 100, discountPercentage: 20 },
   ],
 };
 
