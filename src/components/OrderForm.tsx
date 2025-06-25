@@ -1,24 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { showSuccess, showError } from '@/utils/toast';
-import { services } from '@/data/servicesData';
+import { fetchServices, Service } from '@/lib/services'; // Import fetchServices and Service type
 
 const OrderForm: React.FC = () => {
   const [platform, setPlatform] = useState('');
-  const [service, setService] = useState('');
+  const [servicePath, setServicePath] = useState(''); // Changed to servicePath to match Supabase 'path' column
   const [link, setLink] = useState('');
   const [quantity, setQuantity] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [allServices, setAllServices] = useState<Service[]>([]);
+  const [loadingServices, setLoadingServices] = useState(true);
 
-  const availableServices = services.filter(s => s.platform === platform);
+  useEffect(() => {
+    const loadServices = async () => {
+      try {
+        const data = await fetchServices();
+        setAllServices(data);
+      } catch (error) {
+        showError('Failed to load services for the order form.');
+        console.error('Error loading services:', error);
+      } finally {
+        setLoadingServices(false);
+      }
+    };
+    loadServices();
+  }, []);
+
+  const availableServices = allServices.filter(s => s.platform === platform);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!platform || !service || !link || !quantity) {
+    if (!platform || !servicePath || !link || !quantity) {
       showError('Please fill in all fields.');
       return;
     }
@@ -30,7 +47,7 @@ const OrderForm: React.FC = () => {
       showSuccess('Order placed successfully!');
       // Clear form
       setPlatform('');
-      setService('');
+      setServicePath('');
       setLink('');
       setQuantity('');
     } catch (error) {
@@ -47,12 +64,12 @@ const OrderForm: React.FC = () => {
 
       <div>
         <Label htmlFor="platform">Platform</Label>
-        <Select onValueChange={setPlatform} value={platform} disabled={isSubmitting}>
+        <Select onValueChange={setPlatform} value={platform} disabled={isSubmitting || loadingServices}>
           <SelectTrigger id="platform">
             <SelectValue placeholder="Select a platform" />
           </SelectTrigger>
           <SelectContent>
-            {Array.from(new Set(services.map(s => s.platform))).map(p => (
+            {Array.from(new Set(allServices.map(s => s.platform))).map(p => (
               <SelectItem key={p} value={p}>{p}</SelectItem>
             ))}
           </SelectContent>
@@ -61,13 +78,13 @@ const OrderForm: React.FC = () => {
 
       <div>
         <Label htmlFor="service">Service</Label>
-        <Select onValueChange={setService} value={service} disabled={isSubmitting || !platform}>
+        <Select onValueChange={setServicePath} value={servicePath} disabled={isSubmitting || !platform || loadingServices}>
           <SelectTrigger id="service">
             <SelectValue placeholder="Select a service" />
           </SelectTrigger>
           <SelectContent>
             {availableServices.map(s => (
-              <SelectItem key={s.path} value={s.path}>{s.serviceName} (${s.price.toFixed(2)})</SelectItem>
+              <SelectItem key={s.path} value={s.path}>{s.service_name} (${s.price.toFixed(2)})</SelectItem>
             ))}
           </SelectContent>
         </Select>
