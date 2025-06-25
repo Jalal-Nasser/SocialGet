@@ -71,7 +71,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showAdminLink = false }) =
         <Button variant="ghost" size="icon" className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
           <Globe className="h-5 w-5" />
         </Button>
-        <Link to="/dashboard"> {/* Made profile icon clickable */}
+        <Link to="/profile"> {/* Changed link to /profile */}
           <Button variant="ghost" size="icon" className="rounded-full overflow-hidden">
             <User className="h-6 w-6 text-gray-700 dark:text-gray-300" /> {/* Placeholder for user avatar */}
           </Button>

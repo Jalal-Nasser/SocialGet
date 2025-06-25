@@ -22,6 +22,7 @@ import AdminLogin from '@/pages/AdminLogin'; // Import the new AdminLogin page
 import { SessionContextProvider } from '@/components/auth/SessionContextProvider';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import ServiceOrderPage from '@/pages/ServiceOrderPage';
+import Profile from '@/pages/Profile'; // Import the new Profile page
 
 // Import client portal pages
 import Orders from '@/pages/Orders';
@@ -54,7 +55,7 @@ const App = () => {
                   <Route path="/" element={<Index />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/login" element={<Login />} />
-                  <Route path="/admin-login" element={<AdminLogin />} /> {/* New Admin Login Route */}
+                  <Route path="/admin-login" element={<AdminLogin />} />
                   
                   {/* Service Pages */}
                   <Route path="/services/:platform/:serviceName" element={<ServicePage />} />
@@ -71,6 +72,14 @@ const App = () => {
                       </ProtectedRoute>
                     } 
                   />
+                  <Route 
+                    path="/profile" 
+                    element={
+                      <ProtectedRoute>
+                        <Profile />
+                      </ProtectedRoute>
+                    } 
+                  /> {/* New Protected Profile Route */}
                   <Route 
                     path="/orders" 
                     element={
