@@ -1,44 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import LandingHeader from '@/components/layout/LandingHeader';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Star } from 'lucide-react';
-import { serviceQuantityOptions } from '@/data/servicesData'; // Keep this for quantity options
-import { getServiceByPlatformAndPath, Service } from '@/lib/services'; // Import from lib/services
-import DynamicStatsSection from '@/components/DynamicStatsSection';
-import { showError } from '@/utils/toast';
+import { getServiceByPlatformAndName } from '@/data/servicesData';
+import DynamicStatsSection from '@/components/DynamicStatsSection'; // Import the new component
+import { Link } from 'react-router-dom'; // Ensure Link is imported
 
 const ServicePage: React.FC = () => {
   const { platform, serviceName } = useParams();
-  const [service, setService] = useState<Service | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchServiceDetails = async () => {
-      if (platform && serviceName) {
-        setLoading(true);
-        try {
-          const fetchedService = await getServiceByPlatformAndPath(platform, serviceName);
-          setService(fetchedService);
-        } catch (error) {
-          showError('Failed to load service details.');
-          console.error('Error fetching service:', error);
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-    fetchServiceDetails();
-  }, [platform, serviceName]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
-        <p className="text-gray-700 dark:text-gray-300">Loading service details...</p>
-      </div>
-    );
-  }
+  const service = getServiceByPlatformAndName(platform || '', serviceName || '');
 
   if (!service) {
     return (
@@ -51,9 +23,9 @@ const ServicePage: React.FC = () => {
               The requested service could not be found.
             </p>
             <Button asChild>
-              <Link to="/" className="text-white">
+              <a href="/" className="text-white">
                 Return to Home
-              </Link>
+              </a>
             </Button>
           </div>
         </main>
@@ -83,10 +55,10 @@ const ServicePage: React.FC = () => {
           {/* Left Section: Service Details */}
           <div className="lg:col-span-2 space-y-8">
             <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-gray-900 dark:text-gray-100">
-              Buy {service.platform} <span className="text-brand-primary-500">{service.service_name}</span>
+              Buy {service.platform} <span className="text-brand-primary-500">{service.serviceName}</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
-              {service.description} with realistic {service.platform} {service.service_name.toLowerCase()} from SocialPlug. Super low drop rates from high quality accounts.
+              {service.description} with realistic {service.platform} {service.serviceName.toLowerCase()} from SocialPlug. Super low drop rates from high quality accounts.
             </p>
 
             <div className="flex items-center mb-6">
@@ -126,7 +98,7 @@ const ServicePage: React.FC = () => {
             <ul className="space-y-4 mb-8">
               <li className="flex items-center">
                 <CheckCircle className="h-5 w-5 mr-3 text-brand-primary-500" />
-                <span>Realistic {service.platform} {service.service_name}</span>
+                <span>Realistic {service.platform} {service.serviceName}</span>
               </li>
               <li className="flex items-center">
                 <CheckCircle className="h-5 w-5 mr-3 text-brand-primary-500" />
