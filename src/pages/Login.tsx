@@ -13,7 +13,7 @@ import { showError } from '@/utils/toast';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { session, isLoading } = useSession();
+  const { session, isLoading, profile } = useSession(); // Destructure profile here
 
   const [clickCount, setClickCount] = useState(0);
   const lastClickTimeRef = useRef(0);
@@ -21,10 +21,16 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (!isLoading && session) {
-      // User is logged in, redirect to dashboard
-      navigate('/dashboard');
+      // If a session exists and loading is complete
+      if (profile?.role === 'admin') {
+        // If the user is an admin, redirect to the admin dashboard
+        navigate('/admin/dashboard');
+      } else {
+        // Otherwise (regular user or no specific role), redirect to the user dashboard
+        navigate('/dashboard');
+      }
     }
-  }, [session, isLoading, navigate]);
+  }, [session, isLoading, profile, navigate]); // Add profile to dependency array
 
   // Handle clicks for the secret admin login
   const handleBodyClick = () => {
