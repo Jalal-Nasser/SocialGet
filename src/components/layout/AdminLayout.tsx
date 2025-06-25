@@ -19,7 +19,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
       <div className="flex flex-col flex-1">
         {/* Header with mobile menu trigger */}
-        <Header onMenuClick={() => setIsSidebarOpen(true)} />
+        <Header onMenuClick={() => setIsSidebarOpen(true)} showAdminLink={true} />
         
         {/* Mobile Sidebar (Sheet) */}
         <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>

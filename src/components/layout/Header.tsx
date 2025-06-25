@@ -6,9 +6,10 @@ import { useSession } from '@/components/auth/SessionContextProvider'; // Import
 
 interface HeaderProps {
   onMenuClick?: () => void; // Optional prop for mobile menu click
+  showAdminLink?: boolean; // New prop to control admin link visibility
 }
 
-const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
+const Header: React.FC<HeaderProps> = ({ onMenuClick, showAdminLink = false }) => {
   const { profile, isLoading } = useSession(); // Get profile and isLoading from session context
   const isAdmin = profile?.role === 'admin';
 
@@ -32,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
       </div>
       <div className="flex items-center space-x-4">
         {/* Conditionally render Admin Panel link */}
-        {!isLoading && isAdmin && ( // Ensure profile is loaded before checking role
+        {!isLoading && isAdmin && showAdminLink && ( // Ensure profile is loaded and showAdminLink is true
           <Link to="/admin/dashboard">
             <Button variant="ghost" className="text-brand-primary-500 hover:text-brand-primary-600 dark:text-brand-primary-400 dark:hover:text-brand-primary-500">
               Admin Panel
@@ -41,9 +42,11 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
         )}
         <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
           <span className="font-semibold">$0.33</span>
-          <Button variant="ghost" size="icon" className="text-brand-primary-500 hover:text-brand-primary-600 dark:text-brand-primary-400 dark:hover:text-brand-primary-500">
-            <Plus className="h-5 w-5" />
-          </Button>
+          <Link to="/add-funds"> {/* Made Add Funds button clickable */}
+            <Button variant="ghost" size="icon" className="text-brand-primary-500 hover:text-brand-primary-600 dark:text-brand-primary-400 dark:hover:text-brand-primary-500">
+              <Plus className="h-5 w-5" />
+            </Button>
+          </Link>
         </div>
         <Button variant="ghost" size="icon" className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
           <Bell className="h-5 w-5" />
@@ -51,9 +54,11 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
         <Button variant="ghost" size="icon" className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
           <Globe className="h-5 w-5" />
         </Button>
-        <Button variant="ghost" size="icon" className="rounded-full overflow-hidden">
-          <User className="h-6 w-6 text-gray-700 dark:text-gray-300" /> {/* Placeholder for user avatar */}
-        </Button>
+        <Link to="/dashboard"> {/* Made profile icon clickable */}
+          <Button variant="ghost" size="icon" className="rounded-full overflow-hidden">
+            <User className="h-6 w-6 text-gray-700 dark:text-gray-300" /> {/* Placeholder for user avatar */}
+          </Button>
+        </Link>
       </div>
     </header>
   );

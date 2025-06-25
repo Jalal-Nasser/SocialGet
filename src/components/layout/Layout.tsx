@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
 
@@ -21,7 +21,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       <div className="flex flex-col flex-1">
         {/* Header with mobile menu trigger */}
-        <Header onMenuClick={() => setIsSidebarOpen(true)} />
+        <Header onMenuClick={() => setIsSidebarOpen(true)} showAdminLink={false} />
         
         {/* Mobile Sidebar (Sheet) */}
         <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
