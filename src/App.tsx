@@ -18,6 +18,7 @@ import NotFound from '@/pages/NotFound';
 import ServicePage from '@/pages/ServicePage';
 import Services from '@/pages/Services';
 import Login from '@/pages/Login';
+import AdminLogin from '@/pages/AdminLogin'; // Import the new AdminLogin page
 import { SessionContextProvider } from '@/components/auth/SessionContextProvider';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import ServiceOrderPage from '@/pages/ServiceOrderPage';
@@ -53,6 +54,7 @@ const App = () => {
                   <Route path="/" element={<Index />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/login" element={<Login />} />
+                  <Route path="/admin-login" element={<AdminLogin />} /> {/* New Admin Login Route */}
                   
                   {/* Service Pages */}
                   <Route path="/services/:platform/:serviceName" element={<ServicePage />} />
