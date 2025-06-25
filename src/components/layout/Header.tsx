@@ -1,8 +1,10 @@
 import React from 'react';
-import { Bell, Globe, User, Plus, Menu } from 'lucide-react';
+import { Bell, Globe, User, Plus, Menu, LogOut } from 'lucide-react'; // Import LogOut icon
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { useSession } from '@/components/auth/SessionContextProvider'; // Import useSession
+import { supabase } from '@/integrations/supabase/client'; // Import supabase client
+import { showSuccess, showError } from '@/utils/toast'; // Import toast utilities
 
 interface HeaderProps {
   onMenuClick?: () => void; // Optional prop for mobile menu click
@@ -11,10 +13,25 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onMenuClick, showAdminLink = false }) => {
   const { profile, isLoading } = useSession(); // Get profile and isLoading from session context
+  const navigate = useNavigate(); // Initialize useNavigate
   const isAdmin = profile?.role === 'admin';
 
   // Add this console log for debugging
   console.log('Header: profile:', profile, 'isAdmin:', isAdmin, 'isLoading:', isLoading);
+
+  const handleSignOut = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        throw error;
+      }
+      showSuccess('You have been signed out successfully!');
+      navigate('/login'); // Redirect to login page after sign out
+    } catch (error: any) {
+      showError(`Failed to sign out: ${error.message}`);
+      console.error('Sign out error:', error);
+    }
+  };
 
   return (
     <header className="flex items-center justify-between p-4 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -59,6 +76,15 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showAdminLink = false }) =
             <User className="h-6 w-6 text-gray-700 dark:text-gray-300" /> {/* Placeholder for user avatar */}
           </Button>
         </Link>
+        {/* Sign Out Button */}
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+          onClick={handleSignOut}
+        >
+          <LogOut className="h-5 w-5" />
+        </Button>
       </div>
     </header>
   );
