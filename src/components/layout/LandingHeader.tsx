@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
-import ThemeToggle from '@/components/ThemeToggle'; // Changed from named import to default import
-import SocialGetLogo from '@/assets/SocialGet-Logo.png'; // Import the logo image
+import ThemeToggle from '@/components/ThemeToggle';
 
 interface LandingHeaderProps {
   onMenuClick?: () => void;
@@ -13,9 +12,9 @@ const LandingHeader: React.FC<LandingHeaderProps> = ({ onMenuClick }) => {
   return (
     <header className="sticky top-0 z-50 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo - Using text instead of image */}
         <Link to="/" className="flex items-center">
-          <img src={SocialGetLogo} alt="SocialGet Logo" className="h-8" />
+          <span className="text-2xl font-bold text-brand-primary-500">SocialGet</span>
         </Link>
 
         {/* Desktop Navigation */}
