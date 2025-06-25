@@ -12,6 +12,7 @@ const AdminDashboard: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      console.log('AdminDashboard: Starting data fetch...'); // Added log
       try {
         // Fetch total services
         const { count: servicesCount, error: servicesError } = await supabase
@@ -19,9 +20,11 @@ const AdminDashboard: React.FC = () => {
           .select('*', { count: 'exact', head: true });
 
         if (servicesError) {
+          console.error('AdminDashboard: Error fetching services:', servicesError); // Added log
           throw servicesError;
         }
         setTotalServices(servicesCount);
+        console.log('AdminDashboard: Services count fetched:', servicesCount); // Added log
 
         // Fetch total users (from profiles table)
         const { count: usersCount, error: usersError } = await supabase
@@ -29,15 +32,18 @@ const AdminDashboard: React.FC = () => {
           .select('*', { count: 'exact', head: true });
 
         if (usersError) {
+          console.error('AdminDashboard: Error fetching users:', usersError); // Added log
           throw usersError;
         }
         setTotalUsers(usersCount);
+        console.log('AdminDashboard: Users count fetched:', usersCount); // Added log
 
       } catch (error) {
         showError('Failed to load dashboard data.');
-        console.error('Admin Dashboard data fetch error:', error);
+        console.error('Admin Dashboard data fetch error caught:', error); // Modified log
       } finally {
         setLoading(false);
+        console.log('AdminDashboard: Data fetch finished, loading set to false.'); // Added log
       }
     };
 
