@@ -1,53 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LandingHeader from '@/components/layout/LandingHeader';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { CheckCircle, Shield, Zap, Clock, Star, ChevronDown, CreditCard } from 'lucide-react';
-import { serviceQuantityOptions, getServiceByPlatformAndPath, Service as SupabaseService } from '@/lib/services'; // Import Supabase service type and fetch function
+import { serviceQuantityOptions } from '@/lib/services'; // Import Supabase service type and fetch function
 import { cn } from '@/lib/utils';
 import { showError } from '@/utils/toast';
+import OrderServiceForm, { QuantityOption } from '@/components/OrderServiceForm';
+
+const services = [
+  {
+    key: "twitter-followers",
+    name: "Twitter Followers",
+    description: "High-quality Twitter followers",
+    quantities: [
+      { amount: 50, price: 1.71, discount: 5 },
+      { amount: 100, price: 3.24, discount: 10 },
+      { amount: 250, price: 7.65, discount: 15 },
+      { amount: 500, price: 14.4, discount: 20 },
+      { amount: 1000, price: 27, discount: 25, bestSeller: true },
+      { amount: 2500, price: 63, discount: 30 },
+      { amount: 5000, price: 117, discount: 35 },
+      { amount: 10000, price: 216, discount: 40 },
+    ],
+    unitPrice: 0.036,
+    completedOrders: 12751,
+    rating: 4.9,
+    unitLabel: "Follower",
+  },
+  // Add more services here as needed
+];
 
 const ServiceOrderPage: React.FC = () => {
-  const { platform, serviceName } = useParams();
-  const [service, setService] = useState<SupabaseService | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
   const [selectedQuantity, setSelectedQuantity] = useState<number | null>(null);
   const [customQuantity, setCustomQuantity] = useState('');
   const [promoCode, setPromoCode] = useState('');
-
-  useEffect(() => {
-    const loadService = async () => {
-      if (platform && serviceName) {
-        setLoading(true);
-        setError(null);
-        try {
-          const fetchedService = await getServiceByPlatformAndPath(platform, serviceName);
-          if (fetchedService) {
-            setService(fetchedService);
-          } else {
-            setError('Service not found.');
-          }
-        } catch (err) {
-          console.error('Error fetching service:', err);
-          setError('Failed to load service details.');
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-    loadService();
-  }, [platform, serviceName]);
+  const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
 
   // Get quantity options for this service based on its path
-  const quantityOptions = service ? serviceQuantityOptions[service.path] || [] : [];
+  const quantityOptions = selectedService ? serviceQuantityOptions[selectedService.key] || [] : [];
   
   // Calculate pricing
-  const unitPrice = service?.price || 0;
+  const unitPrice = selectedService?.unitPrice || 0;
   let totalPrice = 0;
   let discount = 0;
   
@@ -80,40 +77,6 @@ const ServiceOrderPage: React.FC = () => {
     { name: "Apple Pay", icon: () => <img src="https://cdn.simpleicons.org/applepay/white" alt="Apple Pay" className="h-6" /> },
   ];
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
-        <LandingHeader />
-        <main className="container mx-auto px-4 py-12 flex-grow flex items-center justify-center">
-          <p className="text-xl text-gray-600 dark:text-gray-400">Loading service details...</p>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (error || !service) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
-        <LandingHeader />
-        <main className="container mx-auto px-4 py-12 flex-grow flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-              {error || 'The requested service could not be found.'}
-            </p>
-            <Button asChild>
-              <Link to="/services" className="text-white">
-                Browse Services
-              </Link>
-            </Button>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
       <LandingHeader />
@@ -124,9 +87,9 @@ const ServiceOrderPage: React.FC = () => {
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
               <h1 className="text-3xl font-bold mb-2">
-                Order {service.platform} {service.service_name}
+                Order {selectedService?.name}
               </h1>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">{service.description}</p>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">{selectedService?.description}</p>
               
               <div className="flex items-center space-x-4 mb-6">
                 <div className="flex items-center">
@@ -212,7 +175,7 @@ const ServiceOrderPage: React.FC = () => {
                 <h2 className="text-xl font-semibold mb-4">Target</h2>
                 <Input
                   type="text"
-                  placeholder={`Enter ${service.platform} ${service.service_name === 'Followers' ? 'username' : 'post URL'}`}
+                  placeholder={`Enter ${selectedService?.name} ${selectedService?.key === 'twitter-followers' ? 'username' : 'post URL'}`}
                   className="w-full"
                 />
               </div>
@@ -274,7 +237,7 @@ const ServiceOrderPage: React.FC = () => {
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">Service:</span>
                   <span className="font-medium">
-                    {service.platform} {service.service_name}
+                    {selectedService?.name}
                   </span>
                 </div>
 
@@ -287,7 +250,7 @@ const ServiceOrderPage: React.FC = () => {
 
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">Unit Price:</span>
-                  <span className="font-medium">${unitPrice.toFixed(3)} {service.unit}</span>
+                  <span className="font-medium">${unitPrice.toFixed(3)} {selectedService?.unitLabel}</span>
                 </div>
 
                 {discount > 0 && (
@@ -315,6 +278,38 @@ const ServiceOrderPage: React.FC = () => {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* Service Selection and Order Form */}
+        <div className="mt-12">
+          <h2 className="text-2xl font-bold mb-4">Select a Service</h2>
+          <div className="flex gap-4 mb-8 flex-wrap">
+            {services.map((service) => (
+              <button
+                key={service.key}
+                onClick={() => setSelectedService(service)}
+                className={`p-4 rounded-lg border-2 min-w-[200px] text-left transition-all duration-150 ${
+                  selectedService?.key === service.key
+                    ? "border-blue-500 bg-blue-900/30"
+                    : "border-gray-700 bg-[#232834] hover:border-blue-400"
+                }`}
+              >
+                <div className="font-semibold text-lg mb-1">{service.name}</div>
+                <div className="text-gray-400 text-sm">{service.description}</div>
+              </button>
+            ))}
+          </div>
+          {selectedService && (
+            <OrderServiceForm
+              serviceName={selectedService.name}
+              description={selectedService.description}
+              quantities={selectedService.quantities}
+              unitPrice={selectedService.unitPrice}
+              completedOrders={selectedService.completedOrders}
+              rating={selectedService.rating}
+              unitLabel={selectedService.unitLabel}
+            />
+          )}
         </div>
       </main>
 
