@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Home, ShoppingCart, MessageSquare, Wallet, Users, List, Youtube, FileText, DollarSign, Settings, Plus } from 'lucide-react';
+import { Home, ShoppingCart, MessageSquare, Wallet, Users, List, Youtube, FileText, DollarSign, Settings, Plus, LayoutDashboard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useSession } from '@/components/auth/SessionContextProvider'; // Import useSession
 
 interface NavItemProps {
   icon: React.ElementType;
@@ -17,13 +18,16 @@ const NavItem: React.FC<NavItemProps> = ({ icon: Icon, label, to }) => (
 );
 
 const Sidebar: React.FC = () => {
+  const { profile } = useSession(); // Get profile from session context
+  const isAdmin = profile?.role === 'admin';
+
   return (
     <aside className="bg-sidebar text-sidebar-foreground flex flex-col h-full w-full border-r border-sidebar-border dark:border-sidebar-border">
       <div className="p-4 border-b border-sidebar-border dark:border-sidebar-border">
         <h2 className="text-2xl font-bold text-sidebar-primary-foreground">SocialGet</h2>
       </div>
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-        <NavItem icon={Home} label="Dashboard" to="/dashboard" /> {/* Changed to /dashboard */}
+        <NavItem icon={Home} label="Dashboard" to="/dashboard" />
         <NavItem icon={ShoppingCart} label="Orders" to="/orders" />
         <NavItem icon={MessageSquare} label="Tickets" to="/tickets" />
         <NavItem icon={Wallet} label="Add funds" to="/add-funds" />
@@ -44,14 +48,22 @@ const Sidebar: React.FC = () => {
         <div className="text-xs font-semibold text-sidebar-foreground/70 uppercase mt-4 pt-4 border-t border-sidebar-border dark:border-sidebar-border">Partners</div>
         <NavItem icon={Settings} label="Multi Account Management" to="/multi-account-management" />
         <NavItem icon={Settings} label="Buy Proxies" to="/buy-proxies" />
+
+        {isAdmin && (
+          <>
+            <div className="text-xs font-semibold text-sidebar-foreground/70 uppercase mt-4 pt-4 border-t border-sidebar-border dark:border-sidebar-border">Admin</div>
+            <NavItem icon={LayoutDashboard} label="Admin Dashboard" to="/admin/dashboard" />
+            <NavItem icon={Settings} label="Manage Services" to="/admin/services" />
+          </>
+        )}
       </nav>
       <div className="p-4 space-y-2 border-t border-sidebar-border dark:border-sidebar-border">
-        <Link to="/new-order" className="block"> {/* Wrap button in Link */}
+        <Link to="/new-order" className="block">
           <Button className="w-full bg-brand-primary-500 hover:bg-brand-secondary-blue text-white">
             Start a new order
           </Button>
         </Link>
-        <Link to="/add-funds" className="block"> {/* Wrap button in Link */}
+        <Link to="/add-funds" className="block">
           <Button variant="outline" className="w-full border-brand-primary-500 text-brand-primary-500 hover:bg-brand-secondary-blue hover:text-white">
             <Plus className="h-4 w-4 mr-2" /> Add funds
           </Button>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSession } from '@/components/auth/SessionContextProvider';
 import { showError } from '@/utils/toast';
 
@@ -10,17 +10,25 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { session, isLoading } = useSession();
+  const { session, isLoading, profile } = useSession();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (!isLoading && !session) {
+    if (isLoading) return; // Still loading session or profile
+
+    const isAdminRoute = location.pathname.startsWith('/admin');
+
+    if (!session) {
       showError("You need to be logged in to access this page.");
       navigate('/login');
+    } else if (isAdminRoute && profile?.role !== 'admin') {
+      showError("You do not have permission to access the admin panel.");
+      navigate('/dashboard'); // Redirect non-admins from admin routes
     }
-  }, [session, isLoading, navigate]);
+  }, [session, isLoading, profile, navigate, location.pathname]);
 
-  if (isLoading || !session) {
+  if (isLoading || !session || (location.pathname.startsWith('/admin') && profile?.role !== 'admin')) {
     // Optionally render a loading spinner or a placeholder
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
