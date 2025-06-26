@@ -119,9 +119,9 @@ export async function getServiceByPlatformAndPath(platform: string, path: string
   const { data, error } = await supabase
     .from('services')
     .select('*')
-    .eq('platform', platform)
-    .eq('path', path)
-    .single();
+    .ilike('platform', platform)
+    .ilike('path', path)
+    .maybeSingle();
 
   if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
     console.error('Error fetching service by platform and path:', error);

@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useSession } from '@/components/auth/SessionContextProvider';
+import { useSession } from '@/hooks/use-session';
 import { showError } from '@/utils/toast';
 
 interface ProtectedRouteProps {
@@ -42,8 +42,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     }
   }, [session, isLoading, profile, navigate, location.pathname]);
 
-  if (isLoading || !session || (location.pathname.startsWith('/admin') && profile?.role !== 'admin')) {
-    // Optionally render a loading spinner or a placeholder
+  // Only show loading if isLoading is true AND session/profile are not yet available
+  if (isLoading && (!session || !profile)) {
     console.log('ProtectedRoute: Rendering loading/denied placeholder.'); // Log 11
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">

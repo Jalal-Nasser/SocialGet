@@ -109,106 +109,118 @@ const ManageServices: React.FC = () => {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Manage Services</h1>
-          <Button onClick={openAddDialog} className="bg-brand-primary-500 hover:bg-brand-secondary-blue text-white">
-            <PlusCircle className="h-5 w-5 mr-2" /> Add New Service
-          </Button>
-        </div>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 lg:p-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Manage Services</h1>
+            <Button onClick={openAddDialog} className="bg-blue-600 hover:bg-blue-700 text-white">
+              <PlusCircle className="h-5 w-5 mr-2" /> Add New Service
+            </Button>
+          </div>
 
-        <Card className="bg-white dark:bg-gray-800 shadow-md">
-          <CardHeader>
-            <CardTitle className="text-gray-900 dark:text-gray-100">All Services</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <p className="text-gray-600 dark:text-gray-400">Loading services...</p>
-            ) : services.length === 0 ? (
-              <p className="text-gray-600 dark:text-gray-400">No services found. Add one!</p>
-            ) : (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Platform</TableHead>
-                      <TableHead>Service Name</TableHead>
-                      <TableHead>Path</TableHead>
-                      <TableHead>Price</TableHead>
-                      <TableHead>Unit</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {services.map((service) => (
-                      <TableRow key={service.id}>
-                        <TableCell className="font-medium">{service.platform}</TableCell>
-                        <TableCell>{service.service_name}</TableCell>
-                        <TableCell>{service.path}</TableCell>
-                        <TableCell>${service.price.toFixed(3)}</TableCell>
-                        <TableCell>{service.unit}</TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2">
-                            <Button variant="outline" size="icon" onClick={() => openEditDialog(service)}>
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button variant="destructive" size="icon" onClick={() => handleDeleteService(service.id)}>
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
+          <Card className="bg-white dark:bg-gray-800 shadow-sm rounded-lg">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">All Services</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <div className="flex justify-center items-center h-40">
+                  <p className="text-gray-500 dark:text-gray-400">Loading services...</p>
+                </div>
+              ) : services.length === 0 ? (
+                <div className="text-center py-10">
+                  <p className="text-gray-500 dark:text-gray-400">No services found.</p>
+                  <Button onClick={openAddDialog} variant="link" className="mt-2">Add your first service</Button>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Platform</TableHead>
+                        <TableHead>Service Name</TableHead>
+                        <TableHead>Path</TableHead>
+                        <TableHead className="text-right">Price</TableHead>
+                        <TableHead>Unit</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                    </TableHeader>
+                    <TableBody>
+                      {services.map((service) => (
+                        <TableRow key={service.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                          <TableCell className="font-medium">{service.platform}</TableCell>
+                          <TableCell>{service.service_name}</TableCell>
+                          <TableCell><code className="text-sm bg-gray-100 dark:bg-gray-700 p-1 rounded">{service.path}</code></TableCell>
+                          <TableCell className="text-right">${service.price.toFixed(3)}</TableCell>
+                          <TableCell>{service.unit}</TableCell>
+                          <TableCell className="text-right">
+                            <div className="flex justify-end space-x-2">
+                              <Button variant="ghost" size="icon" onClick={() => openEditDialog(service)}>
+                                <Edit className="h-4 w-4" />
+                              </Button>
+                              <Button variant="destructive" size="icon" onClick={() => handleDeleteService(service.id)}>
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[425px] bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <DialogContent className="sm:max-w-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg">
           <DialogHeader>
-            <DialogTitle>{editingService ? 'Edit Service' : 'Add New Service'}</DialogTitle>
+            <DialogTitle className="text-xl font-semibold">{editingService ? 'Edit Service' : 'Add New Service'}</DialogTitle>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="platform" className="text-right">Platform</Label>
-              <Select onValueChange={(value) => handleSelectChange(value, 'platform')} value={formData.platform}>
-                <SelectTrigger id="platform" className="col-span-3">
-                  <SelectValue placeholder="Select Platform" />
-                </SelectTrigger>
-                <SelectContent>
-                  {['Twitter', 'Instagram', 'YouTube', 'TikTok', 'Facebook', 'Reddit', 'LinkedIn'].map(p => (
-                    <SelectItem key={p} value={p}>{p}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+          <div className="grid gap-6 py-6 px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="platform">Platform</Label>
+                <Select onValueChange={(value) => handleSelectChange(value, 'platform')} value={formData.platform}>
+                  <SelectTrigger id="platform">
+                    <SelectValue placeholder="Select Platform" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {['Twitter', 'Instagram', 'YouTube', 'TikTok', 'Facebook', 'Reddit', 'LinkedIn'].map(p => (
+                      <SelectItem key={p} value={p}>{p}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="service_name">Service Name</Label>
+                <Input id="service_name" value={formData.service_name} onChange={handleInputChange} />
+              </div>
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="service_name" className="text-right">Service Name</Label>
-              <Input id="service_name" value={formData.service_name} onChange={handleInputChange} className="col-span-3" />
+            <div className="space-y-2">
+              <Label htmlFor="path">Path (URL slug)</Label>
+              <Input id="path" value={formData.path} onChange={handleInputChange} />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="path" className="text-right">Path (URL slug)</Label>
-              <Input id="path" value={formData.path} onChange={handleInputChange} className="col-span-3" />
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea id="description" value={formData.description} onChange={handleInputChange} />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="description" className="text-right">Description</Label>
-              <Textarea id="description" value={formData.description} onChange={handleInputChange} className="col-span-3" />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="price" className="text-right">Price</Label>
-              <Input id="price" type="number" step="0.001" value={formData.price} onChange={handleInputChange} className="col-span-3" />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="unit" className="text-right">Unit (e.g., /Follower)</Label>
-              <Input id="unit" value={formData.unit} onChange={handleInputChange} className="col-span-3" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="price">Price</Label>
+                <Input id="price" type="number" step="0.001" value={formData.price} onChange={handleInputChange} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="unit">Unit (e.g., /Follower)</Label>
+                <Input id="unit" value={formData.unit} onChange={handleInputChange} />
+              </div>
             </div>
           </div>
-          <DialogFooter>
-            <Button onClick={handleAddEditService} className="bg-brand-primary-500 hover:bg-brand-secondary-blue text-white">
+          <DialogFooter className="px-4 pb-4">
+            <Button onClick={() => setIsDialogOpen(false)} variant="outline">Cancel</Button>
+            <Button onClick={handleAddEditService} className="bg-blue-600 hover:bg-blue-700 text-white">
               {editingService ? 'Save Changes' : 'Add Service'}
             </Button>
           </DialogFooter>

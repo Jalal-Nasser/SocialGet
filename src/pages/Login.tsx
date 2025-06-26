@@ -5,7 +5,7 @@ import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
-import { useSession } from '@/components/auth/SessionContextProvider';
+import { useSession } from '@/hooks/use-session';
 import LandingHeader from '@/components/layout/LandingHeader';
 import Footer from '@/components/layout/Footer';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';

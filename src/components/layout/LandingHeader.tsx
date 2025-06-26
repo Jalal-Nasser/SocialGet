@@ -82,55 +82,35 @@ const LandingHeader: React.FC = () => {
         {/* Right Section */}
         <div className="flex items-center space-x-2 md:space-x-4">
           <Link to="/login">
-            <Button variant="ghost" className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hidden md:inline-flex">
-              Log In
-            </Button>
-          </Link>
-          <Link to="/services">
             <Button className="bg-brand-primary-500 hover:bg-brand-secondary-blue text-white text-sm px-3 py-2 md:px-4 md:py-2">
-              All Services
+              Log In
             </Button>
           </Link>
           <ThemeToggle />
         </div>
       </div>
 
-      {/* Services Navigation */}
+      {/* Platform Navigation Only (no sub-menus, no All Services) */}
       <nav className="bg-brand-primary-500 py-2 border-t border-brand-primary-600">
         <div className="container mx-auto px-4 flex items-center justify-start space-x-6 text-sm text-white overflow-x-auto pb-2">
           <Link to="/" className="flex items-center p-2 rounded-md text-white hover:bg-brand-secondary-blue hover:text-white transition-all duration-200 ease-in-out hover:scale-105 flex-shrink-0">
             <Home className="h-4 w-4 mr-1" />
             <span>Home</span>
           </Link>
-          
           {loadingServices ? (
-            <span className="text-white/70">Loading services...</span>
+            <span className="text-white/70">Loading platforms...</span>
           ) : (
-            Object.entries(servicesByPlatform).map(([platform, items]) => {
+            Object.keys(servicesByPlatform).map((platform) => {
               const Icon = categoryIcons[platform];
-              
               return (
-                <DropdownMenu key={platform}>
-                  <DropdownMenuTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      className="flex items-center space-x-1 hover:bg-brand-secondary-blue hover:text-white transition-all duration-200 ease-in-out hover:scale-105 flex-shrink-0"
-                    >
-                      {Icon && <Icon className="h-4 w-4" />}
-                      <span>{platform}</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="min-w-[200px]">
-                    {items.map((item) => (
-                      <Link to={`/services/${item.platform.toLowerCase()}/${item.path}`} key={item.id}>
-                        <DropdownMenuItem className="hover:bg-dropdown-hover data-[highlighted]:bg-dropdown-hover cursor-pointer">
-                          {item.service_name}
-                        </DropdownMenuItem>
-                      </Link>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <Link
+                  key={platform}
+                  to={`/services/${platform.toLowerCase()}`}
+                  className="flex items-center p-2 rounded-md text-white hover:bg-brand-secondary-blue hover:text-white transition-all duration-200 ease-in-out hover:scale-105 flex-shrink-0"
+                >
+                  {Icon && <Icon className="h-4 w-4 mr-1" />}
+                  <span>{platform}</span>
+                </Link>
               );
             })
           )}

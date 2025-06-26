@@ -1,25 +1,10 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { showError } from '@/utils/toast';
-
-interface Profile {
-  id: string;
-  first_name: string | null;
-  last_name: string | null;
-  role: string; // Add role to profile type
-}
-
-interface SessionContextType {
-  session: Session | null;
-  user: User | null;
-  profile: Profile | null; // Add profile to context
-  isLoading: boolean;
-}
-
-const SessionContext = createContext<SessionContextType | undefined>(undefined);
+import { SessionContext, SessionContextType, Profile } from '@/context/SessionContext';
 
 export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
@@ -87,6 +72,27 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
     return () => subscription.unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (!isLoading && session === null) {
+      const publicPaths = ['/login', '/admin-login', '/about-us', '/contact', '/terms-of-service', '/privacy-policy', '/blog', '/'];
+      const currentPath = window.location.pathname.replace(/^\/SocialGet/, ''); // Remove basename if present
+      if (!publicPaths.includes(currentPath)) {
+        showError('Your session has expired. Please log in again.');
+        window.location.href = '/login';
+      }
+    }
+  }, [isLoading, session]);
+
+  // Periodically refresh the session to keep the user logged in
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log('Periodically refreshing session...');
+      supabase.auth.refreshSession();
+    }, 25 * 60 * 1000); // Refresh every 25 minutes
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <SessionContext.Provider value={{ session, user, profile, isLoading }}>
       {children}
@@ -94,10 +100,3 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
   );
 };
 
-export const useSession = () => {
-  const context = useContext(SessionContext);
-  if (context === undefined) {
-    throw new Error('useSession must be used within a SessionContextProvider');
-  }
-  return context;
-};

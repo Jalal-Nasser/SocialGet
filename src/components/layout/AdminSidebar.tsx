@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { LayoutDashboard, Settings, ShoppingCart, Users, DollarSign, List } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import logo from '@/assets/logo.png';
 
 interface NavItemProps {
   icon: React.ElementType;
@@ -10,30 +11,29 @@ interface NavItemProps {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ icon: Icon, label, to }) => (
-  <Link to={to} className="flex items-center p-3 rounded-md text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors duration-200">
-    <Icon className="h-5 w-5 mr-3" />
-    <span className="text-sm font-medium">{label}</span>
+  <Link to={to} className="flex items-center p-3 rounded-md text-white hover:bg-white/10 hover:text-white transition-colors duration-200">
+    <Icon className="h-5 w-5 mr-3 text-white" />
+    <span className="text-sm font-medium text-white">{label}</span>
   </Link>
 );
 
 const AdminSidebar: React.FC = () => {
   return (
-    <aside className="bg-sidebar text-sidebar-foreground flex flex-col h-full w-full border-r border-sidebar-border dark:border-sidebar-border">
-      <div className="p-4 border-b border-sidebar-border dark:border-sidebar-border">
-        <h2 className="text-2xl font-bold text-sidebar-primary-foreground">Admin Panel</h2>
+    <aside className="bg-[#993333] text-white flex flex-col h-full w-full border-r border-[#0066cc] shadow-xl">
+      <div className="p-4 border-b border-[#0066cc] flex items-center justify-center bg-black/70 rounded-b-lg">
+        <img src={logo} alt="Logo" className="h-10 w-auto" />
       </div>
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-        <NavItem icon={LayoutDashboard} label="Dashboard" to="/admin/dashboard" />
-        <NavItem icon={List} label="Manage Services" to="/admin/services" />
-        {/* Add more admin navigation items here as needed */}
-        <div className="text-xs font-semibold text-sidebar-foreground/70 uppercase mt-4 pt-4 border-t border-sidebar-border dark:border-sidebar-border">Settings</div>
-        <NavItem icon={Settings} label="General Settings" to="/admin/settings" />
-        <NavItem icon={DollarSign} label="Payment Settings" to="/admin/payment-settings" />
-        <NavItem icon={Users} label="User Management" to="/admin/users" />
+        <NavItem icon={LayoutDashboard} label="Home" to="/admin/dashboard" />
+        <NavItem icon={List} label="Services" to="/admin/services" />
+        <NavItem icon={ShoppingCart} label="Orders" to="/admin/orders" />
+        <NavItem icon={Users} label="Users" to="/admin/users" />
+        <NavItem icon={Settings} label="Settings" to="/admin/settings" />
+        <NavItem icon={DollarSign} label="Payments" to="/admin/payment-settings" />
       </nav>
-      <div className="p-4 space-y-2 border-t border-sidebar-border dark:border-sidebar-border">
+      <div className="p-4 space-y-2 border-t border-white/20">
         <Link to="/dashboard" className="block">
-          <Button variant="outline" className="w-full border-brand-primary-500 text-brand-primary-500 hover:bg-brand-secondary-blue hover:text-white">
+          <Button variant="outline" className="w-full border-white text-white hover:bg-white hover:text-[#0066cc]">
             Back to Client Portal
           </Button>
         </Link>

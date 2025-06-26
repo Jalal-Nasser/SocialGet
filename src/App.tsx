@@ -23,6 +23,7 @@ import { SessionContextProvider } from '@/components/auth/SessionContextProvider
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import ServiceOrderPage from '@/pages/ServiceOrderPage';
 import Profile from '@/pages/Profile'; // Import the new Profile page
+import PlatformServicesPage from '@/pages/PlatformServicesPage';
 
 // Import client portal pages
 import Orders from '@/pages/Orders';
@@ -59,6 +60,7 @@ const App = () => {
                   
                   {/* Service Pages */}
                   <Route path="/services/:platform/:serviceName" element={<ServicePage />} />
+                  <Route path="/services/:platform" element={<PlatformServicesPage />} />
                   
                   {/* Service Order Pages */}
                   <Route path="/order/:platform/:serviceName" element={<ServiceOrderPage />} />
