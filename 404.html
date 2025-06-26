@@ -13,14 +13,13 @@
     var basename = '/SocialGet/'; // Replace with your actual basename if different
 
     // Construct the new URL
-    // If the path starts with the basename, remove it before appending to index.html
+    // If the path starts with the basename, remove it before appending to the hash
     if (path.startsWith(basename)) {
       path = path.substring(basename.length);
     }
 
-    // Redirect to index.html with the original path as a hash
-    // This is a common technique for SPAs on static hosting
-    window.location.replace(basename + 'index.html#' + path);
+    // Redirect to the app root with the original path as a hash
+    window.location.replace(basename + '#' + path);
   </script>
 </head>
 <body>
