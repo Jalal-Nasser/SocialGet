@@ -4,24 +4,23 @@ import React, { useEffect } from 'react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSession } from '@/hooks/use-session';
 import LandingHeader from '@/components/layout/LandingHeader';
 import Footer from '@/components/layout/Footer';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { session, isLoading, profile } = useSession();
+
+  const from = location.state?.from?.pathname || (profile?.role === 'admin' ? '/admin/dashboard' : '/dashboard');
 
   useEffect(() => {
     if (!isLoading && session) {
-      if (profile?.role === 'admin') {
-        navigate('/admin/dashboard');
-      } else {
-        navigate('/dashboard');
-      }
+      navigate(from, { replace: true });
     }
-  }, [session, isLoading, profile, navigate]);
+  }, [session, isLoading, profile, navigate, from]);
 
   if (isLoading) {
     return (
@@ -56,6 +55,8 @@ const Login: React.FC = () => {
               },
             }}
             theme="light"
+            view="sign_in" // Can be 'sign_in' or 'sign_up'
+            showLinks={true}
           />
         </div>
       </main>

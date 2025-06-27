@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useSession } from "@/hooks/use-session";
+import { useNavigate, useLocation } from "react-router-dom";
+import { showError, showSuccess } from "@/utils/toast";
 
 export type QuantityOption = {
   amount: number;
@@ -30,6 +33,11 @@ export default function OrderServiceForm({ service }: OrderServiceFormProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const [customQty, setCustomQty] = useState("");
   const [username, setUsername] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { session } = useSession();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const quantity = selected ?? (customQty ? parseInt(customQty) : 0);
   const total = quantity * service.price;
@@ -51,6 +59,36 @@ export default function OrderServiceForm({ service }: OrderServiceFormProps) {
   const handleCustomQty = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCustomQty(e.target.value.replace(/\D/, ""));
     setSelected(null);
+  };
+
+  const handleCompleteOrder = async () => {
+    if (!session) {
+      showError("Please log in or register to place an order.");
+      navigate('/login', { state: { from: location } });
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      // Simulate API call for placing an order
+      console.log({
+        serviceId: service.id,
+        quantity,
+        target: username,
+        totalPrice: total,
+      });
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      showSuccess('Order placed successfully!');
+      // Reset form
+      setSelected(null);
+      setCustomQty("");
+      setUsername("");
+    } catch (error) {
+      showError('Failed to place order. Please try again.');
+      console.error('Order submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -108,7 +146,7 @@ export default function OrderServiceForm({ service }: OrderServiceFormProps) {
           <label className="block font-semibold mb-1 text-gray-900 dark:text-white">Target</label>
           <input
             type="text"
-            placeholder={`Enter ${service.service_name} username`}
+            placeholder={`Enter ${service.platform} username or link`}
             value={username}
             onChange={e => setUsername(e.target.value)}
             className="w-full p-2 rounded bg-white dark:bg-[#181c23] border-2 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white focus:border-[#993333] focus:ring-2 focus:ring-[#993333]/30 transition-all"
@@ -156,9 +194,10 @@ export default function OrderServiceForm({ service }: OrderServiceFormProps) {
         <button
           className="w-full py-3 rounded bg-gradient-to-r from-[#993333] to-[#0066cc] text-white font-bold text-lg shadow-lg hover:from-[#0066cc] hover:to-[#993333] focus:outline-none focus:ring-2 focus:ring-[#993333] transition-all duration-150 disabled:opacity-50 border-0"
           style={{boxShadow: '0 2px 16px 0 #993333aa'}}
-          disabled={!quantity || !username}
+          disabled={!quantity || !username || isSubmitting}
+          onClick={handleCompleteOrder}
         >
-          Complete Order
+          {isSubmitting ? 'Processing...' : 'Complete Order'}
         </button>
         <div className="mt-2 text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
           <span>🛡</span> Secure checkout guaranteed
