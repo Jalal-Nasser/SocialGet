@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { showError } from '@/utils/toast';
-import { SessionContext, SessionContextType, Profile } from '@/context/SessionContext';
+import { SessionContext } from '@/context/SessionContext';
+import type { Profile } from '@/context/SessionContext';
 
 export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
@@ -74,11 +75,22 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
 
   useEffect(() => {
     if (!isLoading && session === null) {
-      const publicPaths = ['/login', '/admin-login', '/about-us', '/contact', '/terms-of-service', '/privacy-policy', '/blog', '/'];
-      const currentPath = window.location.pathname.replace(/^\/SocialGet/, ''); // Remove basename if present
-      if (!publicPaths.includes(currentPath)) {
+      const publicPrefixes = [
+        '/login', 
+        '/admin-login', 
+        '/about-us', 
+        '/contact', 
+        '/terms-of-service', 
+        '/privacy-policy',
+        '/services',
+        '/order',
+      ];
+      const currentPath = window.location.hash.substring(1) || '/';
+      const isPublic = currentPath === '/' || publicPrefixes.some(prefix => currentPath.startsWith(prefix));
+
+      if (!isPublic) {
         showError('Your session has expired. Please log in again.');
-        window.location.href = '/login';
+        window.location.href = '#/login';
       }
     }
   }, [isLoading, session]);
@@ -99,4 +111,3 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
     </SessionContext.Provider>
   );
 };
-
