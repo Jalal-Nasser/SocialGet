@@ -1,13 +1,11 @@
 "use client";
 
 import React, { useEffect } from 'react';
-import { Auth } from '@supabase/auth-ui-react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { supabase } from '@/integrations/supabase/client';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSession } from '@/hooks/use-session';
 import LandingHeader from '@/components/layout/LandingHeader';
 import Footer from '@/components/layout/Footer';
+import CustomAuth from '@/components/auth/CustomAuth';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -15,6 +13,10 @@ const Login: React.FC = () => {
   const { session, isLoading, profile } = useSession();
 
   const from = location.state?.from?.pathname || (profile?.role === 'admin' ? '/admin/dashboard' : '/dashboard');
+
+  const handleSuccess = () => {
+    navigate(from, { replace: true });
+  };
 
   useEffect(() => {
     if (!isLoading && session) {
@@ -34,31 +36,7 @@ const Login: React.FC = () => {
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
       <LandingHeader />
       <main className="container mx-auto px-4 py-12 flex-grow flex items-center justify-center">
-        <div className="w-full max-w-md p-8 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md">
-          <h1 className="text-3xl font-bold text-center mb-6 text-gray-900 dark:text-gray-100">Welcome Back!</h1>
-          <Auth
-            supabaseClient={supabase}
-            providers={[]}
-            appearance={{
-              theme: ThemeSupa,
-              variables: {
-                default: {
-                  colors: {
-                    brand: 'hsl(0 72% 39.2%)',
-                    brandAccent: 'hsl(0 60% 30%)',
-                    inputBackground: 'hsl(var(--background))',
-                    inputBorder: 'hsl(var(--border))',
-                    inputFocusBorder: 'hsl(var(--ring))',
-                    inputText: 'hsl(var(--foreground))',
-                  },
-                },
-              },
-            }}
-            theme="light"
-            view="sign_in" // Can be 'sign_in' or 'sign_up'
-            showLinks={true}
-          />
-        </div>
+        <CustomAuth onSuccess={handleSuccess} />
       </main>
       <Footer />
     </div>
