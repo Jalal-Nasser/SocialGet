@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -51,7 +51,7 @@ const App = () => {
         <ThemeProvider defaultTheme="system" attribute="class">
           <TooltipProvider>
             <Sonner />
-            <HashRouter>
+            <BrowserRouter basename="/SocialGet">
               <SessionContextProvider>
                 <Routes>
                   <Route path="/" element={<Index />} />
@@ -208,7 +208,7 @@ const App = () => {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </SessionContextProvider>
-            </HashRouter>
+            </BrowserRouter>
           </TooltipProvider>
         </ThemeProvider>
       </QueryClientProvider>
