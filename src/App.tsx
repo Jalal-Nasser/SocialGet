@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -40,6 +40,7 @@ import NewOrder from '@/pages/NewOrder';
 // Import admin pages
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import ManageServices from '@/pages/admin/ManageServices';
+import SmtpSettings from '@/pages/admin/SmtpSettings';
 
 const queryClient = new QueryClient();
 
@@ -50,7 +51,7 @@ const App = () => {
         <ThemeProvider defaultTheme="system" attribute="class">
           <TooltipProvider>
             <Sonner />
-            <BrowserRouter basename="/SocialGet/">
+            <HashRouter>
               <SessionContextProvider>
                 <Routes>
                   <Route path="/" element={<Index />} />
@@ -188,6 +189,14 @@ const App = () => {
                       </ProtectedRoute>
                     } 
                   />
+                  <Route 
+                    path="/admin/smtp" 
+                    element={
+                      <ProtectedRoute>
+                        <SmtpSettings />
+                      </ProtectedRoute>
+                    } 
+                  />
                   {/* Add more admin routes here */}
 
                   {/* Public Routes */}
@@ -199,7 +208,7 @@ const App = () => {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </SessionContextProvider>
-            </BrowserRouter>
+            </HashRouter>
           </TooltipProvider>
         </ThemeProvider>
       </QueryClientProvider>

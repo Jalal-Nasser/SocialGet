@@ -50,7 +50,7 @@ const AdminDashboard: React.FC = () => {
     },
     {
       title: 'SMTP',
-      description: 'Configure SMTP for transactional emails.',
+      description: 'Configure SMTP for Zepto Mail and Sender.',
       href: '/admin/smtp',
       icon: <Mail className="w-8 h-8 text-red-500" />,
     },

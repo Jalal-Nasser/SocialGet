@@ -19,13 +19,13 @@ const Services: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   const categoryIcons: { [key: string]: React.ElementType } = {
-    Twitter: Twitter,
-    Instagram: Instagram,
-    YouTube: Youtube,
-    TikTok: Play,
-    Facebook: Facebook,
-    Reddit: RedditIcon,
-    LinkedIn: Linkedin
+    twitter: Twitter,
+    instagram: Instagram,
+    youtube: Youtube,
+    tiktok: Play,
+    facebook: Facebook,
+    reddit: RedditIcon,
+    linkedin: Linkedin
   };
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const Services: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {platforms.map((platform) => {
-              const Icon = categoryIcons[platform];
+              const Icon = categoryIcons[platform.toLowerCase()];
               return (
                 <Card key={platform} className="hover:shadow-lg transition-shadow">
                   <Link

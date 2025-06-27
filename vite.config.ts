@@ -14,7 +14,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/", // Use "/" for local dev, "/SocialGet/" for GitHub Pages
+  base: "/SocialGet/", // Use "/SocialGet/" for GitHub Pages
   build: {
     outDir: "dist",
     rollupOptions: {

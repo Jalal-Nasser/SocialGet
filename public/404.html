@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Redirecting...</title>
-    <script>
-      // Get the base path from the vite.config.ts
-      var basePath = '/SocialGet/';
-      // Construct the new URL to redirect to the index.html
-      var redirectUrl = basePath + 'index.html';
-      // Redirect to the index.html
-      window.location.replace(redirectUrl);
-    </script>
-  </head>
-  <body>
-    <p>If you are not redirected automatically, follow this <a href="/SocialGet/">link to the home page</a>.</p>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    // Get the path from the URL
+    var path = window.location.pathname;
+
+    // Get the basename from the homepage field in package.json (if applicable)
+    // This assumes your homepage is like https://<username>.github.io/<repo-name>/
+    // and your basename in BrowserRouter is /<repo-name>/
+    var basename = '/SocialGet/'; // Replace with your actual basename if different
+
+    // Construct the new URL
+    // If the path starts with the basename, remove it before appending to the hash
+    if (path.startsWith(basename)) {
+      path = path.substring(basename.length);
+    }
+
+    // Redirect to the app root with the original path as a hash
+    window.location.replace(basename + '#' + path);
+  </script>
+</head>
+<body>
+  <p>If you are not redirected automatically, follow this <a href="/SocialGet/">link</a>.</p>
+</body>
 </html>
