@@ -1,38 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { showError } from '@/utils/toast';
-import { Users, Package, ClipboardList, Settings, Mail, BarChart, CreditCard, LayoutDashboard } from 'lucide-react';
+import { Users, Package, ClipboardList, Settings, Mail, BarChart as BarChartIcon, CreditCard, LayoutDashboard } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Service } from '@/lib/services';
+import { formatDistanceToNow } from 'date-fns';
 
 const AdminDashboard: React.FC = () => {
   const [totalUsers, setTotalUsers] = useState<number | null>(null);
   const [totalServices, setTotalServices] = useState<number | null>(null);
+  const [recentServices, setRecentServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const weeklySignupsData = [
+    { name: 'Mon', signups: 12 },
+    { name: 'Tue', signups: 19 },
+    { name: 'Wed', signups: 8 },
+    { name: 'Thu', signups: 15 },
+    { name: 'Fri', signups: 25 },
+    { name: 'Sat', signups: 30 },
+    { name: 'Sun', signups: 22 },
+  ];
 
   useEffect(() => {
-    const fetchStats = async () => {
+    const fetchDashboardData = async () => {
+      setLoading(true);
       try {
         const { count: userCount, error: userError } = await supabase
           .from('profiles')
           .select('*', { count: 'exact', head: true });
-
         if (userError) throw userError;
         setTotalUsers(userCount);
 
         const { count: serviceCount, error: serviceError } = await supabase
           .from('services')
           .select('*', { count: 'exact', head: true });
-
         if (serviceError) throw serviceError;
         setTotalServices(serviceCount);
+
+        const { data: recentServicesData, error: recentServicesError } = await supabase
+          .from('services')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(5);
+        if (recentServicesError) throw recentServicesError;
+        setRecentServices(recentServicesData);
+
       } catch (error) {
-        showError('Failed to fetch stats');
-        console.error('Error fetching stats:', error);
+        showError('Failed to fetch dashboard data');
+        console.error('Error fetching dashboard data:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchStats();
+    fetchDashboardData();
   }, []);
 
   const managementLinks = [
@@ -64,7 +90,7 @@ const AdminDashboard: React.FC = () => {
       title: 'Analytics',
       description: 'View key stats and integrate Google Analytics.',
       href: '/admin/analytics',
-      icon: <BarChart className="w-8 h-8 text-yellow-500" />,
+      icon: <BarChartIcon className="w-8 h-8 text-yellow-500" />,
     },
     {
       title: 'Payments',
@@ -88,7 +114,7 @@ const AdminDashboard: React.FC = () => {
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{totalUsers ?? <div className="h-8 w-1/4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />}</div>
+                <div className="text-2xl font-bold">{loading ? <div className="h-8 w-1/4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" /> : totalUsers}</div>
                 <p className="text-xs text-muted-foreground">Registered users on the platform</p>
               </CardContent>
             </Card>
@@ -98,8 +124,74 @@ const AdminDashboard: React.FC = () => {
                 <Package className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{totalServices ?? <div className="h-8 w-1/4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />}</div>
+                <div className="text-2xl font-bold">{loading ? <div className="h-8 w-1/4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" /> : totalServices}</div>
                 <p className="text-xs text-muted-foreground">Available services for purchase</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Charts and Recent Activity */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Weekly Signups</CardTitle>
+                <CardDescription>A simulation of new user signups this week.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={weeklySignupsData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: 'hsl(var(--background))',
+                        borderColor: 'hsl(var(--border))',
+                      }}
+                    />
+                    <Legend wrapperStyle={{ fontSize: '14px' }} />
+                    <Bar dataKey="signups" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Recently Added Services</CardTitle>
+                <CardDescription>The last 5 services added to the platform.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {loading ? (
+                  <div className="space-y-4">
+                    {[...Array(5)].map((_, i) => (
+                      <div key={i} className="flex justify-between items-center">
+                        <div className="h-4 w-1/3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                        <div className="h-4 w-1/4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Service</TableHead>
+                        <TableHead>Platform</TableHead>
+                        <TableHead className="text-right">Added</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {recentServices.map((service) => (
+                        <TableRow key={service.id}>
+                          <TableCell className="font-medium">{service.service_name}</TableCell>
+                          <TableCell>{service.platform}</TableCell>
+                          <TableCell className="text-right text-xs text-muted-foreground">
+                            {formatDistanceToNow(new Date(service.created_at), { addSuffix: true })}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
               </CardContent>
             </Card>
           </div>
