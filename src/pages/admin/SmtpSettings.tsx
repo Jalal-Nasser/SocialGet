@@ -5,13 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { showSuccess, showError } from '@/utils/toast';
-import { fetchSmtpSettings, saveSmtpSetting, SmtpSetting } from '@/lib/smtp'; // Import new SMTP functions
+import { fetchSmtpSettings, saveSmtpSetting, SmtpSetting } from '@/lib/smtp';
 
 const SmtpSettings: React.FC = () => {
-  const [provider, setProvider] = useState<'zeptomail' | 'sender'>('zeptomail');
+  const [provider, setProvider] = useState<'zeptomail' | 'sender' | 'mailgun'>('zeptomail');
   const [form, setForm] = useState({
     zeptomail: { apiKey: '', fromEmail: '' },
     sender: { apiKey: '', fromEmail: '' },
+    mailgun: { apiKey: '', fromEmail: '' }, // Added Mailgun
   });
   const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -28,6 +29,8 @@ const SmtpSettings: React.FC = () => {
             newForm.zeptomail = { apiKey: s.api_key, fromEmail: s.from_email };
           } else if (s.provider === 'sender') {
             newForm.sender = { apiKey: s.api_key, fromEmail: s.from_email };
+          } else if (s.provider === 'mailgun') { // Handle Mailgun
+            newForm.mailgun = { apiKey: s.api_key, fromEmail: s.from_email };
           }
         });
         setForm(newForm);
@@ -52,7 +55,7 @@ const SmtpSettings: React.FC = () => {
     }));
   };
 
-  const handleProviderChange = (prov: 'zeptomail' | 'sender') => {
+  const handleProviderChange = (prov: 'zeptomail' | 'sender' | 'mailgun') => {
     setProvider(prov);
     setStatus(null);
   };
@@ -96,6 +99,14 @@ const SmtpSettings: React.FC = () => {
 
   const currentProviderForm = form[provider];
 
+  const getPlaceholderText = (field: 'apiKey' | 'fromEmail') => {
+    const providerName = provider.charAt(0).toUpperCase() + provider.slice(1); // Capitalize first letter
+    if (field === 'apiKey') {
+      return `${providerName} API Key`;
+    }
+    return 'From Email Address';
+  };
+
   return (
     <AdminLayout>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 lg:p-8">
@@ -120,6 +131,13 @@ const SmtpSettings: React.FC = () => {
                 >
                   Sender
                 </Button>
+                <Button
+                  variant={provider === 'mailgun' ? 'default' : 'outline'}
+                  onClick={() => handleProviderChange('mailgun')}
+                  className={provider === 'mailgun' ? 'bg-brand-primary-500 hover:bg-brand-primary-600 text-white' : 'border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}
+                >
+                  Mailgun
+                </Button>
               </div>
 
               {loading ? (
@@ -132,7 +150,7 @@ const SmtpSettings: React.FC = () => {
                       id={`${provider}ApiKey`}
                       type="text"
                       name="apiKey"
-                      placeholder={`${provider === 'zeptomail' ? 'Zepto Mail' : 'Sender'} API Key`}
+                      placeholder={getPlaceholderText('apiKey')}
                       value={currentProviderForm.apiKey}
                       onChange={handleChange}
                       disabled={isSaving}
@@ -145,7 +163,7 @@ const SmtpSettings: React.FC = () => {
                       id={`${provider}FromEmail`}
                       type="email"
                       name="fromEmail"
-                      placeholder="From Email Address"
+                      placeholder={getPlaceholderText('fromEmail')}
                       value={currentProviderForm.fromEmail}
                       onChange={handleChange}
                       disabled={isSaving}
