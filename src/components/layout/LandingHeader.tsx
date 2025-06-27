@@ -11,6 +11,7 @@ import LogoImage from '@/assets/logo.png';
 import OngoingProjectSlider from '@/components/OngoingProjectSlider';
 import ThemeToggle from '@/components/ThemeToggle';
 import { fetchServices, Service as SupabaseService } from '@/lib/services'; // Import Supabase service type and fetch function
+import { showError } from '@/utils/toast';
 
 // Custom Reddit SVG component
 const RedditIcon = () => (
@@ -81,8 +82,13 @@ const LandingHeader: React.FC = () => {
 
         {/* Right Section */}
         <div className="flex items-center space-x-2 md:space-x-4">
+          <Link to="/services">
+            <Button className="bg-brand-secondary-blue hover:bg-brand-secondary-blue/90 text-white text-sm px-3 py-2 md:px-4 md:py-2">
+              Services
+            </Button>
+          </Link>
           <Link to="/login">
-            <Button className="bg-brand-primary-500 hover:bg-brand-secondary-blue text-white text-sm px-3 py-2 md:px-4 md:py-2">
+            <Button className="bg-brand-primary-500 hover:bg-brand-hover-red text-white text-sm px-3 py-2 md:px-4 md:py-2">
               Log In
             </Button>
           </Link>
