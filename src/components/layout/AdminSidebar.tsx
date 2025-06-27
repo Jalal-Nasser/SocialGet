@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { LayoutDashboard, Settings, ShoppingCart, Users, DollarSign, List } from 'lucide-react';
+import { LayoutDashboard, Settings, ShoppingCart, Users, DollarSign, List, CreditCard } from 'lucide-react'; // Import CreditCard icon
 import { Button } from '@/components/ui/button';
 import logo from '@/assets/logo.png';
 
@@ -29,7 +29,7 @@ const AdminSidebar: React.FC = () => {
         <NavItem icon={ShoppingCart} label="Orders" to="/admin/orders" />
         <NavItem icon={Users} label="Users" to="/admin/users" />
         <NavItem icon={Settings} label="Settings" to="/admin/settings" />
-        <NavItem icon={DollarSign} label="Payments" to="/admin/payment-settings" />
+        <NavItem icon={CreditCard} label="Payments" to="/admin/payments" /> {/* New Payments link */}
       </nav>
       <div className="p-4 space-y-2 border-t border-white/20">
         <Link to="/dashboard" className="block">
