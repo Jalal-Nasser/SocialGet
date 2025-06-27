@@ -41,6 +41,7 @@ import NewOrder from '@/pages/NewOrder';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import ManageServices from '@/pages/admin/ManageServices';
 import SmtpSettings from '@/pages/admin/SmtpSettings';
+import PaymentSettings from '@/pages/admin/PaymentSettings'; // Import the new PaymentSettings page
 
 const queryClient = new QueryClient();
 
@@ -197,11 +198,23 @@ const App = () => {
                       </ProtectedRoute>
                     } 
                   />
+                  <Route 
+                    path="/admin/payments" 
+                    element={
+                      <ProtectedRoute>
+                        <PaymentSettings />
+                      </ProtectedRoute>
+                    } 
+                  /> {/* New Protected PaymentSettings Route */}
                   {/* Add more admin routes here */}
 
                   {/* Public Routes */}
                   <Route path="/about-us" element={<AboutUs />} />
-                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog" element={
+                    <ProtectedRoute>
+                      <Blog />
+                    </ProtectedRoute>
+                  } />
                   <Route path="/contact" element={<ContactUs />} />
                   <Route path="/terms-of-service" element={<TermsOfService />} />
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
