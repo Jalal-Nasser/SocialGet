@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { showSuccess, showError } from '@/utils/toast';
-import { Fingerprint } from 'lucide-react';
+import { Chrome } from 'lucide-react'; // Using Chrome icon for Google
 
 interface CustomAuthProps {
   onSuccess?: () => void;
@@ -63,13 +63,14 @@ const CustomAuth: React.FC<CustomAuthProps> = ({ onSuccess }) => {
     }
   };
 
-  const handlePasskeySignIn = async () => {
+  const handleSignInWithGoogle = async () => {
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPasskey({});
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+      });
       if (error) throw error;
-      showSuccess('Signed in with passkey successfully!');
-      if (onSuccess) onSuccess();
+      // User is redirected, no toast needed here.
     } catch (error: any) {
       showError(error.message);
     } finally {
@@ -111,9 +112,9 @@ const CustomAuth: React.FC<CustomAuthProps> = ({ onSuccess }) => {
                 <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
               </div>
             </div>
-            <Button variant="outline" className="w-full" onClick={handlePasskeySignIn} disabled={loading}>
-              <Fingerprint className="mr-2 h-4 w-4" />
-              Sign in with a Passkey
+            <Button variant="outline" className="w-full" onClick={handleSignInWithGoogle} disabled={loading}>
+              <Chrome className="mr-2 h-4 w-4" />
+              Sign in with Google
             </Button>
           </CardContent>
         </TabsContent>

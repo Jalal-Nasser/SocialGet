@@ -2,21 +2,19 @@
 
 import React, { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useSession } from '@/hooks/use-session';
 import { supabase } from '@/integrations/supabase/client';
 import { showSuccess, showError } from '@/utils/toast';
-import { Fingerprint } from 'lucide-react';
 
 const Profile: React.FC = () => {
   const { user, profile, isLoading: isSessionLoading } = useSession();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
-  const [isAddingPasskey, setIsAddingPasskey] = useState(false);
 
   useEffect(() => {
     if (profile) {
@@ -45,19 +43,6 @@ const Profile: React.FC = () => {
       showError(`Failed to update profile: ${error.message}`);
     } finally {
       setIsUpdating(false);
-    }
-  };
-
-  const handleAddPasskey = async () => {
-    setIsAddingPasskey(true);
-    try {
-      const { error } = await supabase.auth.addPasskey();
-      if (error) throw error;
-      showSuccess('Passkey added successfully!');
-    } catch (error: any) {
-      showError(`Failed to add passkey: ${error.message}`);
-    } finally {
-      setIsAddingPasskey(false);
     }
   };
 
@@ -127,22 +112,6 @@ const Profile: React.FC = () => {
                 {isUpdating ? 'Updating...' : 'Update Profile'}
               </Button>
             </form>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-white dark:bg-gray-800 shadow-md">
-          <CardHeader>
-            <CardTitle className="text-gray-900 dark:text-gray-100">Security Settings</CardTitle>
-            <CardDescription className="text-gray-600 dark:text-gray-400">Manage your account security, including passkeys.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button onClick={handleAddPasskey} disabled={isAddingPasskey}>
-              <Fingerprint className="mr-2 h-4 w-4" />
-              {isAddingPasskey ? 'Follow Browser Prompts...' : 'Add a Passkey'}
-            </Button>
-            <p className="text-xs text-muted-foreground mt-2">
-              Add a passkey to your account for a faster and more secure sign-in experience.
-            </p>
           </CardContent>
         </Card>
       </div>
